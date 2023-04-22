@@ -1,0 +1,114 @@
+.colleaguesMenu{
+    display: flex;
+}
+
+.inputLabel{
+    position: relative;
+margin-right: 16px;
+
+}
+
+.input{
+box-sizing: border-box;
+
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 14px 18px;
+/* gap: 187px; */
+
+width: 294px;
+height: 52px;
+
+background: #FFFFFF;
+border: 1px solid rgba(17, 17, 17, 0.1);
+border-radius: 16px;
+}
+.input::placeholder{
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 24px;
+/* identical to box height, or 150% */
+
+display: flex;
+align-items: center;
+
+color: #111111;
+}
+
+.inputImg{
+    position: absolute;
+    top: 17px;
+    right: 18px;
+}
+
+.filter{
+position: relative;
+box-sizing: border-box;
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 14px 18px;
+margin-bottom: 32px;
+
+
+width: 204px;
+height: 52px;
+
+
+background: #FFFFFF;
+border: 1px solid rgba(17, 17, 17, 0.1);
+border-radius: 16px;
+}
+
+.filterArrow{
+    transform: rotate(180deg);
+}
+
+.filterFilter{
+position: absolute;
+top: 52px;
+left: 0;
+z-index: 10;
+width: 204px;
+height: 98px;
+
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+padding: 14px 18px;
+
+background: #FFFFFF;
+box-shadow: 0px 4px 23px rgba(17, 17, 17, 0.05);
+border-radius: 16px;
+
+opacity: 0;
+
+}
+
+.patientList{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.list{
+font-size: 14px;
+line-height: 18px;
+width: 200px;
+
+color: rgba(17, 17, 17, 0.5);
+}
+.item{
+    margin-bottom: 8px;
+}

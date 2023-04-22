@@ -1,0 +1,58 @@
+.patient{
+display: flex;
+}
+
+.doctor{
+position: relative;
+padding: 32px;
+gap: 48px;
+isolation: isolate;
+margin-top: 8px;
+
+width: 379px;
+height: 284px;
+
+
+background: #FAFAFA;
+border-radius: 16px;
+}
+
+.doctorImg{
+position: absolute;
+top: 32px;
+right: 32px;
+}
+.doctorText{
+font-size: 14px;
+line-height: 18px;
+}
+.doctorName{
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+}
+
+.filesImg{
+display: unset;
+margin-right: 4px;
+}
+
+.filesList{
+    margin-top: 16px;
+padding-top: 16px;
+border-top: 1.5px solid #d1d5db33;
+}
+
+.filesItem{
+    margin-bottom: 12px;
+}
+
+.fileName{
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 24px;
+
+text-decoration-line: underline;
+}
