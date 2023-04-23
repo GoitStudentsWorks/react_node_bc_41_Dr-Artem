@@ -2,6 +2,8 @@
 
 :root {
     /* color */
+    --main-text: #111111;
+
     --dark-green: #0f3937;
     --regular-green: #477577;
     --linear-green: linear-gradient(253.01deg, #68c494 -56.38%, #477577 105.61%, #31496d 274.54%);
@@ -39,6 +41,7 @@ html {
 body {
     margin: 0;
     font-family: var(--main-font-family);
+    color: var(--main-text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

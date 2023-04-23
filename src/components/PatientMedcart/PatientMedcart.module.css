@@ -1,0 +1,95 @@
+.PatientMedcart {
+    padding: 32px 16px;
+    background-color: var(--card-background);
+    border-radius: 16px;
+    position: relative;
+}
+.PatientMedcart_EditButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.PatientMedcart_EditButton > span {
+    color: #111111;
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration-line: underline;
+}
+.PatientMedcart_ItemHeader {
+    font-weight: var(--semibold-font-weight);
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 16px;
+    color: #111111;
+}
+.PatientMedcart_Item:first-child > .PatientMedcart_ItemHeader {
+    max-width: 200px;
+}
+.PatientMedcart_Item:not(:last-child) {
+    margin-bottom: 32px;
+}
+.PatientMedcart_ItemConclusion > li {
+    display: flex;
+}
+.PatientMedcart_ItemConclusion > li > p {
+    font-weight: var(--regular-font-weight);
+    font-size: 14px;
+    line-height: 20px;
+    color: #484f5c;
+}
+.PatientMedcart_ItemConclusion > li::before {
+    content: '';
+    background-image: url('./dot.svg');
+    padding: 8px;
+    background-repeat: no-repeat;
+    margin: 2px 8px 0 0;
+}
+.PatientMedcart_ItemConclusion > li:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    .PatientMedcart {
+        grid-column: span 2;
+        padding: 32px;
+    }
+    .PatientMedcart_ItemHeader {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .PatientMedcart_Item:first-child > .PatientMedcart_ItemHeader {
+        max-width: 100%;
+    }
+    .PatientMedcart_ItemConclusion > li > p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .PatientMedcart_ItemConclusion > li::before {
+        margin: 3px 8px 0 0;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .PatientMedcart {
+        grid-area: 1 / 2 / 3 / 2;
+        padding: 32px;
+    }
+    .PatientMedcart_ItemHeader {
+        font-size: 20px;
+        line-height: 30px;
+    }
+    .PatientMedcart_Item:first-child > .PatientMedcart_ItemHeader {
+        max-width: 100%;
+    }
+    .PatientMedcart_ItemConclusion > li > p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    .PatientMedcart_ItemConclusion > li::before {
+        margin: 3px 8px 0 0;
+    }
+}
