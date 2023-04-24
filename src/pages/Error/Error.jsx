@@ -1,17 +1,16 @@
-import Medic from '../../image/Medic.png';
+import Medic from '../../images/Medic.png';
 import css from './Error.module.css';
 
 import { useState } from 'react';
 
 export const Error = () => {
-
     const [rotateX, setRotateX] = useState(0);
     const [rotateY, setRotateY] = useState(0);
 
-    const rotateEl = (event) => {
+    const rotateEl = event => {
         const x = event.clientX;
         const y = event.clientY;
- 
+
         const rotateXValue = -(y - window.innerHeight / 2) / 18;
         const rotateYValue = (x - window.innerWidth / 2) / 18;
 
