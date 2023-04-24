@@ -1,0 +1,145 @@
+.wrapper {
+    position: relative;
+    margin: 0 auto;
+    min-width: 335px;
+    min-height: 420px;
+    border-radius: 16px;
+    padding: 32px;
+    background-color: var(--card-background);
+
+    @media screen and (min-width: 767.98px) and (max-width: 1439.98px) {
+        min-height: 252px;
+        width: 100%;
+    }
+}
+
+.role {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 8px 16px;
+    border-radius: 1000px;
+    background-color: var(--minor-items-background);
+}
+
+.penButton {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .2s ease-in-out 0s;
+}
+
+.penButton:hover,
+.penButton:focus{
+    transform: scale(1.25);
+}
+
+.penImg {
+    width: 16px;
+    height: 16px;
+}
+
+.case {
+    @media screen and (min-width: 767.98px) and (max-width: 1439.98px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 32px;
+    }
+}
+
+/* PHOTO */
+.imgWrapper {
+    position: relative;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border: 4px solid rgba(71, 117, 119, 0.2);
+    border-radius: 200px;
+
+    @media screen and (min-width: 767.98px) and (max-width: 1439.98px) {
+        margin: 0;
+    }
+}
+
+.photo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 124px;
+    height: 124px;
+}
+
+.photoButton {
+    position: absolute;
+    top: 81%;
+    left: 73%;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    transition: .2s ease-in-out 0s;
+}
+
+.photoButton:hover,
+.photoButton:focus{
+    transform: scale(1.25);
+}
+/* PHOTO */
+
+.bottomWrapper {
+    margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    font-weight: var(--regular-font-weight);
+    font-size: 12px;
+    line-height: 1.33;
+    color: #111111;
+}
+
+.data {
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 1.29;
+    color: #111111;
+}
+
+.profileButton {
+    padding: 16px 32px;
+    border: 1px solid rgba(71, 117, 119, 0.3);
+    border-radius: 12px;
+    background-color: transparent;
+    font-weight: var(--semibold-font-weight);
+    font-size: 12px;
+    line-height: 1.17;
+    text-transform: uppercase;
+    color: var(--regular-green);
+    cursor: pointer;
+    transition: .2s ease-in-out 0s;
+}
+
+.profileButton:hover,
+.profileButton:focus{
+    color: #ffffff;
+    background-color: var(--regular-green);
+    box-shadow: 0px 4px 8px rgba(17, 17, 17, 0.15);
+    border-radius: 12px;
+}
