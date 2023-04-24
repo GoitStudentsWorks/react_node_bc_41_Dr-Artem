@@ -1,0 +1,120 @@
+.container {
+    padding: 0 20px;
+    padding-bottom: 80px;
+}
+@media screen and (min-width: 768px) {
+    .container {
+        padding: 0 32px;
+        padding-bottom: 96px;
+    }
+}
+@media screen and (min-width: 1440px) {
+    .container {
+        padding: 0 128px;
+        padding-bottom: 128px;
+    }
+}
+.list_wrapper {
+    display: flex;
+    justify-content: center;
+}
+.doctor_header {
+    margin-bottom: 40px;
+    font-family: var(--main-font-family);
+    font-weight: var(--bold-font-weight);
+    font-size: 44px;
+    line-height: 1;
+    /* or 109% */
+
+    color: #111111;
+}
+.card_list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .card_list {
+        display: none;
+    }
+}
+@media screen and (min-width: 1440px) {
+    .card_list {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.card_wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 100%;
+
+    gap: 28px;
+}
+.phone_img {
+    display: none;
+}
+@media screen and (min-width: 768px) {
+    .phone_mobile_img {
+        display: none;
+    }
+    .phone_img {
+        display: block;
+    }
+}
+.meet_img {
+    display: none;
+}
+@media screen and (min-width: 768px) {
+    .meet_mobile_img {
+        display: none;
+    }
+    .meet_img {
+        display: block;
+    }
+}
+.card_img {
+    display: none;
+}
+@media screen and (min-width: 768px) {
+    .card_mobile_img {
+        display: none;
+    }
+    .card_img {
+        display: block;
+    }
+}
+
+.card_text {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 18px;
+    line-height: 1.2;
+    /* or 122% */
+
+    gap: 14px;
+
+    color: #111111;
+}
+
+.card_number {
+    font-family: var(--main-font-family);
+    font-weight: var(--bold-font-weight);
+    font-size: 80px;
+    line-height: 100%;
+    /* identical to box height, or 80px */
+
+    letter-spacing: -4px;
+
+    color: #477577;
+}
