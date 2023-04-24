@@ -1,11 +1,22 @@
 import css from '../../components/ShowPassword/ShowPassword.module.css';
-import { BsFillEyeFill } from 'react-icons/bs';
-import { BsFillEyeSlashFill } from 'react-icons/bs';
 
-const ShowPassword = ({ isShown, clickHandler }) => {
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { useState } from 'react';
+
+// {isShown, clickHandler}
+const ShowPassword = () => {
+    const [isShown, setIsShown] = useState(false);
+
+    const handleClickShow = () => setIsShown(show => !show);
+
     return (
-        <button type="button" onClick={clickHandler} className={css.eyeBtn}>
-            {isShown ? <BsFillEyeFill className={css.showIcon}/> : <BsFillEyeSlashFill className={css.hideIcon}/>}
+        <button type="button" onClick={() => handleClickShow()} className={css.eyeBtn}>
+            {isShown ? (
+                <VisibilityOutlinedIcon sx={{ display: 'block', color: 'rgba(0, 0, 0, 1)' }} />
+            ) : (
+                <VisibilityOffOutlinedIcon sx={{ display: 'block', color: 'rgba(0, 0, 0, 0.3)' }} />
+            )}
         </button>
     );
 };

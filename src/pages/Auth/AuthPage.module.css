@@ -40,3 +40,37 @@
         display: block;
     }
 }
+
+.authBtnList {
+    position: relative;
+    display: flex;
+    background-color: var(--minor-items-background);
+    gap: 10px;
+    max-width: 240px;
+    border-radius: 20px 0 0 0;
+}
+
+.authBtnList::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -25px;
+    bottom: 0;
+    left: 30px;
+    z-index: -1;
+    background-color: var(--minor-items-background);
+    transform: skew(30deg);
+    border-top-right-radius: 10px;
+}
+
+.authBtn {
+    padding: 9px 18px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-transform: uppercase;
+    color: var(--dark-green);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+}
