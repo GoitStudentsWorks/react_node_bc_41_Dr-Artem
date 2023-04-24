@@ -2,8 +2,8 @@ import AuthPage from 'pages/Auth/AuthPage';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Layout } from 'pages/Layout/Layout';
 import MainPage from 'pages/MainPage/MainPage';
-import { TestPage } from 'pages/TestPage/TestPage';
 import { Route, Routes } from 'react-router';
+import { PlugPage } from 'pages/PlugPage/PlugPage';
 
 export const App = () => {
     return (
@@ -11,16 +11,16 @@ export const App = () => {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<MainPage />} />
-                    <Route path="patient" element={<TestPage />}>
-                        <Route path="history" element={<TestPage />} />
-                        <Route path="doctors" element={<TestPage />} />
-                        <Route path="visits-history" element={<TestPage />} />
+                    <Route path="patient" element={<PlugPage />}>
+                        <Route path="history" element={<PlugPage />} />
+                        <Route path="doctors" element={<PlugPage />} />
+                        <Route path="visits-history" element={<PlugPage />} />
                     </Route>
-                    <Route path="doctor" element={<TestPage />}>
-                        <Route path="pesronal/:id" element={<TestPage />} />
-                        <Route path="visits-history" element={<TestPage />} />
-                        <Route path="patients-list" element={<TestPage />} />
-                        <Route path="colleuges" element={<TestPage />} />
+                    <Route path="doctor" element={<PlugPage />}>
+                        <Route path="pesronal/:id" element={<PlugPage />} />
+                        <Route path="visits-history" element={<PlugPage />} />
+                        <Route path="patients-list" element={<PlugPage />} />
+                        <Route path="colleuges" element={<PlugPage />} />
                     </Route>
                 </Route>
                 <Route path="auth/:typeAuth" element={<AuthPage />} />
