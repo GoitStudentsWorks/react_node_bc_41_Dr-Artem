@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material';
 import style from './PatientMedcartEdit.module.css';
 
 export const PatientMedcartEdit = ({ setEditMedcart }) => {
@@ -40,7 +41,7 @@ export const PatientMedcartEdit = ({ setEditMedcart }) => {
                         </div>
                         <ul className={style.PatientMedcart_EditInputList}>
                             <li className={style.PatientMedcart_EditInputItem}>
-                                <input
+                                <TextField
                                     className={style.PatientMedcart_EditInput}
                                     placeholder="Enter text"
                                     type="text"

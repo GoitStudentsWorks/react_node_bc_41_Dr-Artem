@@ -7,12 +7,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-      <React.StrictMode>
+    <React.StrictMode>
         <ThemeProvider theme={theme}>
             <CssBaseline />
-                <Router basename="/MedDoc-front">
-            <App />
+            <Router basename="/MedDoc-front">
+                <App />
+            </Router>
         </ThemeProvider>
-          </Router>
     </React.StrictMode>
 );
