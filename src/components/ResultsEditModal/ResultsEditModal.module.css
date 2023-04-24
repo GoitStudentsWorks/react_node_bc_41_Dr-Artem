@@ -13,6 +13,14 @@
     width: 100%;
     max-width: 500px;
 }
+.Modal_Close {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.Modal_Close > svg {
+    display: block;
+}
 .Modal_HeaderWrapper {
     display: flex;
     justify-content: space-between;
@@ -27,6 +35,9 @@
 }
 .Modal_FormItem {
     margin-bottom: 16px;
+}
+.Modal_FormItem:last-child {
+    margin-bottom: 32px;
 }
 .Modal_FormItemHead {
     font-weight: var(--bold-font-weight);
@@ -48,6 +59,9 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .Modal_FormUpload {
     opacity: 0;
@@ -57,6 +71,39 @@
     height: 0;
     width: 0;
 }
+
+.Modal_Form_UploadedFilesItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.Modal_Form_UploadedFilesItem:not(:last-child) {
+    margin-bottom: 8px;
+}
+.Modal_Form_UploadedFilesItem:last-child {
+    margin-bottom: 32px;
+}
+.Modal_Form_UploadedFilesSubItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.Modal_Form_UploadedFileName {
+    font-weight: var(--semibold-font-weight);
+    font-size: 16px;
+    line-height: 20px;
+    text-decoration-line: underline;
+}
+.Modal_Form_UploadedFileDelete {
+    padding: 3px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.Modal_Form_UploadedFileDelete > svg {
+    display: block;
+}
+
 .Modal_FormBtn {
     padding: 13px 32px;
     text-transform: uppercase;

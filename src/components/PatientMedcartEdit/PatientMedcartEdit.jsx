@@ -1,9 +1,9 @@
 import style from './PatientMedcartEdit.module.css';
 
-export const PatientMedcartEdit = ({ setEditBool }) => {
+export const PatientMedcartEdit = ({ setEditMedcart }) => {
     const handleSubmit = event => {
         event.preventDefault();
-        setEditBool(true);
+        setEditMedcart(true);
     };
     return (
         <div className={style.PatientMedcart_Edit}>

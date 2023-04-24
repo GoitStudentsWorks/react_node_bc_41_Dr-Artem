@@ -14,7 +14,15 @@
     margin-bottom: 16px;
 }
 .PatientResults_Edit {
-    display: none;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+.PatientResults_Edit > svg {
+    display: block;
 }
 .PatientResults_VisitRecord {
     /* max-width: max-content; */
@@ -71,8 +79,6 @@
         margin-bottom: auto;
     }
     .PatientResults_Edit {
-        display: block;
-        position: absolute;
         top: 32px;
         right: 16px;
     }
@@ -103,8 +109,6 @@
         margin-bottom: auto;
     }
     .PatientResults_Edit {
-        display: block;
-        position: absolute;
         top: 32px;
         right: 32px;
     }
