@@ -87,3 +87,38 @@ a {
 input {
     outline: none;
 }
+
+/* swiper */
+
+.swiper-wrapper {
+    padding-bottom: 40px;
+}
+
+.swiper-backface-hidden .swiper-slide {
+    height: auto;
+}
+
+.swiper-wrapper {
+    padding-top: 30px;
+}
+
+.swiper-scrollbar-drag {
+    background: #477577;
+}
+
+.swiper-horizontal > .swiper-scrollbar,
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+    max-width: 196px;
+    height: 8px;
+
+    background: #e8e8e8;
+    border-radius: 100px;
+}
+
+.swiper-horizontal > .swiper-scrollbar,
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+    position: absolute;
+    bottom: 0;
+    left: 40%;
+    right: 50%;
+}
