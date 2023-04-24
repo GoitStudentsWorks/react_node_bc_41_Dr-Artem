@@ -1,10 +1,10 @@
 import pic from './pic.png';
 import css from './UserCard.module.css';
-const UserCard = ({ newPermanent, name, gender, birth, phone, photo, button }) => {
+const UserCard = ({ role, name, gender, birth, phone, photo, button }) => {
     return (
         <div style={{ height: button ? '396px' : '480px', width: button ? '379px' : '384px' }} className={css.userCard}>
             <div>
-                <span className={css.cardRole}>Permanent</span>
+                <span className={css.cardRole}>role</span>
             </div>
             <div className={css.cardImageBox}>
                 <img src={pic} alt="photo" />

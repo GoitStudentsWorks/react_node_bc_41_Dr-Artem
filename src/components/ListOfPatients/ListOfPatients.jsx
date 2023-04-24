@@ -7,7 +7,7 @@ import css from './ListOfPatients.module.css';
 const ListOfPatients = () => {
     return (
         <div className={css.patient}>
-            <Patients />
+            <Colleagues />
             <Outlet />
         </div>
     );

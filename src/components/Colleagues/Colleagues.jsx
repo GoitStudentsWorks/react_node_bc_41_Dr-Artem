@@ -1,11 +1,12 @@
 import UserCard from '../Card/UserCard';
 import css from './Colleagues.module.css';
 import { useEffect, useRef } from 'react';
+import BasicSelect from 'components/element/Select';
 
 const Colleagues = () => {
-    const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const specializationList = ['Ophthalmologist', 'Surgeon', 'Therapist', 'Neurologist'];
-    const categoryList = ['The first', 'The second', 'Higher'];
+    const cards = [1.2, 1.9, 3, 4, 5, 6, 7, 8, 9];
+    cards.sort((a, b) => b - a);
+    // cards.sort((a, b) => b.rating - a.rating);
 
     const specializationRef = useRef(null);
     const categoryRef = useRef(null);
@@ -32,34 +33,6 @@ const Colleagues = () => {
             window.removeEventListener('click', handleClick);
         };
     }, []);
-
-    const specializationClick = () => {
-        const specialization = document.querySelector('#filterSpecialization');
-        const specializationArrow = document.querySelector('#specializationArrow');
-        if (specialization.style.opacity === '0') {
-            specialization.style.opacity = 1;
-            specialization.style.paddingBottom = 0;
-            specialization.style.overflowY = 'auto';
-            specialization.style.overflowX = 'clip';
-
-            specializationArrow.style.transform = 'rotate(0deg)';
-        } else {
-            // specialization.style.opacity = 0;
-            // specializationArrow.style.transform = 'rotate(180deg)';
-        }
-    };
-
-    const categoryClick = () => {
-        const category = document.querySelector('#filterCategory');
-        const categoryArrow = document.querySelector('#categoryArrow');
-        if (category.style.opacity === '0') {
-            category.style.opacity = 1;
-            categoryArrow.style.transform = 'rotate(0deg)';
-        } else {
-            // category.style.opacity = 0;
-            // categoryArrow.style.transform = 'rotate(180deg)';
-        }
-    };
 
     return (
         <>
@@ -90,75 +63,31 @@ const Colleagues = () => {
                         />
                     </svg>
                 </label>
-                <div
-                    ref={specializationRef}
-                    className={css.filter}
-                    style={{ width: '230px', marginRight: '16px' }}
-                    onClick={specializationClick}
-                >
-                    Specialization
-                    <svg
-                        id="specializationArrow"
-                        className={css.filterArrow}
-                        width="12"
-                        height="8"
-                        viewBox="0 0 12 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M1.5 6.25L6 1.75L10.5 6.25"
-                            stroke="#111111"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                    <div
-                        id="filterSpecialization"
-                        className={css.filterFilter}
-                        style={{ width: '230px', height: '136px' }}
-                    >
-                        <ul className={css.list}>
-                            <li className={css.item}>Show All</li>
-                            {specializationList.map(el => (
-                                <li className={css.item}>{el}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-                <div ref={categoryRef} className={css.filter} style={{ width: '194px' }} onClick={categoryClick}>
-                    Category
-                    <svg
-                        id="categoryArrow"
-                        className={css.filterArrow}
-                        width="12"
-                        height="8"
-                        viewBox="0 0 12 8"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M1.5 6.25L6 1.75L10.5 6.25"
-                            stroke="#111111"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                    <div id="filterCategory" className={css.filterFilter} style={{ width: '194px', height: '124px' }}>
-                        <ul className={css.list}>
-                            <li className={css.item}>Show All</li>
-                            {categoryList.map(el => (
-                                <li className={css.item}>{el}</li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
+                <BasicSelect
+                    styles={{ marginRight: '16px', width: '230px', height: '52px' }}
+                    title={'Specialization'}
+                    item1={'Ophthalmologist'}
+                    item2={'Surgeon'}
+                    item3={'Therapist'}
+                    item4={'Neurologist'}
+                    item5={'Gynecologist'}
+                    item6={'Endocrinologist'}
+                    item7={'Psychiatrist'}
+                    item8={'Psychotherapist'}
+                    item9={'Otolaryngologist'}
+                />
+                <BasicSelect
+                    styles={{ width: '194px', height: '52px' }}
+                    title={'category'}
+                    item1={'The first'}
+                    item2={'The second'}
+                    item3={'Higher'}
+                />
             </div>
             <ul className={css.patientList}>
                 {cards.map(card => (
                     <li>
+                        <p>{card}</p>
                         <UserCard />
                     </li>
                 ))}

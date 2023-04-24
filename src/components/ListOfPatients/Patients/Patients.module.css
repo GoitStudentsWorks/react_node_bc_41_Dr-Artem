@@ -1,29 +1,24 @@
-
-
-.filter{
-position: relative;
+.filter {
+    /* position: relative;
 box-sizing: border-box;
-
-/* Auto layout */
 
 display: flex;
 flex-direction: row;
 justify-content: space-between;
 align-items: center;
 padding: 14px 18px;
-/* gap: 131px; */
-margin-bottom: 32px;
+margin-bottom: 32px; */
 
-width: 204px;
-height: 52px;
+    width: 204px;
+    height: 48px;
+    margin-bottom: 32px;
 
-
-background: #FFFFFF;
+    /* background: #FFFFFF;
 border: 1px solid rgba(17, 17, 17, 0.1);
-border-radius: 16px;
+border-radius: 16px; */
 }
 
-.filterArrowBox{
+.filterArrowBox {
     position: absolute;
     display: flex;
     justify-content: center;
@@ -35,34 +30,33 @@ border-radius: 16px;
     height: 52px;
 }
 
-.filterArrow{
+.filterArrow {
     transform: rotate(180deg);
 }
 
-.filterFilter{
-position: absolute;
-top: 52px;
-left: 0;
-z-index: 10;
-width: 204px;
-height: 98px;
+.filterFilter {
+    position: absolute;
+    top: 52px;
+    left: 0;
+    z-index: 10;
+    width: 204px;
+    height: 98px;
 
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 8px;
-padding: 14px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    padding: 14px 18px;
 
-background: #FFFFFF;
-box-shadow: 0px 4px 23px rgba(17, 17, 17, 0.05);
-border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0px 4px 23px rgba(17, 17, 17, 0.05);
+    border-radius: 16px;
 
-opacity: 0;
-
+    opacity: 0;
 }
 
-.patientList{
+.patientList {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;

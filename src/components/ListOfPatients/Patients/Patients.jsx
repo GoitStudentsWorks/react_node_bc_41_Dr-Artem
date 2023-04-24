@@ -1,6 +1,7 @@
 import UserCard from '../../Card/UserCard';
 import css from './Patients.module.css';
 import { useEffect, useRef } from 'react';
+import BasicSelect from 'components/element/Select';
 
 const Patients = () => {
     const filterRef = useRef(null);
@@ -43,7 +44,7 @@ const Patients = () => {
 
     return (
         <>
-            <div ref={filterRef} className={css.filter} onClick={filter}>
+            {/* <div ref={filterRef} className={css.filter} onClick={filter}>
                 All
                 <div className={css.filterArrowBox}>
                     <svg
@@ -69,6 +70,9 @@ const Patients = () => {
                     <p>New</p>
                     <p>Permanent</p>
                 </div>
+            </div> */}
+            <div className={css.filter}>
+                <BasicSelect title={'Patients'} item1={'All'} item2={'New'} item3={'Permanent'} />
             </div>
             <ul className={css.patientList}>
                 {cards.map(card => (
