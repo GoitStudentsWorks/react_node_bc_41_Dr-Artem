@@ -1,9 +1,9 @@
-import Medic from '../../images/Medic.png';
-import css from './Error.module.css';
+import Medic from '../../images/Medic@2x.png';
+import css from './ErrorPage.module.css';
 
 import { useState } from 'react';
 
-export const Error = () => {
+export const ErrorPage = () => {
     const [rotateX, setRotateX] = useState(0);
     const [rotateY, setRotateY] = useState(0);
 
@@ -22,7 +22,7 @@ export const Error = () => {
         <main className={css.main} onMouseMove={rotateEl}>
             <section className={css.section}>
                 <div className={css.err} style={{ transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)` }}>
-                    <span className={css.errNo}>4</span>
+                    <span className={css.errNo} style={{justifyContent: 'flex-end'}}>4</span>
                     <img src={Medic} alt="Page not found" className={css.errEmg} />
                     <span className={css.errNo}>4</span>
                 </div>
