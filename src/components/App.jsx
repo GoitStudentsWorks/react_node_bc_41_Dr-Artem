@@ -4,6 +4,7 @@ import { Layout } from 'pages/Layout/Layout';
 import MainPage from 'pages/MainPage/MainPage';
 import { Route, Routes } from 'react-router';
 import { PlugPage } from 'pages/PlugPage/PlugPage';
+import { PersonalPage } from 'pages/PersonalPage/PersonalPage';
 
 export const App = () => {
     return (
@@ -17,7 +18,7 @@ export const App = () => {
                         <Route path="visits-history" element={<PlugPage />} />
                     </Route>
                     <Route path="doctor" element={<PlugPage />}>
-                        <Route path="pesronal/:id" element={<PlugPage />} />
+                        <Route path="personal/:id" element={<PersonalPage />} />
                         <Route path="visits-history" element={<PlugPage />} />
                         <Route path="patients-list" element={<PlugPage />} />
                         <Route path="colleuges" element={<PlugPage />} />
