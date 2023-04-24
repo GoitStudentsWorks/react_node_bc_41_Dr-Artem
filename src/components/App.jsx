@@ -2,7 +2,7 @@ import AuthPage from 'pages/Auth/AuthPage';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Layout } from 'pages/Layout/Layout';
 import MainPage from 'pages/MainPage/MainPage';
-import { TestPage } from 'pages/testPage/TestPage';
+import { TestPage } from 'pages/TestPage/TestPage';
 import { Route, Routes } from 'react-router';
 
 export const App = () => {
