@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import css from '..//Login/LoginForm.module.css';
 
 // eslint-disable-next-line
-const regex = '^\+?3?8?(0\d{9})$';
+const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
 
 const schema = yup.object().shape({

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import css from '..//Register/Register.module.css';
 
 // eslint-disable-next-line
-const regex = '^\+\d{1,3}\s?\(\d{1,}\)\s?\d{1,}\s?\d{1,}\s?\d{1,}$';
+const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
 
 const schema = yup.object().shape({
@@ -19,7 +19,9 @@ const schema = yup.object().shape({
     password: yup
         .string()
         .min(6, 'Password must be at least 6 characters')
-        .matches(passwordRules, 'Password must contain at least 8 characters, one uppercase, one number and one special case character'
+        .matches(
+            passwordRules,
+            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
         )
         .required('Password is a required field'),
 });
@@ -29,8 +31,8 @@ export const RegisterForm = () => {
     const handleClick = () => {
         setShow(show => !show);
     };
-    
-    const initialValues = { username: '', phone: '', password: '', role: '' };
+
+    const initialValues = { username: '', phone: '', password: '', role: 'Patient' };
 
     const handleSubmit = (values, { resetForm }) => {
         console.log(values);
@@ -39,9 +41,7 @@ export const RegisterForm = () => {
 
     return (
         <div className={css.wrap}>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit} 
-            validationSchema={schema}
-            >
+            <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
                 <Form>
                     <ul className={css.formWraper}>
                         <li className={css.formItem}>
