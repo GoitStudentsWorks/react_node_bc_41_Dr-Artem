@@ -115,17 +115,7 @@ const theme = createTheme({
                 }),
             },
         },
-        MuiFormControl: {
-            styleOverrides: {
-                root: ({ ownerState }) => ({
-                    ...(ownerState.variant === 'standard' &&
-                        ownerState.color === 'primary' && {
-                            fontSize: '14px',
-                            lineHeight: 1.16,
-                        }),
-                }),
-            },
-        },
+
         MuiInputLabel: {
             styleOverrides: {
                 root: ({ ownerState }) => ({
@@ -140,20 +130,23 @@ const theme = createTheme({
                 }),
             },
         },
-        MuiTextField: {
+        MuiFormControl: {
             styleOverrides: {
                 root: ({ ownerState }) => ({
-                    ...(ownerState.variant === 'standard' &&
+                    ...(ownerState.variant === 'outlined' &&
                         ownerState.color === 'primary' && {
-                            fontSize: 14,
-                            lineHeight: 1.28,
-                            fontWeight: 400,
-                            borderRadius: '8px',
-                            border: `1px solid rgba(17, 17, 17, 0.1)`,
-                            padding: '14px 18px',
-
-                            '&:focus': {
-                                border: `1px solid ${COLOR.black}`,
+                            '& .MuiInputBase-input': {
+                                outline: `1px solid ${COLOR.lightGray}`,
+                                borderRadius: '8px',
+                                fontSize: 16,
+                                fontWeight: 'bold',
+                                padding: '14px 18px',
+                                '&:hover': {
+                                    outline: `1px solid ${COLOR.orange}`,
+                                },
+                                '&:focus': {
+                                    outline: `1px solid ${COLOR.orange}`,
+                                },
                             },
                         }),
                 }),

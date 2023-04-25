@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material';
+import { FormControl, TextField } from '@mui/material';
 import style from './PatientMedcartEdit.module.css';
 
 export const PatientMedcartEdit = ({ setEditMedcart }) => {
@@ -42,7 +42,8 @@ export const PatientMedcartEdit = ({ setEditMedcart }) => {
                         <ul className={style.PatientMedcart_EditInputList}>
                             <li className={style.PatientMedcart_EditInputItem}>
                                 <TextField
-                                    className={style.PatientMedcart_EditInput}
+                                    sx={{ width: '100%' }}
+                                    // className={style.PatientMedcart_EditInput}
                                     placeholder="Enter text"
                                     type="text"
                                 />
