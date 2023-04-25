@@ -1,39 +1,44 @@
-import { Field, Form, Formik } from 'formik';
-import css from '..//Login/LoginForm.module.css'
 import ShowPassword from 'components/ShowPassword/ShowPassword';
+import { Field, Form, Formik } from 'formik';
+import css from '..//Login/LoginForm.module.css';
 
-export const LoginForm = ({setBooel}) => {
+export const LoginForm = () => {
     return (
-        <div style={{marginLeft: '20px'}}>
-            <div>
-                <ul className={css.list}>
-                    <li>
-                        <span href="/" className={css.link} onClick={()=> setBooel(false)}>Registration</span>
-                    </li>
-                    <li>
-                        <span href="/" className={css.link} onClick={()=> setBooel(true)}>Log In</span>
-                    </li>
-                </ul>
-            </div>
-            <div className={css.wrap}>
-                <Formik>
-                    <Form>
-                        <div className={css.formWraper}>
-                            <label htmlFor="phone"  className={css.label}>Phone Number</label>
-                            <Field type="tel" name="phone" placeholder="+380 (_)__-__-__"  className={css.input}/>
-
-                            <label htmlFor="password" className={css.label}>Password </label>
-                            <Field type="password" name="password" placeholder="Enter your password" className={css.input}/>
-                            <span className={css.showWraper}>
-                            <ShowPassword/>
-                            </span>
-                        </div>
-                        <span className={css.btnWrap}>
-                        <button type="submit" className={css.formBtn}>Log In</button>
-                        </span>
-                    </Form>
-                </Formik>
-            </div>
+        <div className={css.wrap}>
+            <Formik>
+                <Form>
+                    <ul className={css.formWraper}>
+                        <li className={css.formItem}>
+                            <label htmlFor="phone" className={css.label}>
+                                Phone Number
+                            </label>
+                            <Field
+                                type="tel"
+                                // name="phone"
+                                placeholder="+380 (_)__-__-__"
+                                className={css.input}
+                            />
+                        </li>
+                        <li className={css.formItem}>
+                            <label htmlFor="password" className={css.label}>
+                                Password
+                            </label>
+                            <div className={css.showWraper}>
+                                <Field
+                                    type="password"
+                                    // name="password"
+                                    placeholder="Enter your password"
+                                    className={css.input}
+                                />
+                                <ShowPassword />
+                            </div>
+                        </li>
+                    </ul>
+                    <button type="submit" className={css.formBtn}>
+                        Log In
+                    </button>
+                </Form>
+            </Formik>
         </div>
     );
 };

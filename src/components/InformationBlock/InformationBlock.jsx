@@ -1,5 +1,5 @@
-import s from '../InformationBlock/InformationBlock.module.css';
 import DNA from '../../images/InformationBlock/DNA.png';
+import s from '../InformationBlock/InformationBlock.module.css';
 
 function InformationBlock() {
     return (

@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import s from '../AuthNav/AuthNav.module.css';
 
 function AuthNav() {
@@ -5,15 +6,15 @@ function AuthNav() {
         <div className={s.auth_wrapper}>
             <ul className={s.nav_list}>
                 <li className={s.nav_item}>
-                    <a href="#" className={s.nav_link}>
+                    <NavLink to="auth/register" className={s.nav_link}>
                         Registration
-                    </a>
+                    </NavLink>
                 </li>
 
                 <li className={s.nav_item}>
-                    <a href="#" className={s.nav_link}>
+                    <NavLink to="auth/login" className={s.nav_link}>
                         Log In
-                    </a>
+                    </NavLink>
                 </li>
             </ul>
         </div>

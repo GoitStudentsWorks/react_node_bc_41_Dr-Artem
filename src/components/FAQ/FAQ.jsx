@@ -23,7 +23,7 @@ export const FAQ = () => {
         const currentBtn = event.currentTarget;
         const questionName = currentBtn.getAttribute('name');
         setActiveQuestion(activeQuestion === questionName ? null : questionName);
-        setToggle(prev => !prev);
+        return setToggle(activeQuestion === questionName ? !toggle : 'true');
     };
 
     const animation = useSpring({

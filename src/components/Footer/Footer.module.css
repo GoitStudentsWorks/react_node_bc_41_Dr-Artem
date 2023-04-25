@@ -69,8 +69,6 @@
 .text {
     font-size: 14px; 
     color: rgba(255, 255, 255, 0.3);
-    
-    
 }
 
 .btn {
@@ -89,8 +87,8 @@
     background: #477577;
 }
 
-.item:hover,
-.item:focus {
+.listitem:hover,
+.listitem:focus {
     background-color: #477577;
 }
 .copyright {

@@ -1,0 +1,76 @@
+.PatientInfo {
+    position: relative;
+    padding: 32px;
+    background-color: var(--card-background);
+    border-radius: 16px;
+    margin-bottom: 8px;
+}
+.PatientInfo_ImageWrapper {
+    border: 4px solid rgba(71, 117, 119, 0.2);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    background-image: url('./profilePhoto.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto 32px;
+}
+.PatientInfo_Details {
+    max-width: max-content;
+    margin: 0 auto;
+}
+.PatientInfo_Details > li {
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.PatientInfo_Details > li > span {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: var(--semibold-font-weight);
+}
+.PatientInfo_Details > li:not(:last-child) {
+    margin-bottom: 8px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439.98px) {
+    .PatientInfo {
+        padding: 36px;
+        margin-bottom: 0;
+    }
+    .PatientInfo_ImageWrapper {
+        width: 180px;
+        height: 180px;
+        background-image: url('./profilePhoto-tablet.png');
+    }
+    .PatientInfo_Details > li {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .PatientInfo_Details > li > span {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .PatientInfo {
+        padding: 36px;
+        margin-bottom: 0;
+    }
+    .PatientInfo_ImageWrapper {
+        width: 180px;
+        height: 180px;
+        background-image: url('./profilePhoto-tablet.png');
+    }
+    .PatientInfo_Details > li {
+        font-size: 14px;
+        line-height: 18px;
+    }
+    .PatientInfo_Details > li > span {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
