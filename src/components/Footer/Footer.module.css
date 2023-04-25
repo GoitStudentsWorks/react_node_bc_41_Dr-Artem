@@ -1,0 +1,157 @@
+.section {
+    background-color: #0F3937;
+    display: flex;
+    height: 300px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    align-items: baseline;
+}
+
+.secondpart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+    .secondpart {
+        margin-top: 40px;
+    }  
+}
+
+.iconlist {
+    display: flex;
+    margin-left: auto;
+}
+
+.listitem:not(:first-child) {
+    margin-left: 14px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
+    .listitem:not(:first-child) {
+        margin-left: 16px;
+    }
+    .secondpart {
+        position: absolute;
+        right: 32px;
+    }
+}
+
+@media screen and  (min-width: 1440px) {
+    .listitem:not(:first-child) {
+        margin-left: 24px;
+    }
+    .secondpart {
+        position: absolute;
+        right: 128px;
+    }
+}
+
+.logoFooter {
+    color: #ffffff;
+}
+
+.title {    
+    color: #ffffff;
+    margin-top: 16px;
+    width: 309px;
+    height: 48px;
+    font-family: Manrope;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px,
+}
+   
+.text {
+    font-size: 14px; 
+    color: rgba(255, 255, 255, 0.3);
+    
+    
+}
+
+.btn {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: #0F3937;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px 40px;
+  margin-top: 24px;
+}
+
+.btn:hover,
+.btn:focus {
+    background: #477577;
+}
+
+.item:hover,
+.item:focus {
+    background-color: #477577;
+}
+.copyright {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 16px; 
+}
+
+@media screen and (max-width: 767px) {
+    .section {
+     padding-top: 40px;
+     height: 315px;
+    }
+    .container {
+        flex-direction: column;
+    }
+    .title {
+        font-size: 14px;
+    }
+    .text {
+        font-size: 8px;
+        margin-top: 40px; 
+    }
+    .copyright {
+        margin-bottom: 8px;
+    }
+    .box {
+        margin-left: 20px;
+    }
+    .btn {
+     margin-top: 20px;
+     font-size: 12px;
+     padding: 10px 16px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .firstpart {
+     margin-left: 32px;
+    }
+    .section {
+        padding-top: 32px;
+    }
+    .container {
+        flex-direction: row;
+    }
+    .text {
+        margin-top: 64px; 
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .firstpart {
+     margin-left: 130px;
+    }
+    .section {
+        padding-top: 64px;
+    }
+    .text {
+        margin-top: 32px; 
+    }
+}
+
