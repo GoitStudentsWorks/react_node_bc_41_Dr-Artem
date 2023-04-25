@@ -1,0 +1,84 @@
+.experienceBlock {
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 14px;
+    line-height: 1.2;
+    background: #fafafa;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.experienceTitleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.experienceTitle {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+.experienceAdd {
+    background: none;
+    border: none;
+}
+
+.experienceList {
+    display: flex;
+    flex-direction: column;
+}
+
+.experienceListItem {
+    display: flex;
+    justify-content: space-between;
+}
+
+.experienceListItem:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.experienceImage {
+    min-width: 60px;
+    margin-right: 8px;
+}
+
+.experienceInfoTitle {
+    margin-bottom: 4px;
+
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.experienceInfoDate {
+    margin-bottom: 6px;
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 12px;
+    line-height: 1.2;
+    color: rgba(17, 17, 17, 0.5);
+}
+
+.experienceInfoAbout {
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 12px;
+    line-height: 1.2;
+    color: rgba(17, 17, 17, 0.5);
+}
+
+.buttonEdit {
+    display: flex;
+    border: 0;
+    background: none;
+}
+
+.experienceItemWrapper {
+    display: flex;
+}

@@ -1,0 +1,152 @@
+.weekVisitsBlock {
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 14px;
+    line-height: 1.2;
+    background: #fafafa;
+    border-radius: 16px;
+    padding: 32px 16px 32px 16px;
+}
+
+.weekVisitsTitleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.weekVisitsTitle {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+.weekVisitsCalendar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.weekVisitsCalendarButtonContainer {
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgba(71, 117, 119, 0.3);
+    border-radius: 1000px;
+    margin-left: 8px;
+    margin-right: 32px;
+    padding: 0;
+    width: 76px;
+    height: 34px;
+}
+
+.weekVisitAvatar {
+    padding: 6px;
+    border: 1px solid rgba(71, 117, 119, 0.3);
+    border-radius: 50px;
+    width: 60px;
+    height: 60px;
+}
+
+.weekVisitItemInfo {
+    display: flex;
+    margin-bottom: 14px;
+}
+.weekVisitAvatar {
+    margin-right: 16px;
+    padding: 6px;
+}
+
+.weekVisitsName {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 6px;
+}
+
+.weekVisitsNameCategory {
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 12px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    color: rgba(17, 17, 17, 0.5);
+}
+
+.weekVisitsDateTitle {
+    font-family: var(--main-font-family);
+    font-weight: var(--bold-font-weight);
+    font-size: 12px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+}
+.weekVisitsDateInfoWrapper {
+    display: flex;
+}
+
+.weekVisitsDateContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #edf5f5;
+    border-radius: 1000px;
+    padding: 8px 12px;
+    margin-right: 8px;
+}
+.weekVisitsDate {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.weekVisitsTimeContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #edf5f5;
+    border-radius: 1000px;
+    padding: 8px 12px;
+}
+.weekVisitsTime {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 1.3;
+}
+
+.modalWeekVisit {
+    position: absolute;
+    box-shadow: 0px 4px 23px rgba(17, 17, 17, 0.05);
+    border-radius: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 335px;
+    height: 284px;
+    background: #f3f3f3;
+    border: none;
+    padding: 20px;
+}
+
+.modalWeekVisitsTitleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.modalWeekVisitsTitle {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 18px;
+    line-height: 1.3;
+}
+
+.modalWeekVisitItemInfo {
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 12px;
+    line-height: 1.3;
+}
