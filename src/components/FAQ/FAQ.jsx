@@ -42,6 +42,7 @@ export const FAQ = () => {
     const inactiveStyle = {
         backgroundColor: 'inherit',
         border: '1px solid rgba(25, 41, 36, 0.12)',
+        
     };
 
     return (

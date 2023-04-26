@@ -2,6 +2,15 @@ import styled from 'styled-components';
 
 export const FAQwrapper = styled.section`
     width: 100%;
+    padding: 0px 20px 80px;
+
+    @media (min-width: 768px) {
+        padding: 0px 32px 96px;
+    }
+
+        @media (min-width: 1440px) {
+            padding: 0px 128px 128px;
+      }
 `;
 
 export const SectionTitle = styled.h2`
@@ -56,6 +65,7 @@ export const ToggleBtn = styled.button`
     height: 32px;
     border-radius: 50px;
 
+    cursor: pointer;
     transition: all 1s ease-out;
 
     @media (min-width: 768px) {
