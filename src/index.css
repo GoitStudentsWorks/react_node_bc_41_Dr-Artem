@@ -125,3 +125,23 @@ input {
     left: 40%;
     right: 50%;
 }
+
+/* accordion */
+.MuiAccordionSummary-content {
+    justify-content: space-between;
+}
+.MuiAccordion-root {
+    box-shadow: none;
+}
+
+.MuiAccordionSummary-content {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+    .MuiAccordionSummary-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
