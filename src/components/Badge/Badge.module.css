@@ -1,0 +1,16 @@
+.Badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background-color: var(--minor-items-background);
+    padding: 8px 16px;
+    border-radius: 1000px;
+}
+.BadgeText {
+    font-weight: var(--regular-text);
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.04em;
+
+    color: #111111;
+}
