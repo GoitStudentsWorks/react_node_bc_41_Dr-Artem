@@ -1,8 +1,8 @@
+import Colleagues from 'pages/DoctorColleaguesPage/DoctorColleaguesPage';
 import { Outlet } from 'react-router-dom';
-import Profile from './Profile/Profile';
-import Patients from './Patients/Patients';
-import Colleagues from 'components/Colleagues/Colleagues';
 import css from './ListOfPatients.module.css';
+import Patients from './Patients/Patients';
+import Profile from './Profile/Profile';
 
 const ListOfPatients = () => {
     return (

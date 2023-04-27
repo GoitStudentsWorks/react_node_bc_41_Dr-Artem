@@ -1,9 +1,11 @@
-.PatientSection {
+/* .PatientSection {
     padding: 40px 0 80px 0;
-}
+} */
 .PatientSection_Container {
-    padding: 0 20px;
-    margin: 0 auto;
+    /* padding: 0 20px;
+    margin: 0 auto; */
+    display: grid;
+    gap: 8px;
 }
 
 .PatientResults {
@@ -11,7 +13,7 @@
     padding: 32px;
     background-color: var(--card-background);
     border-radius: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 .PatientResults_Edit {
     position: absolute;
@@ -44,10 +46,10 @@
     font-size: 16px;
     line-height: 20px;
 }
-.PatientResults_Details {
-    /* max-width: max-content;
-    margin: 0 auto; */
-}
+/* .PatientResults_Details {
+    max-width: max-content;
+    margin: 0 auto;
+} */
 .PatientResults_Details > li {
     display: flex;
     align-items: center;
@@ -65,11 +67,11 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1439.98px) {
-    .PatientSection {
+    /* .PatientSection {
         padding: 64px 0 96px 0;
-    }
+    } */
     .PatientSection_Container {
-        padding: 0 32px;
+        /* padding: 0 32px; */
         display: grid;
         gap: 16px;
         grid-template-columns: repeat(2, 1fr);
@@ -91,11 +93,11 @@
 }
 
 @media screen and (min-width: 1440px) {
-    .PatientSection {
+    /* .PatientSection {
         padding: 64px 0 128px 0;
-    }
+    } */
     .PatientSection_Container {
-        padding: 0 128px;
+        /* padding: 0 128px; */
         display: grid;
         row-gap: 8px;
         column-gap: 16px;

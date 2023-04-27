@@ -1,9 +1,6 @@
 .wrapper {
     position: relative;
-    margin: 0 auto;
-    width: 379px;
-    /* min-width: 100%; */
-    min-height: 420px;
+    min-width: 335px;
     border-radius: 16px;
     padding: 32px;
     background-color: var(--card-background);
@@ -36,32 +33,12 @@
     width: 124px;
     height: 124px;
 }
-
-.photoButton {
-    position: absolute;
-    top: 81%;
-    left: 73%;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition: .2s ease-in-out 0s;
-}
-
-.photoButton:hover,
-.photoButton:focus{
-    transform: scale(1.25);
-}
 /* PHOTO */
 
-.bottomWrapper {
-    margin-bottom: 17px;
-    margin-top: 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .list {
+    margin: 0 auto 32px;
+    max-width: 250px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -83,33 +60,4 @@
     font-size: 14px;
     line-height: 1.29;
     color: #111111;
-}
-
-.penWrapper{
-    margin-left: 55px;
-    position: relative;
-}
-
-.penButton {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    transition: .2s ease-in-out 0s;
-    font-weight: var(--semibold-font-weight);
-    font-size: 14px;
-    line-height: 1.29;
-    text-decoration-line: underline;
-}
-
-.penImg {
-    position: absolute;
-    top: 1px;
-    left: -19px;
-    width: 16px;
-    height: 16px;
-}
-
-.penImg:hover,
-.penImg:focus{
-    transform: scale(1.25);
 }

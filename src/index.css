@@ -90,6 +90,22 @@ a {
 input {
     outline: none;
 }
+/* main {
+    padding: 0 32px;
+} */
+.container {
+    /* max-width: 1440px; */
+    padding: 0 20px;
+    margin: 0 auto;
+
+    @media screen and (min-width: 768px) {
+        padding: 0 32px;
+    }
+
+    @media screen and (min-width: 1440px) {
+        padding: 0 128px;
+    }
+}
 
 /* swiper */
 

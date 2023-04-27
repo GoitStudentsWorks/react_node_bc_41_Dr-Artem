@@ -1,6 +1,6 @@
+import { Box, Tab, Tabs } from '@mui/material';
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Tabs, Tab, Box } from '@mui/material';
 
 const patientRoutes = [
     { path: '/patient/history', label: 'Medical history' },
@@ -9,14 +9,15 @@ const patientRoutes = [
 ];
 
 const doctorRoutes = [
-    { path: '/doctor/personal', label: 'Personal page' },
+    { path: '/doctor/personal/1', label: 'Personal page' },
     { path: '/doctor/visits-history', label: 'Visit history' },
     { path: '/doctor/patients-list', label: 'List of patients' },
     { path: '/doctor/colleuges', label: 'Сolleagues' },
 ];
 
 export const Navigation = () => {
-    const { pathname } = useLocation();
+    const doctorsPath = useLocation().pathname.startsWith('/doctor');
+    const patientsPath = useLocation().pathname.startsWith('/patient');
 
     const [value, setValue] = useState(0);
 
@@ -44,7 +45,7 @@ export const Navigation = () => {
                         },
                     }}
                 >
-                    {pathname === '/patient' &&
+                    {patientsPath &&
                         patientRoutes.map((route, index) => (
                             <Tab
                                 key={index}
@@ -69,7 +70,7 @@ export const Navigation = () => {
                                 }}
                             />
                         ))}
-                    {pathname === '/doctor' &&
+                    {doctorsPath &&
                         doctorRoutes.map((route, index) => (
                             <Tab
                                 key={index}
