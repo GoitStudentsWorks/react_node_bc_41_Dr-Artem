@@ -10,12 +10,11 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import css from './DatePickers.module.css';
 import Divider from '@mui/material/Divider';
 
-
 const mobileDatePickerStyles = {
     marginRight: '8px',
     '& .css-1lugbff-MuiPickersLayout-root': {
-      display: 'block!important',
-  },
+        display: 'block!important',
+    },
     '& .MuiInputBase-input': {
         border: '1px solid rgba(71, 117, 119, 0.3)',
         borderRadius: '10000px',
@@ -105,7 +104,7 @@ export const DatePickers = () => {
 
     return (
         <>
-            {pathname === '/patient/visits-history' || pathname === '/doctor/patients-list/:id' ? (
+            {pathname === '/patient/visits-history' || pathname === '/doctor/personal/1' ? (
                 <div className={css.wrapp}>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <MobileDatePicker

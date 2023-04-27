@@ -1,3 +1,4 @@
+import React from 'react';
 import plug from '../../images/ProfileBlock/plug.png';
 import pen from '../../images/ProfileBlock/pen.svg';
 import check from '../../images/ProfileBlock/check.svg';
@@ -6,7 +7,7 @@ import StarRating from 'components/StarRating/StarRating';
 
 export const ProfileBlockDoctore = () => {
     return (
-        <div className={css.wrapper}>
+        <div className={css.ProfileBlock}>
             <p className={css.role}>Doctor</p>
             <StarRating />
             <div className={css.imgWrapper}>

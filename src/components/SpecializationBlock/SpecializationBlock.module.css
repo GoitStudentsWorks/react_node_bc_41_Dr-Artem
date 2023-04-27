@@ -9,12 +9,27 @@
     line-height: 1.2;
     background: #fafafa;
     border-radius: 16px;
-    padding: 17px 17px 17px 32px;
+    padding: 16px 16px 16px 32px;
+    width: 100%;
+
+    @media (min-width: 768px) and (max-width: 1439.98px) {
+        max-height: 84px;
+        max-width: 344px;
+    }
+    @media (min-width: 1440px) {
+        max-height: 84px;
+        max-width: 379px;
+    }
 }
 
 .specializationList {
     display: flex;
     flex-direction: column;
+}
+
+.specializationItem {
+    font-size: 14px;
+    line-height: 1.28;
 }
 
 .specializationItem:first-child {
@@ -25,7 +40,7 @@
     font-family: var(--main-font-family);
     font-weight: var(--semibold-font-weight);
     font-size: 16px;
-    line-height: 1.2;
+    line-height: 1.5;
 }
 .buttonEdit {
     border: 0;
