@@ -1,5 +1,6 @@
 import Header from './Header/Header';
 import MainPage from 'pages/MainPage/MainPage';
+import AnalysisBlock from './AnalysisBlock/AnalysisBlock';
 export const App = () => {
     return (
         <div
@@ -14,6 +15,7 @@ export const App = () => {
         >
             <Header />
             <MainPage />
+            <AnalysisBlock />
         </div>
     );
 };
