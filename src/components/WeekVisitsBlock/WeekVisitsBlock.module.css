@@ -109,6 +109,15 @@
     line-height: 1.2;
     margin-bottom: 6px;
     color: rgba(17, 17, 17, 0.5);
+}
+
+.modalWeekVisitsNameCategory {
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 12px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    color: rgba(17, 17, 17, 0.5);
     @media (min-width: 768px) {
         margin-left: 85px;
     }
@@ -129,6 +138,7 @@
     flex-direction: column;
     @media (min-width: 768px) {
         flex-direction: row;
+        justify-content: space-between;
     }
 }
 .weekVisitsDateInfoWrapper {

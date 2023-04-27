@@ -20,7 +20,7 @@ export const AboutBlock = () => {
                     {!isVisitsVisible && (
                         <IconButton>
                             <KeyboardArrowDownIcon
-                                sx={{ color: '#111111', minWidth: '14px' }}
+                                sx={{ color: '#111111', fontSize: '28px' }}
                                 onClick={handleArrowClick}
                             />
                         </IconButton>
@@ -28,7 +28,7 @@ export const AboutBlock = () => {
                     {isVisitsVisible && (
                         <IconButton>
                             <KeyboardArrowUpIcon
-                                sx={{ color: '#111111', minWidth: '14px' }}
+                                sx={{ color: '#111111', fontSize: '28px' }}
                                 onClick={handleArrowClick}
                             />
                         </IconButton>

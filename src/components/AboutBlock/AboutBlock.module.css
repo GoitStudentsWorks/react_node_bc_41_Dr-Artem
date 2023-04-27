@@ -53,8 +53,9 @@
     font-weight: var(--regular-font-weight);
     font-size: 14px;
     line-height: 1.4;
+    width: 100%;
+    padding-right: 32px;
     @media (min-width: 768px) {
-        max-width: 616px;
         font-size: 16px;
         line-height: 1.1;
     }

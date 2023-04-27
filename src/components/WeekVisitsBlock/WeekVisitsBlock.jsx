@@ -1,37 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import css from './WeekVisitsBlock.module.css';
-import dayjs from 'dayjs';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import Avatar from '../../Image/Avatar.png';
-import { Divider } from '@mui/material';
 import { Modal } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { DatePickers } from 'components/DatePickers/DatePickers';
 
 export const WeekVisitsBlock = () => {
-    const [selectedDate, setSelectedDate] = useState(dayjs().format());
     const [isVisitsVisible, setIsVisitsVisible] = useState(true);
     const [open, setOpen] = useState(false);
 
     const handleArrowClick = () => {
         setIsVisitsVisible(!isVisitsVisible);
-    };
-
-    const handlePrevDayClick = () => {
-        const newDate = dayjs(selectedDate).subtract(1, 'day');
-        setSelectedDate(newDate.format());
-    };
-
-    const handleNextDayClick = () => {
-        const newDate = dayjs(selectedDate).add(1, 'day');
-        setSelectedDate(newDate.format());
     };
 
     const handleClick = () => {
@@ -46,58 +29,13 @@ export const WeekVisitsBlock = () => {
                 </div>
                 <div className={css.weekVisitsCalendar}>
                     <div>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker
-                                sx={{
-                                    padding: '8px 12px',
-                                    verticalAlign: 'middle',
-                                    '& .MuiInputBase-input': {
-                                        border: '1px solid rgba(71, 117, 119, 0.3)',
-                                        borderRadius: '10000px',
-                                        textAlign: 'center',
-                                        fontFamily: 'Manrope',
-                                        fontStyle: 'normal',
-                                        fontWeight: '600',
-                                        fontSize: '14px',
-                                        lineHeight: '1.3',
-                                        boxSizing: 'border-box',
-                                        margin: 0,
-                                        maxWidth: '148px',
-                                    },
+                        <DatePickers />
+                    </div>
 
-                                    '& .MuiOutlinedInput-notchedOutline': {
-                                        display: 'none',
-                                    },
-                                    '& .MuiTypography-body1': {
-                                        fontFamily: 'Manrope',
-                                        fontStyle: 'normal',
-                                        fontWeight: '600',
-                                        fontSize: '14px',
-                                        lineHeight: '1.3',
-                                    },
-                                }}
-                                value={dayjs(selectedDate)}
-                                format="MMMM DD/MM/YYYY"
-                            />
-                        </LocalizationProvider>
-                    </div>
-                    <div className={css.weekVisitsCalendarButtonContainer}>
-                        <IconButton onClick={handlePrevDayClick}>
-                            <ChevronLeftIcon sx={{ color: '#477577' }} />
-                        </IconButton>
-                        <Divider
-                            sx={{ border: '1px solid rgba(220, 227, 229, 0.5)' }}
-                            orientation="vertical"
-                            flexItem
-                        />
-                        <IconButton onClick={handleNextDayClick}>
-                            <ChevronRightIcon sx={{ color: '#477577' }} />
-                        </IconButton>
-                    </div>
                     {!isVisitsVisible && (
                         <IconButton>
                             <KeyboardArrowDownIcon
-                                sx={{ color: '#111111', minWidth: '14px' }}
+                                sx={{ fontSize: '28px', color: '#111111' }}
                                 onClick={handleArrowClick}
                             />
                         </IconButton>
@@ -105,7 +43,7 @@ export const WeekVisitsBlock = () => {
                     {isVisitsVisible && (
                         <IconButton>
                             <KeyboardArrowUpIcon
-                                sx={{ color: '#111111', minWidth: '14px' }}
+                                sx={{ fontSize: '28px', color: '#111111' }}
                                 onClick={handleArrowClick}
                             />
                         </IconButton>
@@ -156,7 +94,7 @@ export const WeekVisitsBlock = () => {
                         <div className={css.weekVisitProfile}>
                             <div className={css.modalNameFlex}>
                                 <p className={css.weekVisitsName}>Melnyk Victoria Petrivna</p>
-                                <p className={css.weekVisitsNameCategory}>Patient</p>
+                                <p className={css.modalWeekVisitsNameCategory}>Patient</p>
                             </div>
                             <ul>
                                 <li className={css.modalWeekVisitItemInfo}>Gender:</li>
