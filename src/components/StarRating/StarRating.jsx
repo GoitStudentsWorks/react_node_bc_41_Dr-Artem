@@ -4,7 +4,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { useState } from 'react';
 
 const labels = {
-    0:'0',
+    0: '0',
     0.5: '0,5',
     1: '1',
     1.5: '1.5',
@@ -32,7 +32,8 @@ export default function StarRating() {
                 alignItems: 'center',
                 position: 'absolute',
                 top: '16px',
-                right: '40px',
+                right: '8px',
+                fontWeight: '600',
             }}
         >
             {value !== null && <Box sx={{ mr: 1 }}>{labels[value]}</Box>}

@@ -21,6 +21,10 @@
     font-weight: var(--semibold-font-weight);
     font-size: 18px;
     line-height: 1.3;
+    @media (min-width: 768px) {
+        font-size: 20px;
+        line-height: 1.5;
+    }
 }
 
 .experienceAdd {
@@ -41,10 +45,16 @@
 .experienceListItem:not(:last-child) {
     margin-bottom: 16px;
 }
+.experienceItemWrapper {
+    display: flex;
+}
 
 .experienceImage {
     min-width: 60px;
     margin-right: 8px;
+    @media (min-width: 768px) {
+        min-width: 72px;
+    }
 }
 
 .experienceInfoTitle {
@@ -54,6 +64,11 @@
     font-weight: var(--semibold-font-weight);
     font-size: 14px;
     line-height: 1.2;
+
+    @media (min-width: 768px) {
+        font-size: 16px;
+        line-height: 1.5;
+    }
 }
 
 .experienceInfoDate {
@@ -63,6 +78,9 @@
     font-size: 12px;
     line-height: 1.2;
     color: rgba(17, 17, 17, 0.5);
+    @media (min-width: 768px) {
+        display: none;
+    }
 }
 
 .experienceInfoAbout {
@@ -71,6 +89,14 @@
     font-size: 12px;
     line-height: 1.2;
     color: rgba(17, 17, 17, 0.5);
+     @media (min-width: 768px) {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+}
+
+.buttonEditWrapper {
+    display: flex;
 }
 
 .buttonEdit {
@@ -79,6 +105,15 @@
     background: none;
 }
 
-.experienceItemWrapper {
-    display: flex;
+.experienceInfoDateFlex {
+    display: none;
+    margin-right: 16px;
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 14px;
+    line-height: 1.3;
+    color: rgba(17, 17, 17, 0.5);
+    @media (min-width: 768px) {
+        display: block;
+    }
 }
