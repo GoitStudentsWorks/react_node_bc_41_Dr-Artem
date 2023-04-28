@@ -17,6 +17,7 @@ const COLOR = {
 const theme = createTheme({
     breakpoints: {
         values: {
+            xs: 0,
             sm: 375,
             md: 768,
             lg: 1440,

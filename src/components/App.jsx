@@ -7,6 +7,7 @@ import { PlugPage } from 'pages/PlugPage/PlugPage';
 import { Route, Routes } from 'react-router';
 import { PatientsListItemPage } from './PatientsListItemPage/PatientsListItemPage';
 import { DoctorVisits } from './DoctorVisits/DoctorVisits';
+import { VisitHistory } from './VisitHistory/VisitHistory';
 export const App = () => {
     return (
         <>
@@ -20,7 +21,7 @@ export const App = () => {
                     </Route>
                     <Route path="doctor" element={<PlugPage />}>
                         <Route path="personal/:id" element={<PersonalPage />} />
-                        <Route path="visits-history" element={<PlugPage />} />
+                        <Route path="visits-history" element={<VisitHistory />} />
                         <Route path="patients-list" element={<PlugPage />} />
                         <Route path="patients-list/:id" element={<PatientsListItemPage />} />
                         <Route path="colleuges" element={<PlugPage />} />
