@@ -29,10 +29,11 @@
     .swiper_nav_btns {
         flex-direction: row;
         justify-content: space-between;
+        align-items: center;
         position: absolute;
         z-index: 1000;
         top: 50%;
-        min-width: 1200px;
+        width: 100%;
         bottom: 50%;
     }
 }
