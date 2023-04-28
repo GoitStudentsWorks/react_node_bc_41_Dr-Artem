@@ -108,17 +108,20 @@ input {
 }
 
 /* swiper */
-
-.swiper-wrapper {
-    padding-bottom: 40px;
-}
-
-.swiper-backface-hidden .swiper-slide {
-    height: auto;
+@media screen and (min-width: 1440px) {
+    .swiper {
+        padding: 0 42px;
+    }
 }
 
 .swiper-wrapper {
     padding-top: 30px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+}
+
+.swiper-backface-hidden .swiper-slide {
+    height: auto;
 }
 
 .swiper-scrollbar-drag {
