@@ -12,6 +12,7 @@ import css from './DatePickers.module.css';
 
 const mobileDatePickerStyles = {
     marginRight: '8px',
+
     '& .MuiInputBase-input': {
         minWidth: '170px',
         border: '1px solid rgba(71, 117, 119, 0.3)',
@@ -82,6 +83,7 @@ export const DatePickers = () => {
                                 width: '14px',
                                 height: '15px',
                             }}
+
                         />
                     </IconButton>
                     <Divider

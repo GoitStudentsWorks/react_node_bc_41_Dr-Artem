@@ -1,5 +1,5 @@
 .container {
-    max-width: 1440px;
+    /* max-width: 1440px; */
     padding: 0 20px;
     padding-bottom: 80px;
 }
@@ -17,7 +17,7 @@
 }
 
 .slide_wrap {
-    max-width: 1118px;
+    /* max-width: 1118px; */
 }
 .rewiews_header {
     margin-bottom: 40px;

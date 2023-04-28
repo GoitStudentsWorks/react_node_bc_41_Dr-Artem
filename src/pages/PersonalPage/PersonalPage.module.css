@@ -1,0 +1,32 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%;
+    @media (min-width: 768px) and (max-width: 1439.98px) {
+        padding: 32px;
+    }
+    @media (min-width: 1440px) {
+        display: flex;
+        flex-direction: row;
+        padding: 32px;
+    }
+}
+
+.pageProfileBlock {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 768px) and (max-width: 1439.98px) {
+        flex-direction: row;
+    }
+    @media (min-width: 1440px) {
+        width: 379px;
+        flex-direction: column;
+        margin-right: 16px;
+    }
+}
+
+.pageAboutBlock {
+    width: 100%;
+}
