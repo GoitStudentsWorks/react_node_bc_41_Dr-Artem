@@ -1,5 +1,6 @@
 .wrapper {
     position: relative;
+    grid-column: span 2;
     min-width: 335px;
     border-radius: 16px;
     padding: 32px;

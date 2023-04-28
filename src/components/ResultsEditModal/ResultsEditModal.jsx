@@ -47,9 +47,9 @@ export const ResultsEditModal = ({ open, setOpen }) => {
             formData.append('files[]', JSON.stringify(file));
         });
 
-        console.log(formData.getAll('files[]'));
-        console.log(formData.get('doctor'));
-        console.log(formData.get('date'));
+        // console.log(formData.getAll('files[]'));
+        // console.log(formData.get('doctor'));
+        // console.log(formData.get('date'));
 
         // Далее можно отправить данные на сервер, используя методы fetch или axios
     };

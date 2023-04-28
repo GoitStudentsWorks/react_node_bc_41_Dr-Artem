@@ -11,7 +11,7 @@ const patientRoutes = [
 const doctorRoutes = [
     { path: '/doctor/personal/1', label: 'Personal page' },
     { path: '/doctor/visits-history', label: 'Visit history' },
-    { path: '/doctor/patients-list', label: 'List of patients' },
+    { path: '/doctor/patients-list' && '/doctor/patients-list/1', label: 'List of patients' },
     { path: '/doctor/colleuges', label: 'Сolleagues' },
 ];
 
