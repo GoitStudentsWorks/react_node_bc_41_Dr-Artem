@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { Box, Tab, Tabs } from '@mui/material';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Tabs, Tab, Box } from '@mui/material';
-import Divider from '@mui/material/Divider';
 
 const patientRoutes = [
     { path: '/patient/history', label: 'Medical history' },
@@ -10,9 +9,9 @@ const patientRoutes = [
 ];
 
 const doctorRoutes = [
-    { path: '/doctor/personal/:id', label: 'Personal page' },
+    { path: '/doctor/personal/:id/1', label: 'Personal page' },
     { path: '/doctor/visits-history', label: 'Visit history' },
-    { path: '/doctor/patients-list', label: 'List of patients' },
+    { path: '/doctor/patients-list' && '/doctor/patients-list/1', label: 'List of patients' },
     { path: '/doctor/colleuges', label: 'Сolleagues' },
 ];
 
@@ -44,7 +43,8 @@ const indicatorStyles = {
 };
 
 export const Navigation = () => {
-    const { pathname } = useLocation();
+    const doctorsPath = useLocation().pathname.startsWith('/doctor');
+    const patientsPath = useLocation().pathname.startsWith('/patient');
 
     const [value, setValue] = useState(0);
 
@@ -74,7 +74,7 @@ export const Navigation = () => {
                     TabIndicatorProps={indicatorStyles}
                     sx={{ marginLeft: '26px' }}
                 >
-                    {pathname.startsWith('/patient') &&
+                    {patientsPath &&
                         patientRoutes.map((route, index) => (
                             <Tab
                                 key={index}
@@ -85,7 +85,7 @@ export const Navigation = () => {
                                 value={index}
                             />
                         ))}
-                    {pathname.startsWith('/doctor') &&
+                    {doctorsPath &&
                         doctorRoutes.map((route, index) => (
                             <Tab
                                 key={index}

@@ -6,11 +6,3 @@
     padding: 8px 16px;
     border-radius: 1000px;
 }
-.BadgeText {
-    font-weight: var(--regular-text);
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: -0.04em;
-
-    color: #111111;
-}
