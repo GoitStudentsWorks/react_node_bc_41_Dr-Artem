@@ -1,38 +1,14 @@
-.Backdrop {
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-.Modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 32px;
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 500px;
-}
-.Modal_Close {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-.Modal_Close > svg {
-    display: block;
-}
 .Modal_HeaderWrapper {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+
+    @media screen and (min-width: 768px) {
+        margin-bottom: 32px;
+    }
 }
-.Modal_Header {
-    font-weight: var(--semibold-font-weight);
-    font-size: 20px;
-    line-height: 30px;
-    color: #111111;
-}
+
 .Modal_FormItem {
     margin-bottom: 16px;
 }
@@ -99,21 +75,4 @@
     background: none;
     border: none;
     cursor: pointer;
-}
-.Modal_Form_UploadedFileDelete > svg {
-    display: block;
-}
-
-.Modal_FormBtn {
-    padding: 13px 32px;
-    text-transform: uppercase;
-    background: var(--light-orange);
-    border-radius: 12px;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-}
-.Modal_FormBtn:hover,
-.Modal_FormBtn:focus {
-    background: var(--regular-orange);
 }

@@ -1,6 +1,6 @@
-import css from './SpecializationBlock.module.css';
 import { IconButton } from '@mui/material';
 import { RxPencil1 } from 'react-icons/rx';
+import css from './SpecializationBlock.module.css';
 
 export const SpecializationBlock = () => {
     return (
@@ -16,11 +16,9 @@ export const SpecializationBlock = () => {
                     </span>
                 </li>
             </ul>
-            <div>
-                <IconButton sx={{ padding: '0' }}>
-                    <RxPencil1 style={{ color: '#477577' }} />
-                </IconButton>
-            </div>
+            <IconButton sx={{ position: 'absolute', top: '16px', right: '16px' }}>
+                <RxPencil1 style={{ color: '#477577' }} />
+            </IconButton>
         </div>
     );
 };

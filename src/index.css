@@ -90,19 +90,38 @@ a {
 input {
     outline: none;
 }
+/* main {
+    padding: 0 32px;
+} */
+.container {
+    /* max-width: 1440px; */
+    padding: 0 20px;
+    margin: 0 auto;
 
-/* swiper */
+    @media screen and (min-width: 768px) {
+        padding: 0 32px;
+    }
 
-.swiper-wrapper {
-    padding-bottom: 40px;
+    @media screen and (min-width: 1440px) {
+        padding: 0 128px;
+    }
 }
 
-.swiper-backface-hidden .swiper-slide {
-    height: auto;
+/* swiper */
+@media screen and (min-width: 1440px) {
+    .swiper {
+        padding: 0 42px;
+    }
 }
 
 .swiper-wrapper {
     padding-top: 30px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+}
+
+.swiper-backface-hidden .swiper-slide {
+    height: auto;
 }
 
 .swiper-scrollbar-drag {

@@ -19,15 +19,15 @@
     line-height: 18px;
     text-decoration-line: underline;
 }
-.PatientMedcart_ItemHeader {
+/* .PatientMedcart_ItemHeader {
     font-weight: var(--semibold-font-weight);
     font-size: 18px;
     line-height: 24px;
     margin-bottom: 16px;
     color: #111111;
-}
-.PatientMedcart_Item:first-child > .PatientMedcart_ItemHeader {
-    max-width: 200px;
+} */
+.PatientMedcart_Item:first-child > p {
+    max-width: 180px;
 }
 .PatientMedcart_Item:not(:last-child) {
     margin-bottom: 32px;
@@ -61,7 +61,7 @@
         font-size: 20px;
         line-height: 30px;
     }
-    .PatientMedcart_Item:first-child > .PatientMedcart_ItemHeader {
+    .PatientMedcart_Item:first-child > p {
         max-width: 100%;
     }
     .PatientMedcart_ItemConclusion > li > span {
@@ -82,7 +82,7 @@
         font-size: 20px;
         line-height: 30px;
     }
-    .PatientMedcart_Item:first-child > .PatientMedcart_ItemHeader {
+    .PatientMedcart_Item:first-child > p {
         max-width: 100%;
     }
     .PatientMedcart_ItemConclusion > li > span {

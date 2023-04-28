@@ -1,9 +1,5 @@
-import { Outlet } from 'react-router-dom';
+import style from './PlugPage.module.css';
 
-export const PlugPage = () => {
-    return (
-        <div>
-            <Outlet />
-        </div>
-    );
+export const PlugPage = ({ children }) => {
+    return <section className={style.gridTemplate}>{children}</section>;
 };
