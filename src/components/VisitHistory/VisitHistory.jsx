@@ -1,14 +1,7 @@
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import css from './VisitHistory.module.css';
-import plug from '../../images/ProfileBlock/plug.png';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { PagePagination } from '../PagePagination/PagePagination';
-// import useMediaQuery from '@mui/material/useMediaQuery';
-// import { useTheme } from '@mui/material/styles';
+import { Button, Divider, List, ListItem, Box, Grid } from '@mui/material';
+import plug from '../../images/ProfileBlock/plug.png';
 
 const patients = [
     { id: 1, name: 'Melnyk Victoria Petrivna', date: 'November 23/11/2023' },
@@ -23,70 +16,82 @@ const patients = [
 const gridStyles = {
     marginLeft: '0',
     marginTop: '0',
-    ' &.MuiGrid-item': {
+    alignItems: { md: 'center' },
+    '& .MuiGrid-item': {
         paddingLeft: '0',
         paddingTop: '0',
         marginLeft: '0',
         marginTop: '0',
     },
-    '&>.MuiGrid-item': {
+    '& > .MuiGrid-item': {
         paddingLeft: '0',
         paddingTop: '0',
         marginLeft: '0',
         marginTop: '0',
+    },
+    '& .visitInfo': {
+        flex: '1',
+    },
+    '& .btnWrapp': {
+        textAlign: { md: 'right' },
+        marginRight: { md: '16px', lg: '8px' },
     },
 };
 
-export const VisitHistory = () => {
-    // const theme = useTheme();
-    // const tablet = useMediaQuery(theme.breakpoints.up('md'));
+const buttonStyle = {
+    padding: { xs: '14px 28px', md: '16px 40px' },
+    fontSize: { md: '14px' },
+    lineHeight: { xs: '1.17', md: '1.4' },
+};
 
+export const VisitHistory = () => {
     return (
         <section className={css.section}>
-            <List sx={{ width: '100%', bgcolor: '#FAFAFA', padding: '32px 16px', marginBottom: '32px' }}>
-                {patients.map(({ name, date, id }) => {
+            <List
+                sx={{
+                    width: '100%',
+                    bgcolor: '#FAFAFA',
+                    padding: { xs: '32px 16px', lg: '32px' },
+                    marginBottom: { xs: '20px', md: '32px' },
+                }}
+            >
+                {patients.map(({ name, date, id }, index) => {
                     return (
                         <div key={id}>
-                            <ListItem alignItems="flex-start" sx={{ marginBottom: '20px', padding: '0px' }}>
+                            <ListItem sx={{ marginBottom: { xs: '20px', md: '16px' }, padding: '0px' }}>
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Grid
-                                        xs
-                                        zeroMinWidth
                                         container
                                         spacing={2}
-                                        sx={{ ...gridStyles, flexWrap: { xs: 'nowrap'} }}
+                                        sx={{ ...gridStyles, flexWrap: { xs: 'nowrap' }, alignItems: { md: 'center' } }}
                                     >
-                                        <Grid item sx={{...gridStyles}}>
+                                        <Grid item sx={{ ...gridStyles }}>
                                             <div className={css.imgWrapper}>
                                                 <img src={plug} alt="plug" className={css.photo} />
                                             </div>
                                         </Grid>
                                         <Grid item xs={11} sx={gridStyles}>
-                                            <Grid
-                                                md
-                                                container
-                                                spacing={3}
-                                                sx={{
-                                                    ...gridStyles,
-                                                    alignItems: 'center',
-                                                    justifyContent: 'space-between',
-                                                    marginLeft: '0',
-                                                }}
-                                            >
-                                                <Grid item xs={12} md={4} sx={gridStyles}>
+                                            <Grid container spacing={3} sx={{ ...gridStyles, width: { md: '100%' } }}>
+                                                <Grid item xs={12} md={3} lg={6} sx={gridStyles}>
                                                     <div>
                                                         <span className={css.lable}>Name</span>
                                                         <p className={css.patientName}>{name}</p>
                                                     </div>
                                                 </Grid>
-                                                <Grid item xs={12} md={4} sx={gridStyles}>
-                                                    <div>
-                                                        <span className={css.lable}>Last visit</span>
-                                                        <p className={css.visitDate}>{date}</p>
+                                                <Grid item xs={12} md={5} lg={3} sx={{ ...gridStyles }}>
+                                                    <div className={`${css.visitInfo} visitInfo`}>
+                                                        <div className={css.infoWrapp}>
+                                                            <span className={css.lable}>Last visit</span>
+                                                            <p className={css.visitDate}>{date}</p>
+                                                        </div>
                                                     </div>
                                                 </Grid>
-                                                <Grid item xs={12} md={4} sx={gridStyles}>
-                                                    <Button variant="outlined">view profile</Button>
+                                                <Grid item xs={12} md={4} lg={3} sx={gridStyles}>
+                                                    <div className={`${css.btnWrapp} btnWrapp`}>
+                                                        <Button variant="outlined" sx={buttonStyle}>
+                                                            view profile
+                                                        </Button>
+                                                    </div>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
@@ -96,7 +101,7 @@ export const VisitHistory = () => {
                             <Divider
                                 sx={{
                                     width: '100%',
-                                    marginBottom: '20px',
+                                    marginBottom: index !== patients.length - 1 ? '32px' : '0px',
                                     borderBottom: '1px solid rgba(17, 17, 17, 0.1)',
                                 }}
                             />

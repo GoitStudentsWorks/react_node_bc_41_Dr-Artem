@@ -1,10 +1,9 @@
 import Rating from '@mui/material/Rating';
 import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
-import { useState } from 'react';
 
 const labels = {
-    0: '0',
+    0: '0.0',
     0.5: '0,5',
     1: '1',
     1.5: '1.5',
@@ -17,12 +16,13 @@ const labels = {
     5: '5',
 };
 
-function getLabelText(value) {
-    return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-}
 
-export default function StarRating() {
-    const [value, setValue] = useState(2);
+
+export default function StarRating({value}) {
+
+    const getLabelText = (value) => {
+        return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+    }
 
     return (
         <Box
@@ -36,16 +36,17 @@ export default function StarRating() {
                 fontWeight: '600',
             }}
         >
-            {value !== null && <Box sx={{ mr: 1 }}>{labels[value]}</Box>}
+
+<Box sx={{ mr: 1 }}>{value ? labels[value] : labels[0]}</Box>
+
+            {/* {value !== null ? <Box sx={{ mr: 1 }}>{labels[value]}</Box> : <Box sx={{ mr: 1 }}>{labels[0]}</Box>} */}
             <Rating
                 defaultValue={0}
                 name="hover-feedback"
                 value={value}
                 precision={0.5}
                 getLabelText={getLabelText}
-                onChange={(event, newValue) => {
-                    setValue(newValue);
-                }}
+                readOnly
                 emptyIcon={<StarIcon style={{ transition: '.3s ease-in-out 0s' }} fontSize="14px" />}
             />
         </Box>
