@@ -36,7 +36,6 @@ export const EditProfileModal = () => {
             specialization,
             category,
         };
-        console.log(data);
         setCategory('');
         setSpecialization('');
     };
