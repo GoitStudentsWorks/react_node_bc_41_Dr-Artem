@@ -1,12 +1,37 @@
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+
 import ShowPassword from 'components/ShowPassword/ShowPassword';
 import { Field, Form, Formik } from 'formik';
 import css from '..//Register/Register.module.css';
+import { useDispatch } from 'react-redux';
+import { register } from 'redux/auth/operation';
 
 export const RegisterForm = () => {
-    // const initialValues = { username: '', email: '', password: '', role: '' };
+    const dispatch = useDispatch();
+    const handleSubmit = values => {
+        const newUser = {
+            name: values.username,
+            number: values.phone,
+            password: values.password,
+            role: values.role,
+        };
+        const res = dispatch(register(newUser));
+        res.then(el => {
+            console.log(typeof el.payload);
+            if (typeof el.payload === 'number') {
+                if (el.payload === 400) {
+                    NotificationManager.warning('Заповніть всі поля реєстрації');
+                } else if (el.payload === 409) {
+                    NotificationManager.error('Цей номер вже зареєстрований');
+                }
+            } else {
+                NotificationManager.success('Реєстрація успішна');
+            }
+        });
+    };
     return (
         <div className={css.wrap}>
-            <Formik>
+            <Formik initialValues={{ username: '', phone: '', password: '', role: 'patient' }} onSubmit={handleSubmit}>
                 <Form>
                     <ul className={css.formWraper}>
                         <li className={css.formItem}>
@@ -14,7 +39,7 @@ export const RegisterForm = () => {
                                 Name
                             </label>
                             {/* дoдати name і value до інпутів */}
-                            <Field type="text" placeholder="Enter your name " className={css.input} />
+                            <Field type="text" name="username" placeholder="Enter your name " className={css.input} />
                         </li>
                         <li className={css.formItem}>
                             <label htmlFor="phone" className={css.label}>
@@ -27,7 +52,12 @@ export const RegisterForm = () => {
                                 Password
                             </label>
                             <div className={css.showWraper}>
-                                <Field type="password" placeholder="Enter your password" className={css.input} />
+                                <Field
+                                    type="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    className={css.input}
+                                />
                                 <ShowPassword />
                             </div>
                         </li>
@@ -36,23 +66,16 @@ export const RegisterForm = () => {
                             <div className={css.radio}>
                                 <Field
                                     id="patient"
-                                    // name="role"
-                                    // value="patient"
+                                    name="role"
+                                    value="patient"
                                     type="radio"
                                     className={css.radioInput}
-                                    checked
                                 />
                                 <label htmlFor="patient" className={css.radioLabel}>
                                     Patient
                                 </label>
 
-                                <Field
-                                    id="doctor"
-                                    // name="role"
-                                    // value="doctor"
-                                    type="radio"
-                                    className={css.radioInput}
-                                />
+                                <Field id="doctor" name="role" value="doctor" type="radio" className={css.radioInput} />
                                 <label htmlFor="doctor" className={css.radioLabel}>
                                     Doctor
                                 </label>
@@ -64,6 +87,7 @@ export const RegisterForm = () => {
                     </button>
                 </Form>
             </Formik>
+            <NotificationContainer />
         </div>
     );
 };

@@ -1,0 +1,33 @@
+.specializationBlock {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 32px;
+    margin-bottom: 16px;
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
+    font-size: 14px;
+    line-height: 1.2;
+    background: #fafafa;
+    border-radius: 16px;
+    padding: 17px 17px 17px 32px;
+}
+
+.specializationList {
+    display: flex;
+    flex-direction: column;
+}
+
+.specializationItem:first-child {
+    margin-bottom: 10px;
+}
+
+.specializationText {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 16px;
+    line-height: 1.2;
+}
+.buttonEdit {
+    border: 0;
+    background: none;
+}

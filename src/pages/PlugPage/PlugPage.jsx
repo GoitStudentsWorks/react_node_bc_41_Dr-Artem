@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 
-export const TestPage = () => {
+export const PlugPage = () => {
     return (
         <div>
             <Outlet />
