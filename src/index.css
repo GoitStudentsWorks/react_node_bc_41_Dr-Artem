@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap'); */
 
 :root {
     /* color */
+    --main-text: #111111;
+
     --dark-green: #0f3937;
     --regular-green: #477577;
     --linear-green: linear-gradient(253.01deg, #68c494 -56.38%, #477577 105.61%, #31496d 274.54%);
@@ -16,8 +18,8 @@
     --star-filled-background: #ffc531;
 
     /* font */
-    --main-font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    /* --main-font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+        'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
     --regular-font-weight: 400;
     --medium-font-weight: 500;
     --semibold-font-weight: 600;
@@ -39,6 +41,7 @@ html {
 body {
     margin: 0;
     font-family: var(--main-font-family);
+    color: var(--main-text);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -87,19 +90,38 @@ a {
 input {
     outline: none;
 }
+/* main {
+    padding: 0 32px;
+} */
+.container {
+    /* max-width: 1440px; */
+    padding: 0 20px;
+    margin: 0 auto;
 
-/* swiper */
+    @media screen and (min-width: 768px) {
+        padding: 0 32px;
+    }
 
-.swiper-wrapper {
-    padding-bottom: 40px;
+    @media screen and (min-width: 1440px) {
+        padding: 0 128px;
+    }
 }
 
-.swiper-backface-hidden .swiper-slide {
-    height: auto;
+/* swiper */
+@media screen and (min-width: 1440px) {
+    .swiper {
+        padding: 0 42px;
+    }
 }
 
 .swiper-wrapper {
     padding-top: 30px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+}
+
+.swiper-backface-hidden .swiper-slide {
+    height: auto;
 }
 
 .swiper-scrollbar-drag {
@@ -121,4 +143,28 @@ input {
     bottom: 0;
     left: 40%;
     right: 50%;
+}
+
+/* accordion */
+.MuiAccordionSummary-content {
+    justify-content: space-between;
+}
+.MuiAccordion-root {
+    box-shadow: none;
+}
+
+.css-tlj3tq-MuiTabs-root {
+    border-bottom: none;
+}
+
+.MuiAccordionSummary-content {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+    .MuiAccordionSummary-content {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }

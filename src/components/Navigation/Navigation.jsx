@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { Box, Tab, Tabs } from '@mui/material';
+import Divider from '@mui/material/Divider';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Tabs, Tab, Box } from '@mui/material';
 
 const patientRoutes = [
     { path: '/patient/history', label: 'Medical history' },
@@ -9,16 +10,53 @@ const patientRoutes = [
 ];
 
 const doctorRoutes = [
-    { path: '/doctor/personal', label: 'Personal page' },
+    { path: '/doctor/personal/:id', label: 'Personal page' },
     { path: '/doctor/visits-history', label: 'Visit history' },
     { path: '/doctor/patients-list', label: 'List of patients' },
     { path: '/doctor/colleuges', label: 'Сolleagues' },
 ];
 
+const tabStyles = {
+    fontWeight: '700',
+    fontSize: { xs: '16', md: '18' },
+    lineHeight: { xs: '1.24', md: '1.22' },
+    color: ' #111111',
+    textTransform: 'capitalize',
+    borderRadius: '32px',
+    padding: '8px 16px',
+    marginBottom: { xs: '20px', md: '24px', lg: '32px' },
+    marginRight: { xs: '20px', md: '40px' },
+
+    '&.Mui-selected': {
+        backgroundColor: '#477577',
+        color: '#FFFFFF',
+    },
+};
+
+const indicatorStyles = {
+    style: {
+        background:
+            'linear-gradient(237.38deg, #6ED599 -5.69%, rgba(63, 76, 153, 0) 121.24%), linear-gradient(161.43deg, rgba(35, 35, 35, 0.8) 12.58%, rgba(35, 35, 35, 0) 110.88%), linear-gradient(0deg, rgba(31, 42, 106, 0.2), rgba(31, 42, 106, 0.2)), linear-gradient(208.79deg, #6ED599 3.46%, #1F2A6A 51.48%), #D9D9D9',
+        backgroundBlendMode: 'normal, normal, multiply, normal, normal',
+        borderRadius: '7px',
+        height: '4px',
+    },
+};
+
 export const Navigation = () => {
     const { pathname } = useLocation();
 
     const [value, setValue] = useState(0);
+
+    useEffect(() => {
+        if (pathname.startsWith('/patient')) {
+            const routeIndex = patientRoutes.findIndex(route => pathname.startsWith(route.path));
+            setValue(routeIndex);
+        } else if (pathname.startsWith('/doctor')) {
+            const routeIndex = doctorRoutes.findIndex(route => pathname.startsWith(route.path));
+            setValue(routeIndex);
+        }
+    }, [pathname]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -26,91 +64,46 @@ export const Navigation = () => {
 
     return (
         <>
-            <Box sx={{ fwidth: '100%' }}>
+            <Box sx={{ width: '100%', padding: { xs: '40px 20px 0px', md: '64px 32px 0px', lg: '64px 128px 0px' } }}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
                     aria-label="nav tabs"
                     variant="scrollable"
                     scrollButtons="auto"
-                    sx={{ borderBottom: '1.5px solid rgba(209, 213, 219, 0.5)' }}
-                    TabIndicatorProps={{
-                        style: {
-                            background:
-                                'linear-gradient(237.38deg, #6ED599 -5.69%, rgba(63, 76, 153, 0) 121.24%), linear-gradient(161.43deg, rgba(35, 35, 35, 0.8) 12.58%, rgba(35, 35, 35, 0) 110.88%), linear-gradient(0deg, rgba(31, 42, 106, 0.2), rgba(31, 42, 106, 0.2)), linear-gradient(208.79deg, #6ED599 3.46%, #1F2A6A 51.48%), #D9D9D9',
-                            backgroundBlendMode: 'normal, normal, multiply, normal, normal',
-                            borderRadius: '7px',
-                            height: '4px',
-                        },
-                    }}
+                    TabIndicatorProps={indicatorStyles}
+                    sx={{ marginLeft: '26px' }}
                 >
-                    {pathname === '/patient' &&
+                    {pathname.startsWith('/patient') &&
                         patientRoutes.map((route, index) => (
                             <Tab
                                 key={index}
                                 component={Link}
                                 to={route.path}
                                 label={route.label}
-                                sx={{
-                                    fontWeight: '700',
-                                    fontSize: { xs: '16', md: '18' },
-                                    lineHeight: { xs: '1.24', md: '1.22' },
-                                    color: ' #111111',
-                                    textTransform: 'capitalize',
-                                    borderRadius: '32px',
-                                    padding: '8px 16px',
-                                    marginBottom: { xs: '20px', md: '24px', lg: '32px' },
-                                    marginRight: { xs: '20px', md: '40px' },
-
-                                    '&.Mui-selected': {
-                                        backgroundColor: '#477577',
-                                        color: '#FFFFFF',
-                                    },
-                                }}
+                                sx={tabStyles}
+                                value={index}
                             />
                         ))}
-                    {pathname === '/doctor' &&
+                    {pathname.startsWith('/doctor') &&
                         doctorRoutes.map((route, index) => (
                             <Tab
                                 key={index}
                                 component={Link}
                                 to={route.path}
                                 label={route.label}
-                                sx={{
-                                    fontWeight: '700',
-                                    fontSize: { xs: '16', md: '18' },
-                                    lineHeight: { xs: '1.24', md: '1.22' },
-                                    color: ' #111111',
-                                    textTransform: 'capitalize',
-                                    borderRadius: '32px',
-                                    padding: '8px 16px',
-                                    marginBottom: { xs: '20px', md: '24px', lg: '32px' },
-                                    marginRight: { xs: '20px', md: '40px' },
-
-                                    '&.Mui-selected': {
-                                        backgroundColor: '#477577',
-                                        color: '#FFFFFF',
-                                    },
-                                }}
+                                sx={tabStyles}
+                                value={index}
                             />
                         ))}
                 </Tabs>
+                <Divider
+                    sx={{
+                        borderBottom: '1.5px solid rgba(209, 213, 219, 0.5)',
+                        width: '100%',
+                    }}
+                />
             </Box>
         </>
     );
 };
-
-// Головний роут /patient
-
-//   - /history  - приватний роут. Переадресовує на сторінку MedicalHistoryPage.
-//   - /doctors - приватний роут. Переадресовує на сторінку DoctorsPage.
-//   - /visits-history - приватний роут. Переадресовує на сторінку VisitsHistoryPage.
-
-// Головний роут /doctor
-
-//   - /personal  - приватний роут. Переадресовує на сторінку PersonalPage.
-//   - /visits-history - приватний роут. Переадресовує на сторінку VisitsHistoryDoctorPage.
-//   - /patients-list - приватний роут. Переадресовує на сторінку PatientsListPage.
-//   - /colleuges - приватний роут. Переадресовує на сторінку ColleugesPage.
-
-// *На планшетній і мобільній версіях компонент повинен бути scrollable."

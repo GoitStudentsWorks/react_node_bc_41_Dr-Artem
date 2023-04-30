@@ -1,4 +1,6 @@
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { App } from 'components/App';
+import theme from 'muiTheme/theme';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -11,9 +13,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
             <PersistGate loading={null} persistor={persistor}>
-                <Router basename="/MedDoc-front">
-                    <App />
-                </Router>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <Router basename="/MedDoc-front">
+                        <App />
+                    </Router>
+                </ThemeProvider>
             </PersistGate>
         </Provider>
     </React.StrictMode>
