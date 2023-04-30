@@ -13,5 +13,5 @@
 
 .btnGrup:hover,
 .btnGrup:focus {
-    border-color: var(--main-text);
+    border-color: var(--dark-green);
 }

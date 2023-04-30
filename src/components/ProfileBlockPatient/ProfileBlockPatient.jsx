@@ -8,9 +8,15 @@ import { useLocation } from 'react-router';
 import check from '../../images/ProfileBlock/check.svg';
 import plug from '../../images/ProfileBlock/plug.png';
 import css from './ProfileBlockPatient.module.css';
+import { AppointmentModal } from '../AppointmentModal/AppointmentModal';
+import { useState } from 'react';
 
 export const ProfileBlockPatient = ({ children }) => {
-    const personalLoc = useLocation().pathname.startsWith('/patient/history/');
+    
+const [appModal, setAppModal] = useState(false);
+
+
+    const personalLoc = useLocation().pathname.startsWith('/patient/');
     return (
         <Card>
             <Badge>Patient</Badge>
@@ -31,7 +37,7 @@ export const ProfileBlockPatient = ({ children }) => {
                     </li>
                 </ul>
                 {personalLoc && (
-                    <Button variant="outlined" color="primary" type="submit">
+                    <Button variant="outlined" color="primary" type="submit" onClick={() => setAppModal(!appModal)}>
                         make an appointment
                     </Button>
                 )}
@@ -43,6 +49,7 @@ export const ProfileBlockPatient = ({ children }) => {
                     <UilPen style={{ width: '20px', height: '20px' }} />
                 </IconButton>
             )}
+            <AppointmentModal open={appModal} setApp={setAppModal}/>
         </Card>
     );
 };
