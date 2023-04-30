@@ -52,7 +52,7 @@ export const DatePickerMonth = () => {
                         cursor: 'pointer',
                     
                         '&:hover, &:focus': {
-                            borderColor: '#111111',
+                            borderColor: '#477577',
                             outline: 'none',
                         },
                         '.MuiInputBase-root': {
