@@ -14,7 +14,7 @@ import DoctorMain from 'pages/DoctorMain/DoctorMain';
 import ListOfPatients from 'pages/DoctorMain/ListOfPatients/ListOfPatients';
 import ListOfPatientsProfile from 'pages/DoctorMain/ListOfPatientsProfile/ListOfPatientsProfile';
 import Personal from 'pages/DoctorMain/Personal/Personal';
-import {VisitHistory} from '../components/VisitHistory/VisitHistory' 
+import { VisitHistory } from '../components/VisitHistory/VisitHistory';
 
 export const App = () => {
     return (
