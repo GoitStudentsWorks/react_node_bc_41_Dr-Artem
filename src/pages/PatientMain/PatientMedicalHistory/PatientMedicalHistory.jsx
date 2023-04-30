@@ -5,7 +5,9 @@ const PatientMedicalHistory = () => {
     return (
         <>
             <ProfileBlockPatient />
-            <AnalysisBlock />
+            <div>
+                <AnalysisBlock />
+            </div>
         </>
     );
 };

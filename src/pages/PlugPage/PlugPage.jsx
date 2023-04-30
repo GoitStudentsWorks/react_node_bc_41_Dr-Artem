@@ -1,5 +1,9 @@
 import style from './PlugPage.module.css';
 
 export const PlugPage = ({ children }) => {
-    return <section className={style.gridTemplate}>{children}</section>;
+    return (
+        <section className="section">
+            <div className={style.gridTemplate}>{children}</div>
+        </section>
+    );
 };

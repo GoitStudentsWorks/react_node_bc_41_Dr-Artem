@@ -7,8 +7,10 @@ import css from './Personal.module.css';
 const Personal = () => {
     return (
         <>
-            <ProfileBlockDoctore />
-            <SpecializationBlock />
+            <div className={css.DoctorInformation}>
+                <ProfileBlockDoctore />
+                <SpecializationBlock />
+            </div>
             <div className={css.pageAboutBlock}>
                 <AboutBlock />
                 <WeekVisitsBlock />

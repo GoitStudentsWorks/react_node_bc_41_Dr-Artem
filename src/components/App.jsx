@@ -22,7 +22,14 @@ export const App = () => {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<MainPage />} />
                     <Route path="patient" element={<PatientMain />}>
-                        <Route path="history" element={<PatientMedicalHistory />} />
+                        <Route
+                            path="history"
+                            element={
+                                <PlugPage>
+                                    <PatientMedicalHistory />
+                                </PlugPage>
+                            }
+                        />
                         <Route path="doctors" element={<PlugPage />} />
                         <Route path="visits-history" element={<PatientVisitsToDoctor />} />
                     </Route>

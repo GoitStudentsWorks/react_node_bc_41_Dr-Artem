@@ -36,36 +36,39 @@ const ListOfPatientsProfile = () => {
 
     return (
         <>
-            <ProfileBlockPatient />
-            <div className={style.PatientResults}>
-                <ul className={style.PatientResults_VisitRecord}>
-                    <li>
-                        Doctor:<span>Shumeiko Timur</span>
-                    </li>
-                    <li>
-                        Date:<span>16/12/2021</span>
-                    </li>
-                </ul>
-                <ul className={style.PatientResults_Details}>
-                    {analysis.map(({ name }) => {
-                        return (
-                            <li>
-                                <Icon color="primary">
-                                    <UilFileAlt style={{ width: '20px', height: '20px' }} />
-                                </Icon>
-                                {name}
-                            </li>
-                        );
-                    })}
-                </ul>
-                <IconButton
-                    color="primary"
-                    sx={{ position: 'absolute', top: '16px', right: '16px' }}
-                    onClick={() => setOpen(true)}
-                >
-                    <RxPencil1 style={{ width: '20px', height: '20px' }} />
-                </IconButton>
+            <div className={style.PatientInformation}>
+                <ProfileBlockPatient />
+                <div className={style.PatientResults}>
+                    <ul className={style.PatientResults_VisitRecord}>
+                        <li>
+                            Doctor:<span>Shumeiko Timur</span>
+                        </li>
+                        <li>
+                            Date:<span>16/12/2021</span>
+                        </li>
+                    </ul>
+                    <ul className={style.PatientResults_Details}>
+                        {analysis.map(({ name }) => {
+                            return (
+                                <li>
+                                    <Icon color="primary">
+                                        <UilFileAlt style={{ width: '20px', height: '20px' }} />
+                                    </Icon>
+                                    {name}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    <IconButton
+                        color="primary"
+                        sx={{ position: 'absolute', top: '16px', right: '16px' }}
+                        onClick={() => setOpen(true)}
+                    >
+                        <RxPencil1 style={{ width: '20px', height: '20px' }} />
+                    </IconButton>
+                </div>
             </div>
+
             {currentMedcart}
             <ResultsEditModal open={open} setOpen={setOpen} />
         </>
