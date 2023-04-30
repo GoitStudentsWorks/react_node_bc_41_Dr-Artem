@@ -14,6 +14,7 @@ import DoctorMain from 'pages/DoctorMain/DoctorMain';
 import ListOfPatients from 'pages/DoctorMain/ListOfPatients/ListOfPatients';
 import ListOfPatientsProfile from 'pages/DoctorMain/ListOfPatientsProfile/ListOfPatientsProfile';
 import Personal from 'pages/DoctorMain/Personal/Personal';
+import {VisitHistory} from '../components/VisitHistory/VisitHistory' 
 
 export const App = () => {
     return (
@@ -35,7 +36,7 @@ export const App = () => {
                                 </PlugPage>
                             }
                         />
-                        <Route path="visits-history" element={<PlugPage />} />
+                        <Route path="visits-history" element={<VisitHistory />} />
                         <Route path="patients-list" element={<ListOfPatients />} />
                         <Route
                             path="patients-list/:id"

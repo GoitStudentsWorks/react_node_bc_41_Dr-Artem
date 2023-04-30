@@ -1,6 +1,6 @@
 import StarIcon from '@mui/icons-material/Star';
 import Rating from '@mui/material/Rating';
-import { DatePickers } from 'components/DatePickers/DatePickers';
+import { DatePickerMonth } from 'components/DatePickers/DatePickerMonth';
 import { RatingModal } from 'components/RatingModal/RatingModal';
 import { useState } from 'react';
 import { DoctorInfoCard } from '../../../components/DoctorInfoCard/DoctorInfoCard';
@@ -59,7 +59,7 @@ const PatientVisitsToDoctor = () => {
     return (
         <section className={css.section}>
             <h3 className={css.sectionTitle}>Visits</h3>
-            <DatePickers />
+            <DatePickerMonth />
             <ul className={css.visitsList}>
                 {currentAppointments.map(({ doctor, specialization, date, time, rating }) => {
                     const doctorData = {
