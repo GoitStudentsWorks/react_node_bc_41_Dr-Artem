@@ -58,11 +58,10 @@
     color: #ffffff;
 }
 .info_text {
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 400;
+    font-family: var(--main-font-family);
+    font-weight: var(--regular-font-weight);
     font-size: 16px;
-    line-height: 28px;
+    line-height: 1.75;
     /* or 175% */
 
     color: #ffffff;

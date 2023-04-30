@@ -2,6 +2,7 @@ import { UilBrightnessPlus, UilPen } from '@iconscout/react-unicons';
 import { Button, IconButton } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
+import MedicalHistoryModalPencil from 'components/MedicalHistoryModalPencil/MedicalHistoryModalPencil';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import { useLocation } from 'react-router';
 import check from '../../images/ProfileBlock/check.svg';
