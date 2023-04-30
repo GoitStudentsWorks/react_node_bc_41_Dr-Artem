@@ -6,7 +6,7 @@ import { Navigation } from '../../components/Navigation/Navigation';
 function MainPage() {
     return (
         <>
-        <Navigation/>
+            <Navigation />
             <ChosenBlock />
             <DoctorAppointment />
             <Rewiews />

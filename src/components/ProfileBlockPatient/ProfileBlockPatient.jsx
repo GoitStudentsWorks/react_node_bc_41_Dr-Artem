@@ -1,15 +1,18 @@
+import * as React from 'react';
 import plug from '../../images/ProfileBlock/plug.png';
 import pen from '../../images/ProfileBlock/pen.svg';
 import check from '../../images/ProfileBlock/check.svg';
 import css from './ProfileBlockPatient.module.css';
+import MedicalHistoryModalPencil from 'components/MedicalHistoryModalPencil/MedicalHistoryModalPencil';
 
 export const ProfileBlockPatient = () => {
     return (
         <div className={css.wrapper}>
             <p className={css.role}>Patient</p>
-            <button type="button" className={css.penButton}>
+            <MedicalHistoryModalPencil type="button" className={css.penButton}>
                 <img src={pen} alt="pen" className={css.penImg} />
-            </button>
+            </MedicalHistoryModalPencil>
+
             <div className={css.case}>
                 <div className={css.imgWrapper}>
                     <img src={plug} alt="plug" className={css.photo} />

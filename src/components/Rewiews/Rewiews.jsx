@@ -15,7 +15,6 @@ function Rewiews() {
             <h2 className={s.rewiews_header}>Reviews</h2>
             <Swiper
                 spaceBetween={50}
-                // slidesPerView={2}
                 modules={[Navigation, Pagination, A11y]}
                 breakpoints={{
                     375: {
@@ -56,7 +55,6 @@ function Rewiews() {
                         </p>
                     </SwiperSlide>
                 </div>
-
                 <SwiperNavButtons />
             </Swiper>
         </div>
