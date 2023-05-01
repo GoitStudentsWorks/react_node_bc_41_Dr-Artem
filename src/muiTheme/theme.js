@@ -410,6 +410,27 @@ const theme = createTheme({
                 }),
             },
         },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    fontWeight: '700',
+                    fontSize: '16px',
+                    lineHeight: 1.24,
+                    color: 'text.black',
+                    textTransform: 'capitalize',
+                    borderRadius: '32px',
+                    padding: '8px 16px',
+                    minHeight: '0',
+                    marginBottom: '20px',
+                    marginRight: '20px',
+
+                    '&.Mui-selected': {
+                        backgroundColor: COLOR.green,
+                        color: COLOR.white,
+                    },
+                },
+            },
+        },
         // MuiButtonBase: {
         //     styleOverrides: {
         //         root: {

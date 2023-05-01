@@ -1,6 +1,6 @@
 import { UilFileAlt, UilLink, UilTrashAlt } from '@iconscout/react-unicons';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, Icon, IconButton, Input, Modal, Typography } from '@mui/material';
+import { Box, Button, Icon, IconButton, Input, InputLabel, Modal, Typography } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -68,19 +68,14 @@ export const ResultsEditModal = ({ open, setOpen }) => {
     };
 
     return (
-        <Modal
-            open={open}
-            onClose={() => setOpen(false)}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
+        <Modal open={open} onClose={() => setOpen(false)}>
             <Box sx={modalProperty}>
                 <div className={style.Modal_HeaderWrapper}>
                     <Typography
                         variant="subtitle"
                         component="p"
                         color="text.black"
-                        sx={{ fontSize: { md: '20px', lineHeight: { md: '30px' } } }}
+                        sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
                     >
                         Edit data
                     </Typography>
@@ -91,7 +86,9 @@ export const ResultsEditModal = ({ open, setOpen }) => {
                 <form className={style.Modal_Form} onSubmit={handleSubmit}>
                     <ul className={style.Modal_FormList}>
                         <li className={style.Modal_FormItem}>
-                            <p className={style.Modal_FormItemHead}>Doctor</p>
+                            <InputLabel variant="standard" color="primary" sx={{ mb: '8px' }}>
+                                Doctor
+                            </InputLabel>
                             <Input
                                 variant="primary"
                                 color="primary"

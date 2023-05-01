@@ -2,15 +2,16 @@ import { UilBrightnessPlus, UilPen } from '@iconscout/react-unicons';
 import { Button, IconButton } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
-import MedicalHistoryModalPencil from 'components/MedicalHistoryModalPencil/MedicalHistoryModalPencil';
+import ModalEditPatientProfile from 'components/ModalEditPatientProfile/ModalEditPatientProfile';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
-import { AppointmentModal } from '../AppointmentModal/AppointmentModal';
+import { ModalMakeAppointment } from '../ModalMakeAppointment/ModalMakeAppointment';
 import css from './ProfileBlockPatient.module.css';
 
 export const ProfileBlockPatient = ({ children }) => {
-    const [appModal, setAppModal] = useState(false);
+    const [modalAppointment, setModalAppointment] = useState(false);
+    const [mmodalProfile, setMmodalProfile] = useState(false);
 
     const personalLoc = useLocation().pathname.startsWith('/patient/');
     return (
@@ -39,7 +40,7 @@ export const ProfileBlockPatient = ({ children }) => {
                                 variant="outlined"
                                 color="primary"
                                 type="submit"
-                                onClick={() => setAppModal(!appModal)}
+                                onClick={() => setModalAppointment(!modalAppointment)}
                             >
                                 make an appointment
                             </Button>
@@ -49,12 +50,16 @@ export const ProfileBlockPatient = ({ children }) => {
                 </div>
 
                 {personalLoc && (
-                    <MedicalHistoryModalPencil />
-                    // <IconButton color="primary" sx={{ position: 'absolute', top: '16px', right: '16px' }}>
-                    //     <UilPen style={{ width: '20px', height: '20px' }} />
-                    // </IconButton>
+                    <IconButton
+                        color="primary"
+                        sx={{ position: 'absolute', top: '16px', right: '16px' }}
+                        onClick={() => setMmodalProfile(!mmodalProfile)}
+                    >
+                        <UilPen style={{ width: '20px', height: '20px' }} />
+                    </IconButton>
                 )}
-                <AppointmentModal open={appModal} setApp={setAppModal} />
+                <ModalEditPatientProfile open={mmodalProfile} setApp={setMmodalProfile} />
+                <ModalMakeAppointment open={modalAppointment} setApp={setModalAppointment} />
             </Card>
         </>
     );
