@@ -40,6 +40,7 @@ export const RegisterForm = () => {
             password: values.password,
             role: values.role,
         };
+        console.log(newUser);
         const res = dispatch(register(newUser));
         res.then(el => {
             console.log(typeof el.payload);
@@ -60,7 +61,7 @@ export const RegisterForm = () => {
         setShow(show => !show);
     };
 
-    const initialValues = { username: '', phone: '', password: '', role: 'patient' };
+    const initialValues = { username: '', phone: '', password: '', role: 'Patient' };
 
     return (
         <div className={css.wrap}>
@@ -102,19 +103,18 @@ export const RegisterForm = () => {
                             {/* RADIO */}
                             <div className={css.radio}>
                                 <Field
-                                    id="patient"
+                                    id="Patient"
                                     name="role"
-                                    value="patient"
+                                    value="Patient"
                                     type="radio"
                                     className={css.radioInput}
-                                    checked
                                 />
-                                <label htmlFor="patient" className={css.radioLabel}>
+                                <label htmlFor="Patient" className={css.radioLabel}>
                                     Patient
                                 </label>
 
-                                <Field id="doctor" name="role" value="doctor" type="radio" className={css.radioInput} />
-                                <label htmlFor="doctor" className={css.radioLabel}>
+                                <Field id="Doctor" name="role" value="Doctor" type="radio" className={css.radioInput} />
+                                <label htmlFor="Doctor" className={css.radioLabel}>
                                     Doctor
                                 </label>
                             </div>
