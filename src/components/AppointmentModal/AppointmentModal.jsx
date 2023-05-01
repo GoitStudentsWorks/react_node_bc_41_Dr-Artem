@@ -128,7 +128,7 @@ export const AppointmentModal = ({ open, setApp }) => {
                 </div>
                 <p className={css.text}>Choose the desired appointment time and wait for confirmation</p>
                 <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom: '32px' }}>
-                    <span className={css.lable}>Specialization</span>
+                    <span className={css.label}>Specialization</span>
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -139,7 +139,7 @@ export const AppointmentModal = ({ open, setApp }) => {
                         renderInput={params => <TextField {...params} sx={inputStyles}  placeholder="Enter specialization"/>}
                     />
 
-                    <span className={css.lableDoc}>Doctors</span>
+                    <span className={css.labelDoc}>Doctors</span>
                     <Autocomplete
                         disablePortal
                         id="combo-box-demo"
@@ -168,7 +168,7 @@ export const AppointmentModal = ({ open, setApp }) => {
                         );
                     })}
                 </Box>
-                <Button type="submit" variant="contained" color="secondary" sx={buttonStyle} onClick={handleSubmit}>
+                <Button disableElevation type="submit" variant="contained" color="secondary" sx={buttonStyle} onClick={handleSubmit}>
                     send
                 </Button>
             </Box>
