@@ -4,11 +4,15 @@ import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
 import MedicalHistoryModalPencil from 'components/MedicalHistoryModalPencil/MedicalHistoryModalPencil';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
+import { useState } from 'react';
 import { useLocation } from 'react-router';
+import { AppointmentModal } from '../AppointmentModal/AppointmentModal';
 import css from './ProfileBlockPatient.module.css';
 
 export const ProfileBlockPatient = ({ children }) => {
-    const personalLoc = useLocation().pathname.startsWith('/patient');
+    const [appModal, setAppModal] = useState(false);
+
+    const personalLoc = useLocation().pathname.startsWith('/patient/');
     return (
         <>
             <Card>
@@ -31,7 +35,12 @@ export const ProfileBlockPatient = ({ children }) => {
                             </li>
                         </ul>
                         {personalLoc && (
-                            <Button variant="outlined" color="primary" type="submit">
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                type="submit"
+                                onClick={() => setAppModal(!appModal)}
+                            >
                                 make an appointment
                             </Button>
                         )}
@@ -45,6 +54,7 @@ export const ProfileBlockPatient = ({ children }) => {
                     //     <UilPen style={{ width: '20px', height: '20px' }} />
                     // </IconButton>
                 )}
+                <AppointmentModal open={appModal} setApp={setAppModal} />
             </Card>
         </>
     );
