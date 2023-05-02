@@ -13,15 +13,13 @@ const authSlice = createSlice({
     initialState,
     extraReducers: {
         [register.fulfilled](state, action) {
+            console.log(action.payload);
             state.user.id = action.payload._id;
             state.user.username = action.payload.name;
             state.user.phone = action.payload.number;
             state.user.role = action.payload.role;
             state.user.avatarURL = action.payload.avatarURL;
-            state.user.accessToken = action.payload.verificationToken;
-
-            state.refreshToken = action.payload.refreshToken;
-            state.isLoggedIn = true;
+            state.accessToken = action.payload.token;
         },
         [login.fulfilled](state, action) {
             state.user.id = action.payload._id;
@@ -29,9 +27,8 @@ const authSlice = createSlice({
             state.user.phone = action.payload.number;
             state.user.role = action.payload.role;
             state.user.avatarURL = action.payload.avatarURL;
-            state.user.accessToken = action.payload.token;
+            state.accessToken = action.payload.token;
 
-            state.refreshToken = action.payload.refreshToken;
             state.isLoggedIn = true;
         },
         [register.rejected](state, action) {

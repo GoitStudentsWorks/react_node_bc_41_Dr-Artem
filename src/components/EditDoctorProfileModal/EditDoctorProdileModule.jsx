@@ -1,30 +1,12 @@
-import { useState } from 'react';
-import { Box, IconButton, Modal, Typography, Button, Input, InputLabel } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, IconButton, Input, InputLabel, Modal, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
-import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
-// import { Form, Formik } from 'formik';
-// import * as yup from 'yup';
-import CloseIcon from '@mui/icons-material/Close';
+import { useState } from 'react';
 import css from '../EditDoctorProfileModal/EditDoctorProfileModule.module.css';
-
-// const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
-
-// const schema = yup.object().shape({
-//     name: yup
-//         .string()
-//         .min(3, 'Username must be at least 3 characters')
-//         .max(200, 'Username must be less than or equal to 200 characters')
-//         .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
-//         .required('Username is a required field'),
-//     gender: yup.string().required(),
-//     date: yup.date().required(),
-//     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
-//     about: yup.string().required(),
-// });
-
 
 const style = {
     position: 'absolute',
@@ -40,32 +22,29 @@ const style = {
 };
 
 const EditDoctorProfileModal = ({ open, setApp }) => {
-    const [name, setName] = useState(null);
-    const [gender, setGender] = useState(null);
-    const [selectedDate, setSelectData] = useState(dayjs);
-    const [phone, setPhone] = useState(null);
-    const [about, setAbout] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(dayjs);
 
-    const handleNameChange = value => setName(value);
-    const handleGenderChange = value => setGender(value);
-    const handleDateChange = newDate => {
-        const formatedDate = newDate.format('DD.MM.YYYY')
-        setSelectData(formatedDate)
-    };
-    const handlePhoneChange = value => setPhone(value);
-    const handleAboutChange = value => setAbout(value);
-
+    function handleDateChange(date) {
+        setSelectedDate(date);
+    }
 
     const handleSubmit = event => {
         event.preventDefault();
         const formData = new FormData(event.target);
 
         if (selectedDate) {
-            formData.append('date', selectedDate.toISOString());
+            formData.append('date', selectedDate.format('MM/DD/YYYY'));
         }
-        
-        console.log(formData.get('date'));
 
+        const data = {
+            name: formData.get('name'),
+            gender: formData.get('gender'),
+            date: formData.get('date'),
+            phone: formData.get('phone'),
+            about: formData.get('about'),
+        };
+        console.log(data);
+        setApp(!open);
     };
 
     return (
@@ -92,8 +71,6 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                value={name}
-                                onChange={handleNameChange}
                             />
                         </li>
                         <li>
@@ -107,15 +84,13 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                 type="text"
                                 id="gender"
                                 name="gender"
-                                value={gender}
-                                onChange={handleGenderChange}
                             />
                         </li>
                         <li>
+                            <InputLabel variant="standard" color="primary" htmlFor="date">
+                                Date of birth
+                            </InputLabel>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <InputLabel variant="standard" color="primary" htmlFor="date">
-                                    Date of birth
-                                </InputLabel>
                                 <DemoItem id="date" name="date" components={['DatePicker']}>
                                     <DatePicker
                                         sx={{ width: '100%' }}
@@ -136,8 +111,6 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                 disableUnderline
                                 id="phone"
                                 name="phone"
-                                value={phone}
-                                onChange={handlePhoneChange}
                             />
                         </li>
                         <li>
@@ -154,21 +127,18 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                 multiline
                                 rows={4}
                                 placeholder="Enter your text"
-                                value={about}
-                                onChange={handleAboutChange}
                             />
                         </li>
                     </ul>
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        sx={{ p: { md: '13px 32px' }, marginTop: '32px' }}
+                    >
+                        Save
+                    </Button>
                 </form>
-                <Button
-                    
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                    sx={{ p: { md: '13px 32px' }, marginTop: '32px' }}
-                >
-                    Save
-                </Button>
             </Box>
         </Modal>
     );
