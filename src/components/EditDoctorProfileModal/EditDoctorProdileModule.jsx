@@ -22,7 +22,7 @@ const style = {
 };
 
 const EditDoctorProfileModal = ({ open, setApp }) => {
-    const [selectedDate, setSelectedDate] = useState(dayjs.format('MM/DD/YYYY'));
+    const [selectedDate, setSelectedDate] = useState(dayjs);
 
     function handleDateChange(date) {
         setSelectedDate(date);
