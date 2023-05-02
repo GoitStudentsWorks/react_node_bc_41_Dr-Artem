@@ -22,6 +22,7 @@ const token = {
 
 export const register = createAsyncThunk('/auth/register', async (credentials, { rejectWithValue }) => {
     try {
+
         const { data } = await api.post('/auth/register', credentials);
         token.set(data.token);
         return data;
