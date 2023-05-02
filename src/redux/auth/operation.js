@@ -12,11 +12,11 @@ const api = axios.create({
 
 const token = {
     set(token) {
-        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+        axios.defaults.headers.Authorization = `Bearer ${token}`;
     },
 
     unset() {
-        axios.defaults.headers.common.Authorization = '';
+        axios.defaults.headers.Authorization = '';
     },
 };
 
