@@ -6,7 +6,7 @@ import { infoReducer } from './info/slice';
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['accessToken', 'refreshToken'],
+    whitelist: ['accessToken', 'user'],
 };
 
 export const store = configureStore({

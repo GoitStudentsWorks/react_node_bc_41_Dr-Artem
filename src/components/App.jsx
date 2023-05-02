@@ -16,10 +16,23 @@ import ListOfPatients from 'pages/DoctorMain/ListOfPatients/ListOfPatients';
 import ListOfPatientsProfile from 'pages/DoctorMain/ListOfPatientsProfile/ListOfPatientsProfile';
 import Personal from 'pages/DoctorMain/Personal/Personal';
 import { VisitHistory } from '../components/VisitHistory/VisitHistory';
-
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getUserInfoById } from 'redux/info/operation';
+import { selectUserInfoById } from 'redux/info/selectors';
+import { useEffect } from 'react';
 export const App = () => {
+    const dispatch = useDispatch();
+    const data = useSelector(selectUserInfoById);
+
+    const onClick = () => {
+        dispatch(getUserInfoById('64417972d4e00b5a6bb8389a'));
+        console.log(data);
+    };
+
     return (
         <>
+            <button onClick={onClick}>GO</button>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<MainPage />} />
