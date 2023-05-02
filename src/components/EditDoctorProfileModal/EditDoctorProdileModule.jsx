@@ -44,6 +44,7 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
             about: formData.get('about'),
         };
         console.log(data);
+        setApp(!open);
     };
 
     return (
@@ -70,7 +71,6 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                 type="text"
                                 id="name"
                                 name="name"
-                                value="Artem"
                             />
                         </li>
                         <li>
@@ -134,7 +134,6 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                         type="submit"
                         variant="contained"
                         color="secondary"
-                        onClick={() => setApp(!open)}
                         sx={{ p: { md: '13px 32px' }, marginTop: '32px' }}
                     >
                         Save
