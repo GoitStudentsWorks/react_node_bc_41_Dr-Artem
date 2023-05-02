@@ -31,27 +31,6 @@ export const ProfileBlockDoctore = ({ children }) => {
                             </li>
                         )}
 
-<<<<<<< HEAD
-                    <li className={css.item}>
-                        Date of birth:<p className={css.data}>12/05/1992</p>
-                    </li>
-                    <li className={css.item}>
-                        Phone number:<p className={css.data}>+380 (97) 77 77 7 77</p>
-                    </li>
-                    <li className={css.item}>
-                        Price:<p className={css.data}>750 UAH /1 hour</p>
-                    </li>
-                </ul>
-                {/* {personalLoc && ( */}
-                    <Button color="primary" onClick={() => setAppModal(!appModal)} >
-                        <UilPen style={{ width: '20px', height: '20px' }} />
-                        <Typography color="text.black" sx={{ lineHeight: 1.285, textTransform: 'none' }}>
-                            Edit profile
-                        </Typography>
-                    </Button>
-                {/* )} */}
-                {children}
-=======
                         <li className={css.item}>
                             Date of birth:<p className={css.data}>12/05/1992</p>
                         </li>
@@ -72,9 +51,8 @@ export const ProfileBlockDoctore = ({ children }) => {
                     )}
                     {children}
                 </div>
->>>>>>> baf27c8c0d2eb49929452ca12851d9686528dbe2
             </div>
-        <EditDoctorProfileModal open={appModal} setApp={setAppModal}/>
+            <EditDoctorProfileModal open={appModal} setApp={setAppModal} />
         </Card>
     );
 };
