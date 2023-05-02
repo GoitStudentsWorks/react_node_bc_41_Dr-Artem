@@ -1,40 +1,11 @@
-import dayjs from 'dayjs';
+import { useState } from 'react';
+import { IconButton, Divider } from '@mui/material';
+import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { MobileDatePicker, DatePicker } from '@mui/x-date-pickers';
-import { useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { IconButton } from '@mui/material';
+import dayjs from 'dayjs';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import css from './DatePickers.module.css';
-import Divider from '@mui/material/Divider';
-
-
-const mobileDatePickerStyles = {
-    marginRight: '8px',
-    '& .css-1lugbff-MuiPickersLayout-root': {
-      display: 'block!important',
-  },
-    '& .MuiInputBase-input': {
-        border: '1px solid rgba(71, 117, 119, 0.3)',
-        borderRadius: '10000px',
-        textAlign: 'center',
-        fontWeight: '600',
-        fontSize: '14px',
-        lineHeight: '1.3',
-        padding: '8px 16px',
-        color: ' #111111',
-        cursor: 'pointer',
-        '&:hover, &:focus': {
-            borderColor: '#477577',
-        },
-    },
-
-    '& .MuiOutlinedInput-notchedOutline': {
-        display: 'none',
-    },
-};
 
 const iconButtonStyles = {
     color: '#477577',
@@ -44,108 +15,108 @@ const iconButtonStyles = {
     },
 };
 
-const disabledIconButtonStyles = {
-    color: '#DCE3E5',
-    '&:hover, &:focus': {
-        backgroundColor: 'transparent',
-        color: '#DCE3E5',
-    },
-};
-
-export const DatePickers = () => {
-    const [isToday, setIsToday] = useState(true);
+export const DatePickers = ({ onDateSelected }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()));
-    const [value, setValue] = useState(null);
-    const { pathname } = useLocation();
-
-    useEffect(() => {
-        const currentDate = dayjs(Date.now());
-
-        setSelectedDate(prevDate => {
-            if (prevDate <= currentDate) {
-                setIsToday(true);
-            } else {
-                setIsToday(false);
-            }
-            return prevDate;
-        });
-    }, []);
 
     const handleDateChange = newDate => {
-        const currentDate = dayjs(Date.now());
+        setSelectedDate(newDate);
 
-        if (newDate <= currentDate) {
-            setIsToday(true);
-            setSelectedDate(currentDate);
-        } else {
-            setSelectedDate(newDate);
-            setIsToday(false);
-        }
+        const formattedDate = newDate.format('DD.MM.YYYY');
+        onDateSelected(formattedDate);
     };
 
     const onBackClick = () => {
-        const currentDate = dayjs(Date.now());
         const newDate = dayjs(selectedDate).subtract(1, 'day');
+        setSelectedDate(newDate);
 
-        if (newDate <= currentDate) {
-            setIsToday(true);
-            setSelectedDate(currentDate);
-        } else {
-            setSelectedDate(newDate);
-            setIsToday(false);
-        }
+        const formattedDate = newDate.format('DD.MM.YYYY');
+        onDateSelected(formattedDate);
     };
 
     const onForwardClick = () => {
         const newDate = dayjs(selectedDate).add(1, 'day');
-
         setSelectedDate(newDate);
-        setIsToday(false);
+
+        const formattedDate = newDate.format('DD.MM.YYYY');
+        onDateSelected(formattedDate);
     };
-
     return (
-        <>
-            {pathname === '/patient/visits-history' || pathname === '/doctor/patients-list/:id' ? (
-                <div className={css.wrapp}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <MobileDatePicker
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            format="MMMM - DD/MM/YYYY"
-                            sx={{ ...mobileDatePickerStyles }}
-                        />
-                    </LocalizationProvider>
-                    <div className={css.btnGrup}>
-                        <IconButton
-                            disabled={isToday}
-                            onClick={onBackClick}
-                            sx={isToday ? disabledIconButtonStyles : iconButtonStyles}
-                        >
-                            <ArrowBackIosNewIcon />
-                        </IconButton>
-                        <Divider
-                            orientation="vertical"
-                            flexItem
-                            sx={{
-                                border: '1px solid rgba(220, 227, 229, 0.5)',
-                            }}
-                        />
+        <div className={css.wrapp}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <MobileDatePicker
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    format="MMM - DD/MM/YYYY"
+                    sx={{
+                        border: '1px solid rgba(71, 117, 119, 0.3)',
+                        borderRadius: '10000px',
+                        marginRight: '8px',
+                        padding: '6px 16px',
+                        color: '#111111',
+                        cursor: 'pointer',
 
-                        <IconButton onClick={onForwardClick} sx={iconButtonStyles}>
-                            <ArrowForwardIosIcon />
-                        </IconButton>
-                    </div>
-                </div>
-            ) : (
-                <div>
-                    <LocalizationProvider
-                        dateAdapter={AdapterDayjs}
-                        sx={{ border: '1px solid rgba(17, 17, 17, 0.1)', borderRadius: '8px' }}
-                    >
-                        <DatePicker value={value} onChange={newValue => setValue(newValue)} />
-                    </LocalizationProvider>
-                </div>
-            )}
-        </>
+                        '&:hover, &:focus': {
+                            borderColor: '#477577',
+                            outline: 'none',
+                        },
+                        '.MuiInputBase-root': {
+                            padding: ' 0px',
+                            outline: 'none',
+                            '&:hover, &:focus': {
+                                outline: 'none',
+                                border: 'none',
+                            },
+                            '&.Mui-focused': {
+                                outline: 'none',
+                            },
+                            '& .MuiInputBase-input': {
+                                fontWeight: '600',
+                                fontSize: '14px',
+                                lineHeight: '1.29',
+                                textAlign: 'center',
+                                border: 'none',
+                                '&:hover, &:focus': {
+                                    cursor: 'pointer',
+                                    outline: 'none',
+                                    border: 'none',
+                                },
+                            },
+                            '& .MuiInputAdornment-root': {
+                                display: 'none',
+                            },
+                        },
+                        '.MuiOutlinedInput-notchedOutline': {
+                            display: 'none',
+                        },
+                        outline: 'none',
+                    }}
+                />
+            </LocalizationProvider>
+            <div className={css.btnGrup}>
+                <IconButton onClick={onBackClick} sx={iconButtonStyles}>
+                    <ArrowBackIosNewIcon
+                        sx={{
+                            width: '14px',
+                            height: '15px',
+                        }}
+                    />
+                </IconButton>
+                <Divider
+                    orientation="vertical"
+                    flexItem
+                    sx={{
+                        border: '1px solid rgba(220, 227, 229, 0.5)',
+                    }}
+                />
+                <IconButton onClick={onForwardClick} sx={iconButtonStyles}>
+                    <ArrowForwardIosIcon
+                        sx={{
+                            width: '14px',
+                            height: '15px',
+                        }}
+                    />
+                </IconButton>
+            </div>
+        </div>
     );
 };

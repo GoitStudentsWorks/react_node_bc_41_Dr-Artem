@@ -1,7 +1,53 @@
-import { TextField } from '@mui/material';
+import { UilPlus, UilTrashAlt } from '@iconscout/react-unicons';
+import { Button, IconButton, Input, Typography } from '@mui/material';
 import style from './PatientMedcartEdit.module.css';
 
 export const PatientMedcartEdit = ({ setEditMedcart }) => {
+    const medcart = [
+        {
+            title: 'Complaints at the time of inspection:',
+            textList: ['On a tickling in the throat, an increase in body temperature up to 37.2 degrees.'],
+        },
+        {
+            title: 'Medical history:',
+            textList: [
+                'She fell ill 2 days ago, when a sore throat appeared, and the temperature rose to 37.0 degrees. He attributes his condition to hypothermia. She was treated independently: "Dekvadol", heavy drinking.',
+            ],
+        },
+        {
+            title: 'Objective condition at the time of inspection:',
+            textList: [
+                'Skin covers are normal. The mucous membrane of the oropharynx is hyperemic, the back wall is granular. Cor-activity is rhythmic, the tones are sonorous. Pulmo - breathing is vesicular, there are no wheezes. Stomach - b/o. Stool, diuresis - normal.',
+            ],
+        },
+        {
+            title: 'Associated diseases:',
+            textList: ['Acute allergic urticaria, vitamin D deficiency.'],
+        },
+        {
+            title: 'Assessment of body condition:',
+            textList: [
+                'An acute disease with systemic, local and minimal laboratory signs of the inflammatory process.',
+            ],
+        },
+        {
+            title: 'Clinical diagnosis:',
+            textList: ['Acute pharyngitis of unspecified origin.'],
+        },
+        {
+            title: 'Treatment recommendations:',
+            textList: [
+                'JSC, SKB in dynamics',
+                'Diet enriched with vitamins (vegetables, fruits)',
+                'Drink a lot of warm liquid',
+                'Avoid large crowds',
+                'Frequent hand washing with soap and/or hand treatment with alcohol-containing (antiseptic) agents',
+                'Maintaining a microclimate in the room (air temperature during the day up to 21 degrees, at night 18 degrees, humidity at least 60%, frequent ventilation)',
+                'Body temperature control, when it rises above 38.0 degrees - paracetamol ("Panadol") 500 mg or ibuprofen 400 mg ("Nurofen", "Ibuprom", "Imet")',
+            ],
+        },
+    ];
+
     const handleSubmit = event => {
         event.preventDefault();
         setEditMedcart(true);
@@ -10,558 +56,48 @@ export const PatientMedcartEdit = ({ setEditMedcart }) => {
         <div className={style.PatientMedcart_Edit}>
             <form onSubmit={handleSubmit}>
                 <ul className={style.PatientMedcart_EditList}>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>Complaints at the time of inspection:</p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <TextField
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
+                    {medcart.map(({ title }) => {
+                        return (
+                            <li className={style.PatientMedcart_EditItem}>
+                                <div className={style.PatientMedcart_EditHeaderWrapper}>
+                                    <Typography
+                                        variant="subtitle"
+                                        color="text.black"
+                                        className={style.PatientMedcart_EditHeader}
                                     >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
+                                        {title}
+                                    </Typography>
+                                    <IconButton color="primary" type="button">
+                                        <UilPlus style={{ width: '24px', height: '24px' }} />
+                                    </IconButton>
+                                </div>
+                                <ul className={style.PatientMedcart_EditInputList}>
+                                    <li className={style.PatientMedcart_EditInputItem}>
+                                        <Input
+                                            variant="primary"
+                                            multiline
+                                            placeholder="Enter text"
+                                            type="text"
+                                            disableUnderline
                                         />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
+                                        <IconButton color="primary" type="button">
+                                            <UilTrashAlt style={{ width: '24px', height: '24px' }} />
+                                        </IconButton>
+                                    </li>
+                                </ul>
                             </li>
-                        </ul>
-                    </li>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>Medical history:</p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <input
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>
-                                Objective condition at the time of inspection:
-                            </p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <input
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>Associated diseases:</p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <input
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>Assessment of body condition:</p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <input
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>Clinical diagnosis:</p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <input
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className={style.PatientMedcart_EditItem}>
-                        <div className={style.PatientMedcart_EditHeaderWrapper}>
-                            <p className={style.PatientMedcart_EditHeader}>Treatment recommendations:</p>
-                            <button type="button" className={style.PatientMedcart_EditHeaderAdd}>
-                                <svg
-                                    className={style.PatientMedcart_EditHeaderAddIcon}
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M12 5V19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                    <path
-                                        d="M5 12H19"
-                                        stroke="#477577"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                        <ul className={style.PatientMedcart_EditInputList}>
-                            <li className={style.PatientMedcart_EditInputItem}>
-                                <input
-                                    className={style.PatientMedcart_EditInput}
-                                    placeholder="Enter text"
-                                    type="text"
-                                />
-                                <button type="button" className={style.PatientMedcart_EditInputDelete}>
-                                    <svg
-                                        className={style.PatientMedcart_EditInputDeleteIcon}
-                                        width="22"
-                                        height="22"
-                                        viewBox="0 0 22 22"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.75 5.5H4.58333H19.25"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M17.4168 5.49967V18.333C17.4168 18.8192 17.2237 19.2856 16.8799 19.6294C16.536 19.9732 16.0697 20.1663 15.5835 20.1663H6.41683C5.9306 20.1663 5.46428 19.9732 5.12047 19.6294C4.77665 19.2856 4.5835 18.8192 4.5835 18.333V5.49967M7.3335 5.49967V3.66634C7.3335 3.18011 7.52665 2.7138 7.87047 2.36998C8.21428 2.02616 8.6806 1.83301 9.16683 1.83301H12.8335C13.3197 1.83301 13.786 2.02616 14.1299 2.36998C14.4737 2.7138 14.6668 3.18011 14.6668 3.66634V5.49967"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M9.1665 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                        <path
-                                            d="M12.8335 10.083V15.583"
-                                            stroke="#477577"
-                                            stroke-width="1.8"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        />
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
+                        );
+                    })}
                 </ul>
-                <button type="submit" className={style.PatientMedcart_EditFormBtn}>
+                <Button
+                    disableElevation
+                    variant="contained"
+                    color="secondary"
+                    type="submit"
+                    // className={style.PatientMedcart_EditFormBtn}
+                >
                     Save
-                </button>
+                </Button>
             </form>
         </div>
     );

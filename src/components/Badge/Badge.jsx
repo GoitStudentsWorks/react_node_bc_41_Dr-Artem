@@ -1,9 +1,12 @@
+import { Typography } from '@mui/material';
 import style from './Badge.module.css';
 
-export const Badge = () => {
+export const Badge = ({ children }) => {
     return (
         <div className={style.Badge}>
-            <p className={style.BadgeText}>Patient</p>
+            <Typography variant="badgeText" color="text.black" component="span">
+                {children}
+            </Typography>
         </div>
     );
 };

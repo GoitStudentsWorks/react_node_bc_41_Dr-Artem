@@ -1,46 +1,66 @@
-import * as React from 'react';
-import plug from '../../images/ProfileBlock/plug.png';
-import pen from '../../images/ProfileBlock/pen.svg';
-import check from '../../images/ProfileBlock/check.svg';
+import { UilBrightnessPlus, UilPen } from '@iconscout/react-unicons';
+import { Button, IconButton } from '@mui/material';
+import { Badge } from 'components/Badge/Badge';
+import Card from 'components/Card/Card';
+import ModalEditPatientProfile from 'components/ModalEditPatientProfile/ModalEditPatientProfile';
+import ProfileImage from 'components/ProfileImage/ProfileImage';
+import { useState } from 'react';
+import { useLocation } from 'react-router';
+import { ModalMakeAppointment } from '../ModalMakeAppointment/ModalMakeAppointment';
 import css from './ProfileBlockPatient.module.css';
-import MedicalHistoryModalPencil from 'components/MedicalHistoryModalPencil/MedicalHistoryModalPencil';
 
-export const ProfileBlockPatient = () => {
+export const ProfileBlockPatient = ({ children }) => {
+    const [modalAppointment, setModalAppointment] = useState(false);
+    const [mmodalProfile, setMmodalProfile] = useState(false);
+
+    const personalLoc = useLocation().pathname.startsWith('/patient/');
     return (
-        <div className={css.wrapper}>
-            <p className={css.role}>Patient</p>
-            <MedicalHistoryModalPencil type="button" className={css.penButton}>
-                <img src={pen} alt="pen" className={css.penImg} />
-            </MedicalHistoryModalPencil>
-
-            <div className={css.case}>
-                <div className={css.imgWrapper}>
-                    <img src={plug} alt="plug" className={css.photo} />
-                    <button className={css.photoButton}>
-                        <img src={check} alt="chenging" />
-                    </button>
+        <>
+            <Card>
+                <Badge>Patient</Badge>
+                <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <ProfileImage personalLoc={personalLoc} />
+                    <div>
+                        <ul className={css.list}>
+                            <li className={css.item}>
+                                Name:<p className={css.data}>Melnyk Victoria Petrivna</p>
+                            </li>
+                            <li className={css.item}>
+                                Gender:<p className={css.data}>Female</p>
+                            </li>
+                            <li className={css.item}>
+                                Date of birth:<p className={css.data}>02/03/1995</p>
+                            </li>
+                            <li className={css.item}>
+                                Phone number:<p className={css.data}>+380 (97) 77 77 7 77</p>
+                            </li>
+                        </ul>
+                        {personalLoc && (
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                type="submit"
+                                onClick={() => setModalAppointment(!modalAppointment)}
+                            >
+                                make an appointment
+                            </Button>
+                        )}
+                        {children}
+                    </div>
                 </div>
-                <div className={css.bottomWrapper}>
-                    <ul className={css.list}>
-                        <li className={css.item}>
-                            Name:<p className={css.data}>Melnyk Victoria Petrivna</p>
-                        </li>
-                        <li className={css.item}>
-                            Gender:<p className={css.data}>Female</p>
-                        </li>
-                        <li className={css.item}>
-                            Date of birth:<p className={css.data}>02/03/1995</p>
-                        </li>
-                        <li className={css.item}>
-                            Phone number:<p className={css.data}>+380 (97) 77 77 7 77</p>
-                        </li>
-                    </ul>
 
-                    <button type="submit" className={css.profileButton}>
-                        make an appointment
-                    </button>
-                </div>
-            </div>
-        </div>
+                {personalLoc && (
+                    <IconButton
+                        color="primary"
+                        sx={{ position: 'absolute', top: '16px', right: '16px' }}
+                        onClick={() => setMmodalProfile(!mmodalProfile)}
+                    >
+                        <UilPen style={{ width: '20px', height: '20px' }} />
+                    </IconButton>
+                )}
+                <ModalEditPatientProfile open={mmodalProfile} setApp={setMmodalProfile} />
+                <ModalMakeAppointment open={modalAppointment} setApp={setModalAppointment} />
+            </Card>
+        </>
     );
 };

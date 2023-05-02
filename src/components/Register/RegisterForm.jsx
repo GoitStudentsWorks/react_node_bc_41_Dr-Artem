@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import ShowPassword from 'components/ShowPassword/ShowPassword';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import css from '..//Register/Register.module.css';
+import { useDispatch } from 'react-redux';
+import { register } from 'redux/auth/operation';
+import { useState } from 'react';
 
 // eslint-disable-next-line
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
@@ -27,17 +30,38 @@ const schema = yup.object().shape({
 });
 
 export const RegisterForm = () => {
+    const dispatch = useDispatch();
+
+    const handleSubmit = values => {
+        console.log(123);
+        const newUser = {
+            name: values.username,
+            number: values.phone,
+            password: values.password,
+            role: values.role,
+        };
+        console.log(newUser);
+        const res = dispatch(register(newUser));
+        res.then(el => {
+            console.log(typeof el.payload);
+            if (typeof el.payload === 'number') {
+                if (el.payload === 400) {
+                    NotificationManager.warning('Заповніть всі поля реєстрації');
+                } else if (el.payload === 409) {
+                    NotificationManager.error('Цей номер телефону вже зареєстрований');
+                }
+            } else {
+                NotificationManager.success('Реєстрація успішна');
+            }
+        });
+        // resetForm();
+    };
     const [showPassword, setShow] = useState(false);
     const handleClick = () => {
         setShow(show => !show);
     };
 
     const initialValues = { username: '', phone: '', password: '', role: 'Patient' };
-
-    const handleSubmit = (values, { resetForm }) => {
-        console.log(values);
-        resetForm();
-    };
 
     return (
         <div className={css.wrap}>
@@ -48,6 +72,7 @@ export const RegisterForm = () => {
                             <label htmlFor="username" className={css.label}>
                                 Name
                             </label>
+                            {/* дoдати name і value до інпутів */}
                             <Field type="text" name="username" placeholder="Enter your name " className={css.input} />
                             <ErrorMessage name="username" component="span" />
                         </li>
@@ -63,6 +88,7 @@ export const RegisterForm = () => {
                                 Password
                             </label>
                             <div className={css.showWraper}>
+                                {/* <ShowPassword /> */}
                                 <ShowPassword handleClick={handleClick} isShown={showPassword} />
                                 <Field
                                     name="password"
@@ -76,13 +102,19 @@ export const RegisterForm = () => {
                         <li className={css.formItem}>
                             {/* RADIO */}
                             <div className={css.radio}>
-                                <Field name="role" value="patient" type="radio" className={css.radioInput} checked />
-                                <label htmlFor="patient" className={css.radioLabel}>
+                                <Field
+                                    id="Patient"
+                                    name="role"
+                                    value="Patient"
+                                    type="radio"
+                                    className={css.radioInput}
+                                />
+                                <label htmlFor="Patient" className={css.radioLabel}>
                                     Patient
                                 </label>
 
-                                <Field name="role" value="doctor" type="radio" className={css.radioInput} />
-                                <label htmlFor="doctor" className={css.radioLabel}>
+                                <Field id="Doctor" name="role" value="Doctor" type="radio" className={css.radioInput} />
+                                <label htmlFor="Doctor" className={css.radioLabel}>
                                     Doctor
                                 </label>
                             </div>
@@ -93,6 +125,7 @@ export const RegisterForm = () => {
                     </button>
                 </Form>
             </Formik>
+            <NotificationContainer />
         </div>
     );
 };
