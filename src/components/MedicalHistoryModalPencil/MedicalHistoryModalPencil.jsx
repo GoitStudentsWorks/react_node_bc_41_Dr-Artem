@@ -44,7 +44,7 @@ function MedicalHistoryModalPencil() {
     const handleClose = () => setOpen(false);
 
     return (
-        <div style={{ display: 'block' }}>
+        <div>
             <Button
                 onClick={handleOpen}
                 className={css.penButton}
@@ -87,7 +87,7 @@ function MedicalHistoryModalPencil() {
                         >
                             <TextField id="outlined-basic" label="Name" variant="outlined"></TextField>
                             <TextField id="outlined-basic" label="Gender" variant="outlined" />
-                            <DatePickers style={{ width: '100%' }} />
+                            <DatePickers />
                             <TextField id="outlined-basic" label="Phone number" variant="outlined" />
                         </Box>
                     </Typography>

@@ -6,10 +6,12 @@
     border-radius: 16px;
     padding: 32px;
     background-color: var(--card-background);
+    margin-bottom: 16px;
 
     @media screen and (min-width: 767.98px) and (max-width: 1439.98px) {
         min-height: 252px;
         width: 100%;
+        margin-bottom: 0;
     }
 }
 

@@ -3,6 +3,7 @@ import DoctorAppointment from 'components/DoctorAppointment/DoctorAppointment';
 import { FAQ } from 'components/FAQ/FAQ';
 import Rewiews from 'components/Rewiews/Rewiews';
 import { Navigation } from '../../components/Navigation/Navigation';
+import { MedicalHistoryPage } from 'pages/MedicalHistory/MedicalHistoryPage';
 function MainPage() {
     return (
         <>
@@ -10,6 +11,7 @@ function MainPage() {
             <ChosenBlock />
             <DoctorAppointment />
             <Rewiews />
+            <MedicalHistoryPage />
             <FAQ />
         </>
     );

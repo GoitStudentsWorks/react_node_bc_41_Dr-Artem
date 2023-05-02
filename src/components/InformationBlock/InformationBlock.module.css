@@ -46,9 +46,8 @@
     flex-direction: column;
 }
 .info_header {
-    font-family: 'Manrope';
-    font-style: normal;
-    font-weight: 700;
+    font-family: var(--main-font-family);
+    font-weight: var(--bold-font-weight);
     font-size: 48px;
     line-height: 1.15;
     /* or 115% */
