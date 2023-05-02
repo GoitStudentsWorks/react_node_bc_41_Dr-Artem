@@ -1,3 +1,16 @@
+.PatientInformation {
+    display: grid;
+    gap: 8px;
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (min-width: 1440px) {
+        grid-template-columns: 1fr;
+    }
+}
+
 .PatientResults {
     position: relative;
     padding: 32px;

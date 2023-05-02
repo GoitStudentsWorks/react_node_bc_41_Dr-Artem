@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import dayjs from 'dayjs';
+import CloseIcon from '@mui/icons-material/Close';
+import { InputLabel, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { DatePickers } from 'components/DatePickers/DatePickers';
-import css from './AppointmentModal.module.css';
+import dayjs from 'dayjs';
+import { useState } from 'react';
+import css from './ModalMakeAppointment.module.css';
 
 const doctorData = {
     names: [
@@ -33,7 +34,7 @@ const doctorData = {
 };
 
 const buttonStyle = {
-    padding: { xs: '12px 24px', md: '13px 32px' },
+    padding: { md: '13px 32px' },
 };
 
 const modalProperty = {
@@ -57,7 +58,7 @@ const inputStyles = {
     },
 };
 
-export const AppointmentModal = ({ open, setApp }) => {
+export const ModalMakeAppointment = ({ open, setApp }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()));
     const [selectedTime, setSelectedTime] = useState(null);
     const [specialization, setSpecialization] = useState(null);
@@ -111,45 +112,65 @@ export const AppointmentModal = ({ open, setApp }) => {
         <Modal open={open} onClose={() => setApp(!open)}>
             <Box sx={modalProperty}>
                 <div className={css.titleWrapp}>
-                    <p className={css.title}>Doctor's appointment</p>
-                    <IconButton
-                        aria-label="close modal"
-                        onClick={() => setApp(!open)}
-                        sx={{ '&:hover, &:focus': { background: '#EDF5F5' } }}
+                    <Typography
+                        variant="subtitle"
+                        component="p"
+                        sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
                     >
+                        Doctor's appointment
+                    </Typography>
+                    <IconButton aria-label="close modal" size="small" onClick={() => setApp(!open)}>
                         <CloseIcon
                             sx={{
-                                fill: 'black',
+                                color: 'text.black',
                                 width: '24px',
                                 height: '24px',
                             }}
                         />
                     </IconButton>
                 </div>
-                <p className={css.text}>Choose the desired appointment time and wait for confirmation</p>
-                <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom: '32px' }}>
-                    <span className={css.lable}>Specialization</span>
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={doctorData.specs}
-                        value={doctorData.spec}
-                        onChange={handleDoctorChange}
-                        sx={{ width: '100%' }}
-                        renderInput={params => <TextField {...params} sx={inputStyles}  placeholder="Enter specialization"/>}
-                    />
-
-                    <span className={css.lableDoc}>Doctors</span>
-                    <Autocomplete
-                        disablePortal
-                        id="combo-box-demo"
-                        options={doctorData.names}
-                        value={doctorData.name}
-                        onChange={handleSpecializationChange}
-                        sx={{ width: '100%' }}
-                        renderInput={params => <TextField {...params} sx={inputStyles}  placeholder="Enter doctors"/>}
-                    />
-                </Box>
+                <Typography
+                    variant="text"
+                    color="text.gray"
+                    component="p"
+                    sx={{ fontSize: { md: '16px' }, lineHeight: { md: 1.5 }, mb: { xs: '40px', md: '32px' } }}
+                >
+                    Choose the desired appointment time and wait for confirmation
+                </Typography>
+                <ul className={css.inputList}>
+                    <li>
+                        <InputLabel variant="standard" color="primary">
+                            Specialization
+                        </InputLabel>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={doctorData.specs}
+                            value={doctorData.spec}
+                            onChange={handleDoctorChange}
+                            sx={{ width: '100%' }}
+                            renderInput={params => (
+                                <TextField {...params} sx={inputStyles} placeholder="Enter specialization" />
+                            )}
+                        />
+                    </li>
+                    <li>
+                        <InputLabel variant="standard" color="primary">
+                            Doctors
+                        </InputLabel>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={doctorData.names}
+                            value={doctorData.name}
+                            onChange={handleSpecializationChange}
+                            sx={{ width: '100%' }}
+                            renderInput={params => (
+                                <TextField {...params} sx={inputStyles} placeholder="Enter doctors" />
+                            )}
+                        />
+                    </li>
+                </ul>
                 <DatePickers value={selectedDate} onDateSelected={handleDateChange} />
                 <Box
                     sx={{
@@ -168,7 +189,14 @@ export const AppointmentModal = ({ open, setApp }) => {
                         );
                     })}
                 </Box>
-                <Button type="submit" variant="contained" color="secondary" sx={buttonStyle} onClick={handleSubmit}>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    disableElevation
+                    sx={buttonStyle}
+                    onClick={handleSubmit}
+                >
                     send
                 </Button>
             </Box>

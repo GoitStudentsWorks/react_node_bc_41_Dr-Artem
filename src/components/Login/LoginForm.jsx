@@ -3,11 +3,11 @@ import ShowPassword from 'components/ShowPassword/ShowPassword';
 import 'react-notifications/lib/notifications.css';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import css from '..//Login/LoginForm.module.css';
+import css from '../Login/LoginForm.module.css';
 import { login } from 'redux/auth/operation';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-
+import { getAllUsersForRole, getUserInfo } from 'redux/info/operation';
 // eslint-disable-next-line
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
@@ -45,6 +45,7 @@ export const LoginForm = () => {
                 NotificationManager.success('Ви авторизовані');
             }
         });
+        dispatch(getAllUsersForRole('Doctor'));
     };
     const [showPassword, setShow] = useState(false);
     // const [disabled, setDisabled] = useState(false);

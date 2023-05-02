@@ -10,7 +10,11 @@
 }
 
 .Modal_FormItem {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+
+    @media screen and (min-width: 768px) {
+        margin-bottom: 16px;
+    }
 }
 .Modal_FormItem:last-child {
     margin-bottom: 32px;

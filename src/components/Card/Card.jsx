@@ -4,7 +4,7 @@ const Card = ({ children }) => {
     const style = {
         position: 'relative',
         borderRadius: '16px',
-        p: { sm: '32px 16px', md: '32px' },
+        p: { sm: '16px ', md: '32px' },
         bgcolor: 'background.card',
         width: '100%',
     };

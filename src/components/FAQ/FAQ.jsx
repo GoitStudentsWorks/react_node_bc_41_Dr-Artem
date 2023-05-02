@@ -1,10 +1,10 @@
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import { useState } from 'react';
+import { Box } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import { Box } from '@mui/material';
+import { useState } from 'react';
 import css from './FAQ.module.css';
 
 const CustomExpandIcon = () => {
@@ -86,7 +86,7 @@ export const FAQ = () => {
     };
 
     return (
-        <div className={css.FAQwrapper}>
+        <div className="faq section">
             <h2 className={css.sectionTitle}>FAQ</h2>
             <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')} sx={QuestionWrapp}>
                 <AccordionSummary

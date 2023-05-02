@@ -90,20 +90,28 @@ a {
 input {
     outline: none;
 }
-/* main {
-    padding: 0 32px;
-} */
 .container {
     /* max-width: 1440px; */
-    padding: 0 20px;
+    padding: 0 20px 40px;
     margin: 0 auto;
 
     @media screen and (min-width: 768px) {
-        padding: 0 32px;
+        padding: 0 32px 48px;
     }
 
     @media screen and (min-width: 1440px) {
-        padding: 0 128px;
+        padding: 0 128px 64px;
+    }
+}
+.section {
+    padding: 40px 0;
+
+    @media screen and (min-width: 768px) {
+        padding: 48px 0;
+    }
+
+    @media screen and (min-width: 1440px) {
+        padding: 64px 0;
     }
 }
 
@@ -130,7 +138,7 @@ input {
 
 .swiper-horizontal > .swiper-scrollbar,
 .swiper-scrollbar.swiper-scrollbar-horizontal {
-    max-width: 196px;
+    max-width: 200px;
     height: 8px;
 
     background: #e8e8e8;
@@ -141,8 +149,8 @@ input {
 .swiper-scrollbar.swiper-scrollbar-horizontal {
     position: absolute;
     bottom: 0;
-    left: 40%;
-    right: 50%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* accordion */
