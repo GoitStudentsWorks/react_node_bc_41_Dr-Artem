@@ -1,7 +1,8 @@
 .Badge {
-    position: absolute;
+    display: inline;
+    /* position: absolute;
     top: 16px;
-    left: 16px;
+    left: 16px; */
     background-color: var(--minor-items-background);
     padding: 8px 16px;
     border-radius: 1000px;

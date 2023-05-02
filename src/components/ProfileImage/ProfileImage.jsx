@@ -5,20 +5,20 @@ import css from './ProfileImage.module.css';
 
 const ProfileImage = ({ personalLoc }) => {
     return (
-        <div style={{ position: 'relative', maxWidth: '150px', margin: '0 auto 32px' }}>
+        <div style={{ position: 'relative' }}>
             <div className={css.imgWrapper}>
-                <img src={plug} alt="plug" className={css.photo} />
+                <img src={plug} alt="plug" />
+                {personalLoc && (
+                    <IconButton
+                        color="primary"
+                        size="small"
+                        disableRipple
+                        sx={{ position: 'absolute', bottom: '-10px', right: '10px' }}
+                    >
+                        <UilBrightnessPlus style={{ width: '34px', height: '34px' }} />
+                    </IconButton>
+                )}
             </div>
-            {personalLoc && (
-                <IconButton
-                    color="primary"
-                    size="small"
-                    disableRipple
-                    sx={{ position: 'absolute', bottom: '-10px', right: '10px' }}
-                >
-                    <UilBrightnessPlus style={{ width: '34px', height: '34px' }} />
-                </IconButton>
-            )}
         </div>
     );
 };

@@ -1,119 +1,197 @@
-import { Accordion } from '@mui/material';
-import s from '../AnalysisBlock/AnalysisBlock.module.css';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
-function AnalysisBlock() {
+import { Accordion } from '@mui/material';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import s from '../AnalysisBlock/AnalysisBlock.module.css';
+
+import Card from 'components/Card/Card';
+import { useState } from 'react';
+
+const AnalysisBlock = () => {
+    const [expanded, setExpanded] = useState(false);
+
+    const handleChange = panel => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
+
+    const medcart = [
+        {
+            title: 'Complaints at the time of inspection:',
+            textList: ['On a tickling in the throat, an increase in body temperature up to 37.2 degrees.'],
+        },
+        {
+            title: 'Medical history:',
+            textList: [
+                'She fell ill 2 days ago, when a sore throat appeared, and the temperature rose to 37.0 degrees. He attributes his condition to hypothermia. She was treated independently: "Dekvadol", heavy drinking.',
+            ],
+        },
+        {
+            title: 'Objective condition at the time of inspection:',
+            textList: [
+                'Skin covers are normal. The mucous membrane of the oropharynx is hyperemic, the back wall is granular. Cor-activity is rhythmic, the tones are sonorous. Pulmo - breathing is vesicular, there are no wheezes. Stomach - b/o. Stool, diuresis - normal.',
+            ],
+        },
+        {
+            title: 'Associated diseases:',
+            textList: ['Acute allergic urticaria, vitamin D deficiency.'],
+        },
+        {
+            title: 'Assessment of body condition:',
+            textList: [
+                'An acute disease with systemic, local and minimal laboratory signs of the inflammatory process.',
+            ],
+        },
+        {
+            title: 'Clinical diagnosis:',
+            textList: ['Acute pharyngitis of unspecified origin.'],
+        },
+        {
+            title: 'Treatment recommendations:',
+            textList: [
+                'JSC, SKB in dynamics',
+                'Diet enriched with vitamins (vegetables, fruits)',
+                'Drink a lot of warm liquid',
+                'Avoid large crowds',
+                'Frequent hand washing with soap and/or hand treatment with alcohol-containing (antiseptic) agents',
+                'Maintaining a microclimate in the room (air temperature during the day up to 21 degrees, at night 18 degrees, humidity at least 60%, frequent ventilation)',
+                'Body temperature control, when it rises above 38.0 degrees - paracetamol ("Panadol") 500 mg or ibuprofen 400 mg ("Nurofen", "Ibuprom", "Imet")',
+            ],
+        },
+    ];
+
     return (
-        <div className={s.container}>
-            <Accordion style={{ boxShadow: 'none', background: '#fafafa', border: '16px' }}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-                    <Typography className={s.header_item}>
-                        <div>
-                            <p className={s.doctor_type}>Surgery</p>
-                        </div>
-                    </Typography>
-                    <Typography className={s.header_item}>
-                        <div className={s.analysis_item}>
-                            <p className={s.doctor_name}>Shumeiko Timur Bohdanovich</p>
-                            <p className={s.doctor_type_small}>Surgeon</p>
-                        </div>
-                    </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                    <Typography>
+        <>
+            <Card>
+                <Accordion
+                    expanded={expanded === 'panel1'}
+                    onChange={handleChange('panel1')}
+                    sx={{ boxShadow: 'none', background: 'transparent' }}
+                >
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography variant="subtitle" color="text.black" component="p">
+                            Surgery
+                        </Typography>
+                        <Typography className={s.header_item}>
+                            <div className={s.analysis_item}>
+                                <p className={s.doctor_name}>Shumeiko Timur Bohdanovich</p>
+                                <p className={s.doctor_type_small}>Surgeon</p>
+                            </div>
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
                         <ul className={s.inside_list}>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Complaints at the time of inspection:</h3>
-                                <div className={s.icon_wrapper}>
-                                    <FiberManualRecordIcon style={{ width: '8px', height: '8px', color: '#477577' }} />
-                                    <p className={s.item_text}>
-                                        On a tickling in the throat, an increase in body temperature up to 37.2 degrees.
-                                    </p>
-                                </div>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Medical history:</h3>
-                                <div className={s.icon_wrapper}>
-                                    <FiberManualRecordIcon style={{ width: '8px', height: '8px', color: '#477577' }} />
-                                    <p className={s.item_text}>
-                                        She fell ill 2 days ago, when a sore throat appeared, and the temperature rose
-                                        to 37.0 degrees. He attributes his condition to hypothermia. She was treated
-                                        independently: "Dekvadol", heavy drinking.
-                                    </p>
-                                </div>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Objective condition at the time of inspection:</h3>
-                                <div className={s.icon_wrapper}>
-                                    <FiberManualRecordIcon style={{ width: '8px', height: '8px', color: '#477577' }} />
-                                    <p className={s.item_text}>
-                                        Skin covers are normal. The mucous membrane of the oropharynx is hyperemic, the
-                                        back wall is granular. Cor-activity is rhythmic, the tones are sonorous. Pulmo -
-                                        breathing is vesicular, there are no wheezes. Stomach - b/o. Stool, diuresis -
-                                        normal.
-                                    </p>
-                                </div>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Associated diseases:</h3>
-                                <div className={s.icon_wrapper}>
-                                    <FiberManualRecordIcon style={{ width: '8px', height: '8px', color: '#477577' }} />
-                                    <p className={s.item_text}>Acute allergic urticaria, vitamin D deficiency.</p>
-                                </div>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Assessment of body condition:</h3>
-                                <div className={s.icon_wrapper}>
-                                    <FiberManualRecordIcon style={{ width: '8px', height: '8px', color: '#477577' }} />
-                                    <p className={s.item_text}>
-                                        An acute disease with systemic, local and minimal laboratory signs of the
-                                        inflammatory process.
-                                    </p>
-                                </div>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Clinical diagnosis:</h3>
-                                <div className={s.icon_wrapper}>
-                                    <FiberManualRecordIcon style={{ width: '8px', height: '8px', color: '#477577' }} />
-                                    <p className={s.item_text}>Acute pharyngitis of unspecified origin.</p>
-                                </div>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Treatment recommendations:</h3>
-                                <ul>
-                                    <li className={s.item_text}>
-                                        <div className={s.icon_wrapper}>
-                                            <FiberManualRecordIcon
-                                                style={{ width: '8px', height: '8px', color: '#477577' }}
-                                            />
-                                            <p className={s.item_text}>JSC, SKB in dynamics</p>
-                                        </div>
+                            {medcart.map(({ title, textList }) => {
+                                return (
+                                    <li className={s.inside_item}>
+                                        <Typography
+                                            component="p"
+                                            variant="subtitle"
+                                            color="text.black"
+                                            sx={{
+                                                fontSize: { md: '20px' },
+                                                lineHeight: { md: 1.5 },
+                                                marginBottom: '16px',
+                                            }}
+                                        >
+                                            {title}
+                                        </Typography>
+                                        <ul className={s.inside_itemNested}>
+                                            {textList.map(text => {
+                                                return (
+                                                    <li>
+                                                        <Typography
+                                                            component="p"
+                                                            variant="text"
+                                                            color="text.gray"
+                                                            sx={{
+                                                                fontSize: { md: '16px' },
+                                                                lineHeight: { md: 1.5 },
+                                                            }}
+                                                        >
+                                                            {text}
+                                                        </Typography>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
                                     </li>
-                                </ul>
-                            </li>
-                            <li className={s.inside_item}>
-                                <h3 className={s.item_header}>Documents:</h3>
-                                <ul>
-                                    <li className={s.item_text}>
-                                        <div className={s.icon_wrapper}>
-                                            <TextSnippetIcon
-                                                style={{ width: '16px', height: '16px', color: '#477577' }}
-                                            />
-                                            <p className={s.item_text_doc}>Urine analysis is general</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
+                                );
+                            })}
                         </ul>
-                    </Typography>
-                </AccordionDetails>
-            </Accordion>
-        </div>
+                    </AccordionDetails>
+                </Accordion>
+            </Card>
+            <Card>
+                <Accordion
+                    expanded={expanded === 'panel2'}
+                    onChange={handleChange('panel2')}
+                    sx={{ boxShadow: 'none', background: 'transparent' }}
+                >
+                    <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1a-content"
+                        id="panel1a-header"
+                    >
+                        <Typography variant="subtitle" color="text.black" component="p">
+                            Surgery
+                        </Typography>
+                        <Typography className={s.header_item}>
+                            <div className={s.analysis_item}>
+                                <p className={s.doctor_name}>Shumeiko Timur Bohdanovich</p>
+                                <p className={s.doctor_type_small}>Surgeon</p>
+                            </div>
+                        </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <ul className={s.inside_list}>
+                            {medcart.map(({ title, textList }) => {
+                                return (
+                                    <li className={s.inside_item}>
+                                        <Typography
+                                            component="p"
+                                            variant="subtitle"
+                                            color="text.black"
+                                            sx={{
+                                                fontSize: { md: '20px' },
+                                                lineHeight: { md: 1.5 },
+                                                marginBottom: '16px',
+                                            }}
+                                        >
+                                            {title}
+                                        </Typography>
+                                        <ul className={s.inside_itemNested}>
+                                            {textList.map(text => {
+                                                return (
+                                                    <li>
+                                                        <Typography
+                                                            component="p"
+                                                            variant="text"
+                                                            color="text.gray"
+                                                            sx={{
+                                                                fontSize: { md: '16px' },
+                                                                lineHeight: { md: 1.5 },
+                                                            }}
+                                                        >
+                                                            {text}
+                                                        </Typography>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </AccordionDetails>
+                </Accordion>
+            </Card>
+        </>
     );
-}
+};
 
 export default AnalysisBlock;

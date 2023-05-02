@@ -1,13 +1,13 @@
-import css from './AboutBlock.module.css';
-import { ExperienceBlock } from 'components/ExperienceBlock/ExperienceBlock';
-import React from 'react';
-import { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import IconButton from '@mui/material/IconButton';
+import { ExperienceBlock } from 'components/ExperienceBlock/ExperienceBlock';
+import React, { useState } from 'react';
+import css from './AboutBlock.module.css';
 
 export const AboutBlock = () => {
     const [isVisitsVisible, setIsVisitsVisible] = useState(true);
+
     const handleArrowClick = () => {
         setIsVisitsVisible(!isVisitsVisible);
     };

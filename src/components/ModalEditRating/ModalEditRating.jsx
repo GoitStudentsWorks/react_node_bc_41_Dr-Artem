@@ -1,12 +1,12 @@
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
 import CloseIcon from '@mui/icons-material/Close';
+import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import Modal from '@mui/material/Modal';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { ControlledRating } from '../ControlledRating/ControlledRating';
 import { DoctorInfoCard } from '../DoctorInfoCard/DoctorInfoCard';
-import css from './RatingModal.module.css';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { useTheme } from '@mui/material/styles';
+import css from './ModalEditRating.module.css';
 
 const style = {
     position: 'absolute',
@@ -20,7 +20,7 @@ const style = {
     outline: 'none',
 };
 
-export const RatingModal = ({ plug, isOpen, onClose, doctorData }) => {
+export const ModalEditRating = ({ plug, isOpen, onClose, doctorData }) => {
     const theme = useTheme();
     const mobile = useMediaQuery(theme.breakpoints.down('md'));
 

@@ -1,7 +1,9 @@
 import StarIcon from '@mui/icons-material/Star';
+import { Typography } from '@mui/material';
 import Rating from '@mui/material/Rating';
+import { Badge } from 'components/Badge/Badge';
 import { DatePickerMonth } from 'components/DatePickers/DatePickerMonth';
-import { RatingModal } from 'components/RatingModal/RatingModal';
+import { ModalEditRating } from 'components/ModalEditRating/ModalEditRating';
 import { useState } from 'react';
 import { DoctorInfoCard } from '../../../components/DoctorInfoCard/DoctorInfoCard';
 import plug from '../../../images/ProfileBlock/plug.png';
@@ -57,8 +59,14 @@ const PatientVisitsToDoctor = () => {
     };
 
     return (
-        <section className={css.section}>
-            <h3 className={css.sectionTitle}>Visits</h3>
+        <section className="section">
+            <Typography
+                variant="subtitle"
+                color="text.black"
+                sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
+            >
+                Visits
+            </Typography>
             <DatePickerMonth />
             <ul className={css.visitsList}>
                 {currentAppointments.map(({ doctor, specialization, date, time, rating }) => {
@@ -92,7 +100,7 @@ const PatientVisitsToDoctor = () => {
                 })}
             </ul>
             {selectedDoctorData && (
-                <RatingModal isOpen={isOpen} doctorData={selectedDoctorData} onClose={closeModal} plug={plug} />
+                <ModalEditRating isOpen={isOpen} doctorData={selectedDoctorData} onClose={closeModal} plug={plug} />
             )}
         </section>
     );

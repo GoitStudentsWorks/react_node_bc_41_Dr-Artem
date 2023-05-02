@@ -32,7 +32,16 @@ const theme = createTheme({
             dark: '#0f3937',
             linear: 'linear-gradient(253.01deg, #68c494 -56.38%, #477577 105.61%, #31496d 274.54%)',
         },
+        primaryAuth: {
+            main: '#477577',
+            light: '#68c494',
+            dark: '#0f3937',
+        },
         secondary: {
+            main: '#f3672b',
+            light: '#fc7b43',
+        },
+        secondaryAuth: {
             main: '#f3672b',
             light: '#fc7b43',
         },
@@ -58,8 +67,8 @@ const theme = createTheme({
 
         h1: {
             fontWeight: 700,
-            fontSize: '48px',
-            lineHeight: 1.145,
+            fontSize: '40px',
+            lineHeight: 1.1,
         },
         h2: {
             fontWeight: 700,
@@ -322,8 +331,28 @@ const theme = createTheme({
                             fontSize: 12,
                             lineHeight: 1.16,
                             textTransform: 'uppercase',
-                            padding: '13px 32px',
+                            padding: '12px 24px',
                             borderRadius: '12px',
+                            textAlign: 'center',
+
+                            '&:hover': {
+                                backgroundColor: COLOR.orange,
+                            },
+                            '&:focus': {
+                                backgroundColor: COLOR.orange,
+                                boxShadow: '0px 4px 8px rgba(17, 17, 17, 0.15)',
+                            },
+                        }),
+                    ...(ownerState.variant === 'contained' &&
+                        ownerState.color === 'secondaryAuth' && {
+                            backgroundColor: COLOR.lightOrange,
+                            color: COLOR.white,
+                            fontWeight: 600,
+                            fontSize: 12,
+                            lineHeight: 1.16,
+                            textTransform: 'uppercase',
+                            padding: '8px 16px',
+                            borderRadius: '6px',
                             textAlign: 'center',
 
                             '&:hover': {
@@ -356,7 +385,50 @@ const theme = createTheme({
                                 color: COLOR.white,
                             },
                         }),
+                    ...(ownerState.variant === 'outlined' &&
+                        ownerState.color === 'primaryAuth' && {
+                            border: '1px solid rgba(71, 117, 119, 0.3)',
+                            color: COLOR.green,
+                            fontWeight: 600,
+                            fontSize: 12,
+                            lineHeight: 1.16,
+                            textTransform: 'uppercase',
+                            padding: '8px 16px',
+                            borderRadius: '6px',
+                            textAlign: 'center',
+
+                            '&:hover': {
+                                backgroundColor: COLOR.darkGreen,
+                                color: COLOR.white,
+                            },
+                            '&:focus': {
+                                backgroundColor: COLOR.darkGreen,
+                                boxShadow: '0px 4px 8px rgba(17, 17, 17, 0.15)',
+                                color: COLOR.white,
+                            },
+                        }),
                 }),
+            },
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    fontWeight: '700',
+                    fontSize: '16px',
+                    lineHeight: 1.24,
+                    color: 'text.black',
+                    textTransform: 'capitalize',
+                    borderRadius: '32px',
+                    padding: '8px 16px',
+                    minHeight: '0',
+                    marginBottom: '20px',
+                    marginRight: '20px',
+
+                    '&.Mui-selected': {
+                        backgroundColor: COLOR.green,
+                        color: COLOR.white,
+                    },
+                },
             },
         },
         // MuiButtonBase: {
