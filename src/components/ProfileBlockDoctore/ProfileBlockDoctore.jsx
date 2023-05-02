@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { UilPen } from '@iconscout/react-unicons';
 import { Button, Typography } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
@@ -6,11 +5,14 @@ import Card from 'components/Card/Card';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
 import { useLocation } from 'react-router';
+import { useState } from 'react';
 import css from './ProfileBlockDoctore.module.css';
+import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProdileModule';
 
 const ident = 1;
 
 export const ProfileBlockDoctore = ({ children }) => {
+    const [appModal, setAppModal] = useState(false);
     const personalLoc = useLocation().pathname.startsWith(`/doctor/personal/${ident}`);
     return (
         <Card>
@@ -38,16 +40,17 @@ export const ProfileBlockDoctore = ({ children }) => {
                         Price:<p className={css.data}>750 UAH /1 hour</p>
                     </li>
                 </ul>
-                {personalLoc && (
-                    <Button color="primary">
+                {/* {personalLoc && ( */}
+                    <Button color="primary" onClick={() => setAppModal(!appModal)} >
                         <UilPen style={{ width: '20px', height: '20px' }} />
                         <Typography color="text.black" sx={{ lineHeight: 1.285, textTransform: 'none' }}>
                             Edit profile
                         </Typography>
                     </Button>
-                )}
+                {/* )} */}
                 {children}
             </div>
+        <EditDoctorProfileModal open={appModal} setApp={setAppModal}/>
         </Card>
     );
 };
