@@ -10,28 +10,11 @@ const patientRoutes = [
 ];
 
 const doctorRoutes = [
-    { path: '/doctor/personal/:id', label: 'Personal page' },
+    { path: '/doctor/personal/1', label: 'Personal page' },
     { path: '/doctor/visits-history', label: 'Visit history' },
     { path: '/doctor/patients-list', label: 'List of patients' },
     { path: '/doctor/colleuges', label: 'Сolleagues' },
 ];
-
-const tabStyles = {
-    fontWeight: '700',
-    fontSize: { xs: '16', md: '18' },
-    lineHeight: { xs: '1.24', md: '1.22' },
-    color: ' #111111',
-    textTransform: 'capitalize',
-    borderRadius: '32px',
-    padding: '8px 16px',
-    marginBottom: { xs: '20px', md: '24px', lg: '32px' },
-    marginRight: { xs: '20px', md: '40px' },
-
-    '&.Mui-selected': {
-        backgroundColor: '#477577',
-        color: '#FFFFFF',
-    },
-};
 
 const indicatorStyles = {
     style: {
@@ -64,7 +47,7 @@ export const Navigation = () => {
 
     return (
         <>
-            <Box sx={{ width: '100%', padding: { xs: '40px 20px 0px', md: '64px 32px 0px', lg: '64px 128px 0px' } }}>
+            <Box sx={{ width: '100%', pt: { xs: '40px', md: '64px ' } }}>
                 <Tabs
                     value={value}
                     onChange={handleChange}
@@ -81,7 +64,12 @@ export const Navigation = () => {
                                 component={Link}
                                 to={route.path}
                                 label={route.label}
-                                sx={tabStyles}
+                                sx={{
+                                    fontSize: { md: '18px' },
+                                    lineHeight: { md: '1.22' },
+                                    mb: { md: '24px', lg: '32px' },
+                                    mr: { md: '40px' },
+                                }}
                                 value={index}
                             />
                         ))}
@@ -92,7 +80,12 @@ export const Navigation = () => {
                                 component={Link}
                                 to={route.path}
                                 label={route.label}
-                                sx={tabStyles}
+                                sx={{
+                                    fontSize: { md: '18px' },
+                                    lineHeight: { md: '1.22' },
+                                    mb: { md: '24px', lg: '32px' },
+                                    mr: { md: '40px' },
+                                }}
                                 value={index}
                             />
                         ))}

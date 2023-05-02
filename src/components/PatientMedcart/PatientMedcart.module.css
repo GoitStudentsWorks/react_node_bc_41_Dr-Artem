@@ -54,7 +54,6 @@
 
 @media screen and (min-width: 768px) and (max-width: 1439.98px) {
     .PatientMedcart {
-        grid-column: span 2;
         padding: 32px;
     }
     .PatientMedcart_ItemHeader {
@@ -75,7 +74,6 @@
 
 @media screen and (min-width: 1440px) {
     .PatientMedcart {
-        grid-area: 1 / 2 / 3 / 2;
         padding: 32px;
     }
     .PatientMedcart_ItemHeader {

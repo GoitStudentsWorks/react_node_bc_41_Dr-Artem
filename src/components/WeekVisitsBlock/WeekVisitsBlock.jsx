@@ -1,13 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import css from './WeekVisitsBlock.module.css';
+import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Avatar from '../../Image/Avatar.png';
 import { Modal } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Card from 'components/Card/Card';
 import { DatePickers } from 'components/DatePickers/DatePickers';
+import React, { useState } from 'react';
+import Avatar from '../../Image/Avatar.png';
+import css from './WeekVisitsBlock.module.css';
 
 export const WeekVisitsBlock = () => {
     const [isVisitsVisible, setIsVisitsVisible] = useState(true);
@@ -22,7 +22,7 @@ export const WeekVisitsBlock = () => {
     };
 
     return (
-        <div className={css.weekVisitsBlock}>
+        <Card>
             <div className={css.weekVisitsBlockFlexWrapper}>
                 <div className={css.weekVisitsTitleWrapper}>
                     <p className={css.weekVisitsTitle}>Visits for a week </p>
@@ -119,6 +119,6 @@ export const WeekVisitsBlock = () => {
                     </div>
                 </div>
             </Modal>
-        </div>
+        </Card>
     );
 };
