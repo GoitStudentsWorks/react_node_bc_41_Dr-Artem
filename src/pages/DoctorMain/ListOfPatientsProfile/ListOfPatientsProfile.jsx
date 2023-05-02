@@ -1,9 +1,9 @@
 import { UilFileAlt } from '@iconscout/react-unicons';
 import { Icon, IconButton } from '@mui/material';
+import { ModalEditPatientResult } from 'components/ModalEditPatientResult/ModalEditPatientResult';
 import { PatientMedcart } from 'components/PatientMedcart/PatientMedcart';
 import { PatientMedcartEdit } from 'components/PatientMedcartEdit/PatientMedcartEdit';
 import { ProfileBlockPatient } from 'components/ProfileBlockPatient/ProfileBlockPatient';
-import { ResultsEditModal } from 'components/ResultsEditModal/ResultsEditModal';
 import { useState } from 'react';
 import { RxPencil1 } from 'react-icons/rx';
 import style from './ListOfPatientsProfile.module.css';
@@ -70,7 +70,7 @@ const ListOfPatientsProfile = () => {
             </div>
 
             {currentMedcart}
-            <ResultsEditModal open={open} setOpen={setOpen} />
+            <ModalEditPatientResult open={open} setOpen={setOpen} />
         </>
     );
 };

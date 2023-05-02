@@ -1,10 +1,11 @@
 import AuthPage from 'pages/Auth/AuthPage';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
+import { GridLayout } from 'pages/GridLayout/GridLayout';
 import { Layout } from 'pages/Layout/Layout';
 import MainPage from 'pages/MainPage/MainPage';
-import { PlugPage } from 'pages/PlugPage/PlugPage';
 import { Route, Routes } from 'react-router';
 
+import PatientDoctors from 'pages/PatientMain/PatientDoctors/PatientDoctors';
 import PatientMain from 'pages/PatientMain/PatientMain';
 import PatientMedicalHistory from 'pages/PatientMain/PatientMedicalHistory/PatientMedicalHistory';
 import PatientVisitsToDoctor from 'pages/PatientMain/PatientVisitsToDoctor/PatientVisitsToDoctor';
@@ -26,21 +27,21 @@ export const App = () => {
                         <Route
                             path="history"
                             element={
-                                <PlugPage>
+                                <GridLayout>
                                     <PatientMedicalHistory />
-                                </PlugPage>
+                                </GridLayout>
                             }
                         />
-                        <Route path="doctors" element={<PlugPage />} />
+                        <Route path="doctors" element={<PatientDoctors />} />
                         <Route path="visits-history" element={<PatientVisitsToDoctor />} />
                     </Route>
                     <Route path="doctor" element={<DoctorMain />}>
                         <Route
                             path="personal/:id"
                             element={
-                                <PlugPage>
+                                <GridLayout>
                                     <Personal />
-                                </PlugPage>
+                                </GridLayout>
                             }
                         />
                         <Route path="visits-history" element={<VisitHistory />} />
@@ -48,9 +49,9 @@ export const App = () => {
                         <Route
                             path="patients-list/:id"
                             element={
-                                <PlugPage>
+                                <GridLayout>
                                     <ListOfPatientsProfile />
-                                </PlugPage>
+                                </GridLayout>
                             }
                         />
                         <Route path="colleuges" element={<Colleagues />} />

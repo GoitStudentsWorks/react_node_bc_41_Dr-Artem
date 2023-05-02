@@ -1,6 +1,6 @@
-import style from './PlugPage.module.css';
+import style from './GridLayout.module.css';
 
-export const PlugPage = ({ children }) => {
+export const GridLayout = ({ children }) => {
     return (
         <section className="section">
             <div className={style.gridTemplate}>{children}</div>

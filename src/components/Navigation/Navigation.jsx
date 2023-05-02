@@ -10,7 +10,7 @@ const patientRoutes = [
 ];
 
 const doctorRoutes = [
-    { path: '/doctor/personal/:id', label: 'Personal page' },
+    { path: '/doctor/personal/1', label: 'Personal page' },
     { path: '/doctor/visits-history', label: 'Visit history' },
     { path: '/doctor/patients-list', label: 'List of patients' },
     { path: '/doctor/colleuges', label: 'Сolleagues' },

@@ -7,9 +7,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import style from './ResultsEditModal.module.css';
+import style from './ModalEditPatientResult.module.css';
 
-export const ResultsEditModal = ({ open, setOpen }) => {
+export const ModalEditPatientResult = ({ open, setOpen }) => {
     const [files, setFiles] = useState([]);
     const [selectedDate, setSelectedDate] = useState(dayjs);
 
