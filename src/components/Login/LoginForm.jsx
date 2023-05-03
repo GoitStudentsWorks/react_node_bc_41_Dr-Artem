@@ -9,7 +9,7 @@ import { login } from 'redux/auth/operation';
 import { getAllUsersForRole, getUserInfo } from 'redux/info/operation';
 import * as yup from 'yup';
 import css from '../Login/LoginForm.module.css';
-// eslint-disable-next-line
+
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
 
@@ -20,7 +20,7 @@ const schema = yup.object().shape({
         .min(6, 'Password must be at least 6 characters')
         .matches(
             passwordRules,
-            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
+            'Password must contain at least 8 characters, 1 uppercase, 1 number and 1 special case character'
         )
         .required('Password is a required field'),
 });
@@ -49,7 +49,6 @@ export const LoginForm = () => {
         dispatch(getAllUsersForRole('Doctor'));
     };
     const [showPassword, setShow] = useState(false);
-    // const [disabled, setDisabled] = useState(false);
 
     const handleClick = () => {
         setShow(show => !show);
@@ -71,7 +70,7 @@ export const LoginForm = () => {
             <form onSubmit={formik.handleSubmit}>
                 <ul className={css.formWraper}>
                     <li className={css.formItem}>
-                        <InputLabel htmlFor="phone" className={css.label}>
+                        <InputLabel htmlFor="phone" variant="standard" color="primary">
                             Phone Number
                         </InputLabel>
                         <TextField
@@ -87,29 +86,28 @@ export const LoginForm = () => {
                         />
                     </li>
                     <li className={css.formItem}>
-                        <InputLabel htmlFor="password" className={css.label}>
+                        <InputLabel htmlFor="password" variant="standard" color="primary">
                             Password
                         </InputLabel>
-                        <div className={css.showWraper}>
-                            <TextField
-                                fullWidth
-                                id="password"
-                                name="password"
-                                type={showPassword ? 'true' : 'password'}
-                                placeholder="Enter your password"
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                                error={formik.touched.password && Boolean(formik.errors.password)}
-                                helperText={formik.touched.password && formik.errors.password}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <ShowPassword isShown={showPassword} handleClick={handleClick} />
-                                        </InputAdornment>
-                                    ),
-                                }}
-                            />
-                        </div>
+
+                        <TextField
+                            fullWidth
+                            id="password"
+                            name="password"
+                            type={showPassword ? 'true' : 'password'}
+                            placeholder="Enter your password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <ShowPassword isShown={showPassword} handleClick={handleClick} />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
                     </li>
                 </ul>
                 {formik.values.phone && formik.values.password === '' ? (
