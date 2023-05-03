@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, IconButton, InputLabel, Modal, Typography } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
