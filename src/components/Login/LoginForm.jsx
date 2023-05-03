@@ -71,7 +71,7 @@ export const LoginForm = () => {
             <form onSubmit={formik.handleSubmit}>
                 <ul className={css.formWraper}>
                     <li className={css.formItem}>
-                        <InputLabel htmlFor="phone" className={css.label}>
+                        <InputLabel variant="standard" color="primary" htmlFor="phone">
                             Phone Number
                         </InputLabel>
                         <TextField
@@ -87,7 +87,7 @@ export const LoginForm = () => {
                         />
                     </li>
                     <li className={css.formItem}>
-                        <InputLabel htmlFor="password" className={css.label}>
+                        <InputLabel variant="standard" color="primary" htmlFor="password">
                             Password
                         </InputLabel>
                         <div className={css.showWraper}>
@@ -113,11 +113,25 @@ export const LoginForm = () => {
                     </li>
                 </ul>
                 {formik.values.phone && formik.values.password === '' ? (
-                    <Button disabled variant="contained" color="secondary" disableElevation type="submit">
+                    <Button
+                        disabled
+                        variant="contained"
+                        color="secondary"
+                        disableElevation
+                        type="submit"
+                        sx={{ fontSize: '18px', lineHeight: 1.55, borderRadius: '8px', textTransform: 'capitalize' }}
+                    >
                         Log In
                     </Button>
                 ) : (
-                    <Button variant="contained" color="secondary" disableElevation type="submit">
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="secondaryAuth"
+                        disableElevation
+                        type="submit"
+                        sx={{ fontSize: '18px', lineHeight: 1.55, borderRadius: '8px', textTransform: 'capitalize' }}
+                    >
                         Log In
                     </Button>
                 )}
