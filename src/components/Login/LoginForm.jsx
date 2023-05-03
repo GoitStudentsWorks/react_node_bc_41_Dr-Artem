@@ -5,9 +5,7 @@ import { useState } from 'react';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { login } from 'redux/auth/operation';
-import { getAllUsersForRole, getUserInfo } from 'redux/info/operation';
 import * as yup from 'yup';
 import css from '../Login/LoginForm.module.css';
 // eslint-disable-next-line
@@ -27,8 +25,6 @@ const schema = yup.object().shape({
 });
 
 export const LoginForm = () => {
-    const navigate = useNavigate();
-
     const dispatch = useDispatch();
 
     const handleSubmitForm = values => {
@@ -47,7 +43,6 @@ export const LoginForm = () => {
                 }
             } else {
                 NotificationManager.success('Ви авторизовані');
-                navigate('/doctor');
             }
         });
     };

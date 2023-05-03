@@ -1,29 +1,23 @@
 import { Avatar, Button } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAuth } from 'hooks';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { logout } from 'redux/auth/operation';
-import { selectIsLoggedIn, selectUser, selectUserRole } from 'redux/auth/selectors';
 import s from '../AuthNav/AuthNav.module.css';
 
-function AuthNav() {
+const AuthNav = ({ user }) => {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(selectIsLoggedIn);
-    const role = useSelector(selectUserRole);
-    const userAvatar = useSelector(selectUser).avatarURL;
-
-    // const handleLogOut = () => {
-    //     dispatch(logout);
-    // };
+    const { isLoggedIn } = useAuth();
 
     return (
         <div className={s.auth_wrapper}>
-            {isLoggedIn ? (
-                <ul className={s.nav_list}>
-                    <li className={s.nav_item}>
-                        <NavLink to="auth/register">
+            <ul className={s.nav_list}>
+                <li className={s.nav_item}>
+                    {isLoggedIn ? (
+                        <NavLink to={user.role === 'Patient' ? '/patient/history' : `/doctor/personal/${user.id}`}>
                             <Avatar
                                 alt="avatar"
-                                src={userAvatar}
+                                src={user.userAvatar}
                                 sx={{
                                     width: { sm: 38, md: 52 },
                                     height: { sm: 38, md: 52 },
@@ -31,29 +25,7 @@ function AuthNav() {
                                 }}
                             />
                         </NavLink>
-                    </li>
-                    <li className={s.nav_item}>
-                        <NavLink to="/">
-                            <Button
-                                variant="contained"
-                                color="secondaryAuth"
-                                disableElevation
-                                sx={{
-                                    p: { md: '12px 32px' },
-                                    borderRadius: { md: '12px' },
-                                    fontSize: { md: '14px' },
-                                    lineHeight: { md: 1.428 },
-                                }}
-                                onClick={() => dispatch(logout())}
-                            >
-                                Log Out
-                            </Button>
-                        </NavLink>
-                    </li>
-                </ul>
-            ) : (
-                <ul className={s.nav_list}>
-                    <li className={s.nav_item}>
+                    ) : (
                         <NavLink to="auth/register">
                             <Button
                                 variant="outlined"
@@ -69,8 +41,25 @@ function AuthNav() {
                                 Registration
                             </Button>
                         </NavLink>
-                    </li>
-                    <li className={s.nav_item}>
+                    )}
+                </li>
+                <li className={s.nav_item}>
+                    {isLoggedIn ? (
+                        <Button
+                            variant="contained"
+                            color="secondaryAuth"
+                            disableElevation
+                            sx={{
+                                p: { md: '12px 32px' },
+                                borderRadius: { md: '12px' },
+                                fontSize: { md: '14px' },
+                                lineHeight: { md: 1.428 },
+                            }}
+                            onClick={() => dispatch(logout())}
+                        >
+                            Log Out
+                        </Button>
+                    ) : (
                         <NavLink to="auth/login">
                             <Button
                                 variant="contained"
@@ -86,11 +75,11 @@ function AuthNav() {
                                 Log In
                             </Button>
                         </NavLink>
-                    </li>
-                </ul>
-            )}
+                    )}
+                </li>
+            </ul>
         </div>
     );
-}
+};
 
 export default AuthNav;
