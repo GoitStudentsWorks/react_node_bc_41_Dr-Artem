@@ -60,7 +60,7 @@ export const addUserExperience = createAsyncThunk('/addUserExperience', async (i
 
 export const updateUserExperience = createAsyncThunk(
     '/updateUserExperience',
-    async (id, updatedExperience, { rejectWithValue }) => {
+    async ({ id, ...updatedExperience }, { rejectWithValue }) => {
         try {
             const { data } = await axios.patch(`/experience/${id}`, updatedExperience);
             return data;
