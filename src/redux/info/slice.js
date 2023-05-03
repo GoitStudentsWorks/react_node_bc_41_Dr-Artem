@@ -44,6 +44,8 @@ const infoSlice = createSlice({
             console.log(action.payload);
         },
         [updateUserInfo.fulfilled](state, action) {
+            console.log(action.payload);
+
             state.currentUserInfo = action.payload;
         },
         [updateUserInfo.rejected](state, action) {
