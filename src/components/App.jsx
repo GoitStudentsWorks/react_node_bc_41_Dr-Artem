@@ -1,26 +1,20 @@
-import AuthPage from 'pages/Auth/AuthPage';
-import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
-import { GridLayout } from 'pages/GridLayout/GridLayout';
-import { Layout } from 'pages/Layout/Layout';
-import MainPage from 'pages/MainPage/MainPage';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router';
-
-import PatientDoctors from 'pages/PatientMain/PatientDoctors/PatientDoctors';
-import PatientMain from 'pages/PatientMain/PatientMain';
-import PatientMedicalHistory from 'pages/PatientMain/PatientMedicalHistory/PatientMedicalHistory';
-import PatientVisitsToDoctor from 'pages/PatientMain/PatientVisitsToDoctor/PatientVisitsToDoctor';
-
-import Colleagues from 'pages/DoctorMain/Colleagues/Colleagues';
-import DoctorMain from 'pages/DoctorMain/DoctorMain';
-import ListOfPatients from 'pages/DoctorMain/ListOfPatients/ListOfPatients';
-import ListOfPatientsProfile from 'pages/DoctorMain/ListOfPatientsProfile/ListOfPatientsProfile';
-import Personal from 'pages/DoctorMain/Personal/Personal';
-import { VisitHistory } from '../components/VisitHistory/VisitHistory';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { getUserInfoById } from 'redux/info/operation';
 import { selectUserInfoById } from 'redux/info/selectors';
-import { useEffect } from 'react';
+
+import { AuthPage, ErrorPage, GridLayout, Layout, MainPage } from 'pages';
+import {
+    Colleagues,
+    DoctorMain,
+    ListOfPatients,
+    ListOfPatientsProfile,
+    Personal,
+    VisitHistory,
+} from 'pages/DoctorMain';
+import { PatientDoctors, PatientMain, PatientMedicalHistory, PatientVisitsToDoctor } from 'pages/PatientMain';
+
 export const App = () => {
     const dispatch = useDispatch();
     const data = useSelector(selectUserInfoById);
@@ -32,7 +26,7 @@ export const App = () => {
 
     return (
         <>
-            <button onClick={onClick}>GO</button>
+            {/* <button onClick={onClick}>GO</button> */}
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<MainPage />} />

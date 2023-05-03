@@ -40,7 +40,7 @@ const currentAppointments = [
     },
 ];
 
-const PatientVisitsToDoctor = () => {
+export const PatientVisitsToDoctor = () => {
     const [selectedDoctorData, setSelectedDoctorData] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -105,5 +105,3 @@ const PatientVisitsToDoctor = () => {
         </section>
     );
 };
-
-export default PatientVisitsToDoctor;

@@ -6,7 +6,7 @@ import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlock
 import UsersList from 'components/UsersList/UsersList';
 import css from './Colleagues.module.css';
 
-const Colleagues = () => {
+export const Colleagues = () => {
     const specializations = [
         'Show all',
         'Ophthalmologist',
@@ -84,5 +84,3 @@ const Colleagues = () => {
         </>
     );
 };
-
-export default Colleagues;

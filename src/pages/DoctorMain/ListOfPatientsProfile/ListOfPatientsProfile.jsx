@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { RxPencil1 } from 'react-icons/rx';
 import style from './ListOfPatientsProfile.module.css';
 
-const ListOfPatientsProfile = () => {
+export const ListOfPatientsProfile = () => {
     const [editMedcart, setEditMedcart] = useState(true);
     const [open, setOpen] = useState(false);
 
@@ -74,5 +74,3 @@ const ListOfPatientsProfile = () => {
         </>
     );
 };
-
-export default ListOfPatientsProfile;

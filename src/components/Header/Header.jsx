@@ -13,7 +13,6 @@ const Header = () => {
         text: 'Designed to streamline the process of connecting doctors and patients. With MedDoc, finding a doctor or medical professional is easier than ever before.',
         imageUrl: 'https://res.cloudinary.com/dmaywrdz0/image/upload/v1682867929/DNA-desctop_kbr6xd.png',
     };
-    console.log(defaultHero.name);
 
     return (
         <div className={s.container}>
