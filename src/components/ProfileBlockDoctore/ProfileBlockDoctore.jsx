@@ -2,7 +2,7 @@ import { UilPen } from '@iconscout/react-unicons';
 import { Button, Typography } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
-import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProdileModule';
+import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProdileModal';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
 import { useState } from 'react';
