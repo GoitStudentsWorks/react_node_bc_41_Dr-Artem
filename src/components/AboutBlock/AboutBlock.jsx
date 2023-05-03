@@ -5,7 +5,7 @@ import { ExperienceBlock } from 'components/ExperienceBlock/ExperienceBlock';
 import React, { useState } from 'react';
 import css from './AboutBlock.module.css';
 
-export const AboutBlock = () => {
+export const AboutBlock = ({ doctorInfo }) => {
     const [isVisitsVisible, setIsVisitsVisible] = useState(true);
 
     const handleArrowClick = () => {
@@ -60,7 +60,7 @@ export const AboutBlock = () => {
                     </>
                 )}
             </div>
-            <ExperienceBlock />
+            <ExperienceBlock doctorInfo={doctorInfo} />
         </div>
     );
 };
