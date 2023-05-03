@@ -3,16 +3,21 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice';
 import { infoReducer } from './info/slice';
+import { appointmentReducer } from './appointment/slice';
+import { visitsReducer } from './visits/slice';
+
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['accessToken', 'refreshToken'],
+    whitelist: ['accessToken', 'user'],
 };
 
 export const store = configureStore({
     reducer: {
         auth: persistReducer(authPersistConfig, authReducer),
         info: infoReducer,
+        appointment: appointmentReducer,
+        visits: visitsReducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

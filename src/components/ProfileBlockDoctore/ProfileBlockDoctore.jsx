@@ -2,12 +2,12 @@ import { UilPen } from '@iconscout/react-unicons';
 import { Button, Typography } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
+import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProfileModal';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
-import { useLocation } from 'react-router';
 import { useState } from 'react';
+import { useLocation } from 'react-router';
 import css from './ProfileBlockDoctore.module.css';
-import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProdileModule';
 
 const ident = 1;
 
