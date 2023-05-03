@@ -1,7 +1,7 @@
+import { Box, Button, Divider, Grid, List, ListItem } from '@mui/material';
+import { PagePagination } from '../../../components/PagePagination/PagePagination';
+import plug from '../../../images/ProfileBlock/plug.png';
 import css from './VisitHistory.module.css';
-import { PagePagination } from '../PagePagination/PagePagination';
-import { Button, Divider, List, ListItem, Box, Grid } from '@mui/material';
-import plug from '../../images/ProfileBlock/plug.png';
 
 const patients = [
     { id: 1, name: 'Melnyk Victoria Petrivna', date: 'November 23/11/2023' },

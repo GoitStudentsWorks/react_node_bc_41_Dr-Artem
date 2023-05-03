@@ -26,7 +26,7 @@ import { SwiperNavButtons } from './SwiperNavBtn/SwiperNavBtn';
 
 import { Typography } from '@mui/material';
 
-function MainPage() {
+export const MainPage = () => {
     return (
         <div>
             <section className="chosen section">
@@ -277,6 +277,4 @@ function MainPage() {
             <FAQ />
         </div>
     );
-}
-
-export default MainPage;
+};

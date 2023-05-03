@@ -2,7 +2,7 @@ import { UilPen } from '@iconscout/react-unicons';
 import { Button, Typography } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
-import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProdileModule';
+import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProfileModal';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
 import { useState } from 'react';
@@ -41,16 +41,16 @@ export const ProfileBlockDoctore = ({ children }) => {
                             Price:<p className={css.data}>750 UAH /1 hour</p>
                         </li>
                     </ul>
+                    {personalLoc && (
+                        <Button color="primary" onClick={() => setAppModal(!appModal)}>
+                            <UilPen style={{ width: '20px', height: '20px' }} />
+                            <Typography color="text.black" sx={{ lineHeight: 1.285, textTransform: 'none' }}>
+                                Edit profile
+                            </Typography>
+                        </Button>
+                    )}
+                    {children}
                 </div>
-                {/* {personalLoc && ( */}
-                <Button color="primary" onClick={() => setAppModal(!appModal)}>
-                    <UilPen style={{ width: '20px', height: '20px' }} />
-                    <Typography color="text.black" sx={{ lineHeight: 1.285, textTransform: 'none' }}>
-                        Edit profile
-                    </Typography>
-                </Button>
-                {/* )} */}
-                {children}
             </div>
             <EditDoctorProfileModal open={appModal} setApp={setAppModal} />
         </Card>

@@ -4,7 +4,7 @@ import { SpecializationBlock } from 'components/SpecializationBlock/Specializati
 import { WeekVisitsBlock } from 'components/WeekVisitsBlock/WeekVisitsBlock';
 import css from './Personal.module.css';
 
-const Personal = () => {
+export const Personal = () => {
     return (
         <>
             <div className={css.DoctorInformation}>
@@ -18,5 +18,3 @@ const Personal = () => {
         </>
     );
 };
-
-export default Personal;
