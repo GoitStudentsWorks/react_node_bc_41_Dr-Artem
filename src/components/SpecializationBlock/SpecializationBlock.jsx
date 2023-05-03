@@ -1,21 +1,24 @@
+
+
 import { IconButton } from '@mui/material';
 import { ModalEditDoctorSpecs } from 'components/ModalEditDoctorSpecs/ModalEditDoctorSpecs';
 import { useState } from 'react';
 import { RxPencil1 } from 'react-icons/rx';
 import css from './SpecializationBlock.module.css';
 
-export const SpecializationBlock = () => {
+export const SpecializationBlock = ({ doctorInfo }) => {
     const [open, setOpen] = useState(false);
+
     return (
         <div className={css.specializationBlock}>
             <ul className={css.specializationList}>
                 <li className={css.specializationItem}>
-                    Specialization:<span className={css.specializationText}>Surgeon</span>
+                    Specialization:<span className={css.specializationText}>{doctorInfo.specialization}</span>
                 </li>
                 <li className={css.specializationItem}>
                     Category:
                     <span span className={css.specializationText}>
-                        Higher
+                        {doctorInfo.category}
                     </span>
                 </li>
             </ul>
