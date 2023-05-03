@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api/';
+axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api';
+// axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const getUserInfo = createAsyncThunk('/getUserInfo', async (_, { rejectWithValue }) => {
     try {
@@ -31,16 +32,16 @@ export const getAllUsersForRole = createAsyncThunk('/getAllUsersForRole', async 
 
 export const updateUserInfo = createAsyncThunk('/updateUserInfo', async (information, { rejectWithValue }) => {
     try {
-        const { data } = await axios.patch('/info/update');
+        const { data } = await axios.patch('/info/update', information);
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
     }
 });
 
-export const updateUserRating = createAsyncThunk('/updateUserRating', async (id, { rejectWithValue }) => {
+export const updateUserRating = createAsyncThunk('/updateUserRating', async ({ id, rating }, { rejectWithValue }) => {
     try {
-        const { data } = await axios.patch(`/info/update/rating/${id}`);
+        const { data } = await axios.patch(`/info/update/rating/${id}`, { rating });
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -48,11 +49,12 @@ export const updateUserRating = createAsyncThunk('/updateUserRating', async (id,
 });
 
 export const addUserExperience = createAsyncThunk('/addUserExperience', async (information, { rejectWithValue }) => {
+    console.log(`experience`, information);
     try {
-        const { data } = await axios.post('/info/experience');
+        const { data } = await axios.post('/experience', information);
         return data;
     } catch (error) {
-        return rejectWithValue(error.message);
+        return rejectWithValue(error);
     }
 });
 
@@ -60,7 +62,7 @@ export const updateUserExperience = createAsyncThunk(
     '/updateUserExperience',
     async (id, updatedExperience, { rejectWithValue }) => {
         try {
-            const { data } = await axios.patch(`/info/experience/${id}`);
+            const { data } = await axios.patch(`/experience/${id}`, updatedExperience);
             return data;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -70,10 +72,9 @@ export const updateUserExperience = createAsyncThunk(
 
 export const deleteUserExperience = createAsyncThunk('/deleteUserExperience', async (id, { rejectWithValue }) => {
     try {
-        const { data } = await axios.delete(`/info/experience/${id}`);
+        const { data } = await axios.delete(`/experience/${id}`);
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
     }
 });
-// qwe
