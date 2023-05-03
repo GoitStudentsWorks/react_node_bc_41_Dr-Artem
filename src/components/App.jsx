@@ -16,14 +16,22 @@ import ListOfPatients from 'pages/DoctorMain/ListOfPatients/ListOfPatients';
 import ListOfPatientsProfile from 'pages/DoctorMain/ListOfPatientsProfile/ListOfPatientsProfile';
 import Personal from 'pages/DoctorMain/Personal/Personal';
 import { VisitHistory } from '../components/VisitHistory/VisitHistory';
+import { RestrictedRoute } from './RestrictedRoute';
+import { useAuth } from 'hooks';
+import { PrivateRoute } from './PrivateRoute';
 
 export const App = () => {
+    const { user } = useAuth();
+
     return (
         <>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<MainPage />} />
-                    <Route path="patient" element={<PatientMain />}>
+                    <Route
+                        path="patient"
+                        element={<PrivateRoute component={PatientMain} redirectTo="/auth/register" />}
+                    >
                         <Route
                             path="history"
                             element={
@@ -35,7 +43,7 @@ export const App = () => {
                         <Route path="doctors" element={<PatientDoctors />} />
                         <Route path="visits-history" element={<PatientVisitsToDoctor />} />
                     </Route>
-                    <Route path="doctor" element={<DoctorMain />}>
+                    <Route path="doctor" element={<PrivateRoute component={DoctorMain} redirectTo="/auth/register" />}>
                         <Route
                             path="personal/:id"
                             element={
@@ -57,7 +65,15 @@ export const App = () => {
                         <Route path="colleuges" element={<Colleagues />} />
                     </Route>
                 </Route>
-                <Route path="auth/:typeAuth" element={<AuthPage />} />
+                <Route
+                    path="auth/:typeAuth"
+                    element={
+                        <RestrictedRoute
+                            component={AuthPage}
+                            redirectTo={user.role === 'Patient' ? '/patient/history' : `/doctor/personal/${user.id}`}
+                        />
+                    }
+                />
                 <Route path="*" element={<ErrorPage />}></Route>
             </Routes>
         </>
