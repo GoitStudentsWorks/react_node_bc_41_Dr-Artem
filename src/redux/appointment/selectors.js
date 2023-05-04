@@ -1,3 +1,3 @@
-export const selectIsLoggedIn = state => state.appointment.appointments;
+export const selectCurrentUserAppointments = state => state.appointment.appointments;
 
-export const selectUser = state => state.appointment.appointment;
+export const selectAppointment = state => state.appointment.appointment;
