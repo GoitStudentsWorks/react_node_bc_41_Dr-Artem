@@ -4,10 +4,12 @@ import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/slice';
 import { infoReducer } from './info/slice';
 import { appointmentReducer } from './appointment/slice';
+import { visitsReducer } from './visits/slice';
+
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['accessToken', 'user'],
+    whitelist: ['accessToken', 'user', 'isLoggedIn'],
 };
 
 export const store = configureStore({
@@ -15,6 +17,7 @@ export const store = configureStore({
         auth: persistReducer(authPersistConfig, authReducer),
         info: infoReducer,
         appointment: appointmentReducer,
+        visits: visitsReducer,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({

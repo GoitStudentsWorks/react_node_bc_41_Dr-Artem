@@ -1,7 +1,7 @@
 import { Navigation } from 'components/Navigation/Navigation';
 import { Outlet } from 'react-router-dom';
 
-const PatientMain = () => {
+export const PatientMain = () => {
     return (
         <>
             <Navigation />
@@ -9,4 +9,3 @@ const PatientMain = () => {
         </>
     );
 };
-export default PatientMain;

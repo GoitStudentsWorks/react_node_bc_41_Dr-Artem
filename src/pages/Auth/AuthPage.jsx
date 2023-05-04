@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Medic from '../../images/Medic.png';
 import css from './AuthPage.module.css';
 
-const AuthPage = () => {
+export const AuthPage = () => {
     const { typeAuth } = useParams();
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState(typeAuth);
@@ -41,5 +41,3 @@ const AuthPage = () => {
         </section>
     );
 };
-
-export default AuthPage;

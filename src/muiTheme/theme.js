@@ -13,6 +13,7 @@ const COLOR = {
     veryLightGray: ' #fafafa',
     black: '#111111',
     lightBlue: '#edf5f5',
+    red: '#E74A3B',
 };
 
 const theme = createTheme({
@@ -197,6 +198,9 @@ const theme = createTheme({
                                 color: COLOR.black,
                                 padding: '0px',
                             },
+                            '&.Mui-error': {
+                                outline: `2px solid ${COLOR.red}`,
+                            },
                         }),
                 }),
             },
@@ -262,64 +266,15 @@ const theme = createTheme({
             },
         },
 
-        // MuiTextField: {
-        //     styleOverrides: {
-        //         root: ({ ownerState }) => ({
-        //             ...(ownerState.variant === 'outlined' &&
-        //                 ownerState.color === 'primary' && {
-        //                     width: '100%',
-        //                     '& .MuiInputBase-root': {
-        //                         borderRadius: '8px',
-        //                         outline: `1px solid ${COLOR.lightGray}`,
-        //                         padding: '14px 18px',
-        //                         '& fieldset': {
-        //                             outline: 'none',
-        //                             border: 'none',
-        //                         },
-        //                         '&:hover': {
-        //                             outline: `1px solid ${COLOR.lightGray}`,
-        //                             border: 'none',
-        //                         },
-
-        //                         '&.Mui-focused': {
-        //                             border: 'none',
-        //                             outline: `2px solid ${COLOR.green}`,
-        //                         },
-        //                     },
-        //                     '& .MuiInputBase-input': {
-        //                         fontSize: 14,
-        //                         lineHeight: 1.285,
-        //                     },
-        //                 }),
-        //             ...(ownerState.variant === 'standard' &&
-        //                 ownerState.color === 'primary' && {
-        //                     width: '100%',
-        //                     '& .MuiInputBase-root': {
-        //                         borderRadius: '8px',
-        //                         outline: `1px solid ${COLOR.lightGray}`,
-        //                         padding: '18px 40px 18px 18px',
-        //                         '& fieldset': {
-        //                             outline: 'none',
-        //                             border: 'none',
-        //                         },
-        //                         '&:hover': {
-        //                             outline: `1px solid ${COLOR.lightGray}`,
-        //                             border: 'none',
-        //                         },
-
-        //                         '&.Mui-focused': {
-        //                             border: 'none',
-        //                             outline: `2px solid ${COLOR.green}`,
-        //                         },
-        //                     },
-        //                     '& .MuiInputBase-input': {
-        //                         fontSize: 14,
-        //                         lineHeight: 1.285,
-        //                     },
-        //                 }),
-        //         }),
-        //     },
-        // },
+        MuiTextField: {
+            styleOverrides: {
+                root: {
+                    '& .MuiInputBase-root.Mui-error': {
+                        outline: `2px solid ${COLOR.red}`,
+                    },
+                },
+            },
+        },
         MuiButton: {
             styleOverrides: {
                 root: ({ ownerState }) => ({

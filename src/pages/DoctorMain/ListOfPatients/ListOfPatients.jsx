@@ -5,7 +5,7 @@ import UsersList from 'components/UsersList/UsersList';
 // import { useEffect, useRef } from 'react';
 import css from './ListOfPatients.module.css';
 
-const ListOfPatients = () => {
+export const ListOfPatients = () => {
     // const filterRef = useRef(null);
     // const filterFilterRef = useRef(null);
     // const filterArrowRef = useRef(null);
@@ -88,5 +88,3 @@ const ListOfPatients = () => {
         </>
     );
 };
-
-export default ListOfPatients;

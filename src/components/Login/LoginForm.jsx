@@ -1,14 +1,14 @@
-import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { Button, InputAdornment, InputLabel, TextField } from '@mui/material';
 import ShowPassword from 'components/ShowPassword/ShowPassword';
+import { useFormik } from 'formik';
+import { useState } from 'react';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import { Field, Form, Formik, ErrorMessage } from 'formik';
+import { useDispatch } from 'react-redux';
+import { login } from 'redux/auth/operation';
 import * as yup from 'yup';
 import css from '../Login/LoginForm.module.css';
-import { login } from 'redux/auth/operation';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
-import { getAllUsersForRole, getUserInfo } from 'redux/info/operation';
-// eslint-disable-next-line
+
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
 
@@ -19,7 +19,7 @@ const schema = yup.object().shape({
         .min(6, 'Password must be at least 6 characters')
         .matches(
             passwordRules,
-            'Password must contain at least 8 characters, one uppercase, one number and one special case character'
+            'Password must contain at least 8 characters, 1 uppercase, 1 number and 1 special case character'
         )
         .required('Password is a required field'),
 });
@@ -27,14 +27,14 @@ const schema = yup.object().shape({
 export const LoginForm = () => {
     const dispatch = useDispatch();
 
-    const handleSubmit = values => {
+    const handleSubmitForm = values => {
         const user = {
             number: values.phone,
             password: values.password,
         };
         const res = dispatch(login(user));
         res.then(el => {
-            console.log(typeof el.payload);
+            console.log(el.payload);
             if (typeof el.payload === 'number') {
                 if (el.payload === 400) {
                     NotificationManager.warning('Введіть номер телефону та пароль');
@@ -45,52 +45,93 @@ export const LoginForm = () => {
                 NotificationManager.success('Ви авторизовані');
             }
         });
-        dispatch(getAllUsersForRole('Doctor'));
     };
     const [showPassword, setShow] = useState(false);
-    // const [disabled, setDisabled] = useState(false);
 
     const handleClick = () => {
         setShow(show => !show);
     };
 
-    const initialValues = { phone: '', password: '' };
+    const formik = useFormik({
+        initialValues: {
+            phone: '',
+            password: '',
+        },
+        validationSchema: schema,
+        onSubmit: values => {
+            handleSubmitForm(values);
+        },
+    });
 
     return (
         <div className={css.wrap}>
-            <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={schema}>
-                <Form>
-                    <ul className={css.formWraper}>
-                        <li className={css.formItem}>
-                            <label htmlFor="phone" className={css.label}>
-                                Phone Number
-                            </label>
-                            <Field type="tel" name="phone" placeholder="+380 (_)__-__-__" className={css.input} />
+            <form onSubmit={formik.handleSubmit}>
+                <ul className={css.formWraper}>
+                    <li className={css.formItem}>
+                        <InputLabel htmlFor="phone" variant="standard" color="primary">
+                            Phone Number
+                        </InputLabel>
+                        <TextField
+                            fullWidth
+                            id="phone"
+                            name="phone"
+                            type="tel"
+                            placeholder="+380"
+                            value={formik.values.phone}
+                            onChange={formik.handleChange}
+                            error={formik.touched.phone && Boolean(formik.errors.phone)}
+                            helperText={formik.touched.phone && formik.errors.phone}
+                        />
+                    </li>
+                    <li className={css.formItem}>
+                        <InputLabel htmlFor="password" variant="standard" color="primary">
+                            Password
+                        </InputLabel>
 
-                            <ErrorMessage name="phone" component="span" />
-                        </li>
-                        <li className={css.formItem}>
-                            <label htmlFor="password" className={css.label}>
-                                Password
-                            </label>
-                            <div className={css.showWraper}>
-                                <Field
-                                    type={showPassword ? 'true' : 'password'}
-                                    name="password"
-                                    placeholder="Enter your password"
-                                    className={css.input}
-                                />
-                                <ShowPassword isShown={showPassword} handleClick={handleClick} />
-                            </div>
-                            <ErrorMessage name="password" component="span" />
-                        </li>
-                    </ul>
-                    <button type="submit" className={css.formBtn}>
-                        {/* disabled={disabled}  */}
+                        <TextField
+                            fullWidth
+                            id="password"
+                            name="password"
+                            type={showPassword ? 'true' : 'password'}
+                            placeholder="Enter your password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={formik.touched.password && Boolean(formik.errors.password)}
+                            helperText={formik.touched.password && formik.errors.password}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <ShowPassword isShown={showPassword} handleClick={handleClick} />
+                                    </InputAdornment>
+                                ),
+                            }}
+                        />
+                    </li>
+                </ul>
+                {formik.values.phone && formik.values.password === '' ? (
+                    <Button
+                        disabled
+                        variant="contained"
+                        color="secondary"
+                        disableElevation
+                        type="submit"
+                        sx={{ fontSize: '18px', lineHeight: 1.55, borderRadius: '8px', textTransform: 'capitalize' }}
+                    >
                         Log In
-                    </button>
-                </Form>
-            </Formik>
+                    </Button>
+                ) : (
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="secondaryAuth"
+                        disableElevation
+                        type="submit"
+                        sx={{ fontSize: '18px', lineHeight: 1.55, borderRadius: '8px', textTransform: 'capitalize' }}
+                    >
+                        Log In
+                    </Button>
+                )}
+            </form>
             <NotificationContainer />
         </div>
     );

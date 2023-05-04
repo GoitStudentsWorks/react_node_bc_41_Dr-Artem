@@ -1,42 +1,42 @@
-import AuthPage from 'pages/Auth/AuthPage';
-import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
-import { GridLayout } from 'pages/GridLayout/GridLayout';
-import { Layout } from 'pages/Layout/Layout';
-import MainPage from 'pages/MainPage/MainPage';
 import { Route, Routes } from 'react-router';
-
-import PatientDoctors from 'pages/PatientMain/PatientDoctors/PatientDoctors';
-import PatientMain from 'pages/PatientMain/PatientMain';
-import PatientMedicalHistory from 'pages/PatientMain/PatientMedicalHistory/PatientMedicalHistory';
-import PatientVisitsToDoctor from 'pages/PatientMain/PatientVisitsToDoctor/PatientVisitsToDoctor';
-
-import Colleagues from 'pages/DoctorMain/Colleagues/Colleagues';
-import DoctorMain from 'pages/DoctorMain/DoctorMain';
-import ListOfPatients from 'pages/DoctorMain/ListOfPatients/ListOfPatients';
-import ListOfPatientsProfile from 'pages/DoctorMain/ListOfPatientsProfile/ListOfPatientsProfile';
-import Personal from 'pages/DoctorMain/Personal/Personal';
-import { VisitHistory } from '../components/VisitHistory/VisitHistory';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { getUserInfoById } from 'redux/info/operation';
-import { selectUserInfoById } from 'redux/info/selectors';
 import { useEffect } from 'react';
-export const App = () => {
-    const dispatch = useDispatch();
-    const data = useSelector(selectUserInfoById);
+import { useAuth } from 'hooks';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
 
-    const onClick = () => {
-        dispatch(getUserInfoById('64417972d4e00b5a6bb8389a'));
-        console.log(data);
-    };
+import { AuthPage, ErrorPage, GridLayout, Layout, MainPage } from 'pages';
+import {
+    Colleagues,
+    DoctorMain,
+    ListOfPatients,
+    ListOfPatientsProfile,
+    Personal,
+    VisitHistory,
+} from 'pages/DoctorMain';
+import { PatientDoctors, PatientMain, PatientMedicalHistory, PatientVisitsToDoctor } from 'pages/PatientMain';
+import { getUserInfo } from 'redux/info/operation';
+import { getAllVisits } from 'redux/visits/operation';
+export const App = () => {
+    const { user } = useAuth();
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (user) {
+            console.log(user);
+            dispatch(getUserInfo());
+            dispatch(getAllVisits());
+        }
+    }, [dispatch, user]);
 
     return (
         <>
-            <button onClick={onClick}>GO</button>
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<MainPage />} />
-                    <Route path="patient" element={<PatientMain />}>
+                    <Route
+                        path="patient"
+                        element={<PrivateRoute component={PatientMain} redirectTo="/auth/register" />}
+                    >
                         <Route
                             path="history"
                             element={
@@ -48,7 +48,7 @@ export const App = () => {
                         <Route path="doctors" element={<PatientDoctors />} />
                         <Route path="visits-history" element={<PatientVisitsToDoctor />} />
                     </Route>
-                    <Route path="doctor" element={<DoctorMain />}>
+                    <Route path="doctor" element={<PrivateRoute component={DoctorMain} redirectTo="/auth/register" />}>
                         <Route
                             path="personal/:id"
                             element={
@@ -70,7 +70,15 @@ export const App = () => {
                         <Route path="colleuges" element={<Colleagues />} />
                     </Route>
                 </Route>
-                <Route path="auth/:typeAuth" element={<AuthPage />} />
+                <Route
+                    path="auth/:typeAuth"
+                    element={
+                        <RestrictedRoute
+                            component={AuthPage}
+                            redirectTo={user.role === 'Patient' ? '/patient/history' : `/doctor/personal/${user.id}`}
+                        />
+                    }
+                />
                 <Route path="*" element={<ErrorPage />}></Route>
             </Routes>
         </>

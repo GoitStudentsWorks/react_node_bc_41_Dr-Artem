@@ -8,7 +8,7 @@ import style from './PatientDoctors.module.css';
 import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments, setAppointment, getAppointmentById } from 'redux/appointment/operation';
 
-const PatientDoctors = () => {
+export const PatientDoctors = () => {
     const dispatch = useDispatch();
     const sorting = ['By default', 'Rating', 'Price'];
     const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -50,5 +50,3 @@ const PatientDoctors = () => {
         </>
     );
 };
-
-export default PatientDoctors;
