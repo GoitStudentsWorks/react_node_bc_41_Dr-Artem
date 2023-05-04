@@ -7,7 +7,9 @@ import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import dayjs from 'dayjs';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateUserInfo } from 'redux/info/operation';
 import css from '../EditDoctorProfileModal/EditDoctorProfileModule.module.css';
 
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
@@ -20,7 +22,6 @@ const schema = yup.object().shape({
         .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
         .required('Username is a required field'),
     gender: yup.string().min(4).max(6).required(),
-    date: yup.date().nullable().required('Please enter your age. You must be 18 years or older'),
     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
     about: yup.string().required(),
 });
@@ -38,29 +39,10 @@ const style = {
     width: '100%',
 };
 
-const startOfQ12022 = dayjs('1945-01-01T00:00:00.000');
-const endOfQ12022 = dayjs('2013-01-01T23:59:59.999');
-
 const EditDoctorProfileModal = ({ open, setApp }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs);
-    const [error, setError] = useState(null);
 
-    const errorMessage = useMemo(() => {
-        switch (error) {
-            case 'maxDate':
-            case 'minDate': {
-                return 'Please use a date later than 1945 or sooner than 2013. You must be 18 years or older ';
-            }
-
-            case 'invalidDate': {
-                return 'Your date is not valid';
-            }
-
-            default: {
-                return '';
-            }
-        }
-    }, [error]);
+    const dispatch = useDispatch();
 
     function handleDateChange(date) {
         setSelectedDate(date.format('DD.MM.YYYY'));
@@ -69,14 +51,15 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
 
     const handleSubmitForm = values => {
         const data = {
-            username: values.username,
+            name: values.username,
             gender: values.gender,
-            date: selectedDate,
-            phone: values.phone,
+            birthday: selectedDate,
+            number: values.phone,
+            price: values.price,
             about: values.about,
         };
-
-        console.log(data);
+        dispatch(updateUserInfo(data));
+        console.log(dispatch(updateUserInfo(data)));
         setApp(!open);
     };
 
@@ -86,6 +69,7 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
             gender: '',
             date: selectedDate,
             phone: '',
+            price: '',
             about: '',
         },
         validationSchema: schema,
@@ -149,15 +133,6 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                         onChange={value => {
                                             formik.setFieldValue(handleDateChange(value));
                                         }}
-                                        // defaultValue={dayjs('2013-01-01')}
-                                        onError={newError => setError(newError)}
-                                        slotProps={{
-                                            textField: {
-                                                helperText: errorMessage,
-                                            },
-                                        }}
-                                        minDate={startOfQ12022}
-                                        maxDate={endOfQ12022}
                                     />
                                 </DemoItem>
                             </LocalizationProvider>
@@ -193,6 +168,21 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                                 onChange={formik.handleChange}
                                 error={formik.touched.about && Boolean(formik.errors.about)}
                                 helperText={formik.touched.about && formik.errors.about}
+                            />
+                        </li>
+                        <li>
+                            <InputLabel variant="standard" color="primary" htmlFor="price">
+                                Price
+                            </InputLabel>
+                            <TextField
+                                fullWidth
+                                id="price"
+                                name="price"
+                                type="text"
+                                value={formik.values.price}
+                                onChange={formik.handleChange}
+                                error={formik.touched.price && Boolean(formik.errors.price)}
+                                helperText={formik.touched.price && formik.errors.price}
                             />
                         </li>
                     </ul>
