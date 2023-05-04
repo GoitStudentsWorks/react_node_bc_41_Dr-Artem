@@ -46,7 +46,7 @@ const inputStyles = {
 };
 
 export const ModalMakeAppointment = ({ open, setApp }) => {
-    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()));
+    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).format('DD.MM.YYYY'));
     const [selectedTime, setSelectedTime] = useState(null);
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
@@ -123,6 +123,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                 date: selectedDate,
                 time: selectedTime,
             };
+            console.log(data);
 
             dispatch(setAppointment(data));
 
