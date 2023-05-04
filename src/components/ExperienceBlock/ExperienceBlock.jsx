@@ -12,20 +12,26 @@ import { deleteUserExperience } from 'redux/info/operation';
 import moment from 'moment';
 import { UilTrashAlt } from '@iconscout/react-unicons';
 
-export const ExperienceBlock = ({ doctorInfo }) => {
+
+export const ExperienceBlock = ({doctorInfo}) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState('');
-
-    const date = new Date(Date.parse('2011-11-10T22:00:00.000Z'));
-    const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
-    console.log(formattedDate);
+    const [id, setId] = useState(null);
 
     const dispatch = useDispatch();
 
-    const handleModalChange = currentTitle => {
+
+    const date = new Date(Date.parse('2011-11-10T22:00:00.000Z'));
+    const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
+
+
+    const handleModalChange = (currentTitle, _id) => {
         setModalOpen(!modalOpen);
         setTitle(currentTitle);
+
+        _id ? setId(_id) : setId(null);
     };
+
 
     return (
         <div className={css.experienceBlock}>
@@ -36,13 +42,18 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                 </IconButton>
             </div>
             <ul className={css.experienceList}>
-                {doctorInfo.experience.map(({ institution, description, startDate, endDate, _id }) => {
+                {doctorInfo.experience.map(({ institution, description, startDate, endDate, _id, institutionLogo }) => {
+                    console.log(institutionLogo);
                     return (
                         <>
                             <li className={css.experienceListItem}>
                                 <div className={css.experienceItemWrapper}>
-                                    <div className={css.experienceImage}>
-                                        <img src={experienceImg} alt="Logo" />
+                                    <div className={institutionLogo ? css.experienceImage : css.plugLogo}>
+                                        <img
+                                            className={css.image}
+                                            src={institutionLogo ? institutionLogo : experienceImg}
+                                            alt="Logo"
+                                        />
                                     </div>
                                     <div className={css.experienceInfoItem}>
                                         <p className={css.experienceInfoTitle}>{institution}</p>
@@ -63,7 +74,9 @@ export const ExperienceBlock = ({ doctorInfo }) => {
 
                                         <IconButton
                                             sx={{ padding: '0', marginBottom: '12px' }}
-                                            onClick={() => handleModalChange('Edit experience')}
+                                            onClick={() => {
+                                                handleModalChange('Edit experience', _id);
+                                            }}
                                         >
                                             <RxPencil1 style={{ color: '#477577' }} />
                                         </IconButton>
@@ -82,7 +95,7 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                     );
                 })}
             </ul>
-            <ExperienceModal doctorInfo={doctorInfo} open={modalOpen} setModalOpen={handleModalChange} title={title} />
+            <ExperienceModal doctorInfo={doctorInfo} open={modalOpen} setModalOpen={handleModalChange} title={title} id={id}/>
         </div>
     );
 };
