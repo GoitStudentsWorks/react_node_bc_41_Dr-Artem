@@ -8,30 +8,14 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import css from './ModalMakeAppointment.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAppointment } from 'redux/appointment/operation';
+import { selectAllDoctors } from 'redux/info/selectors';
+import { getCurrentUserAppointments } from 'redux/appointment/operation';
 
-const doctorData = {
-    names: [
-        'Aksionov Pavlo Valeriyovych',
-        'Sulik Roman Volodymyrovych',
-        'Vergulenko Alla Olehivna',
-        'Tepa Olena Valeriivna',
-        'Ostapets Tatyana Ivanovna',
-    ],
-    specs: [
-        'Ophthalmologist',
-        'Surgeon',
-        'Therapist',
-        'Neurologist',
-        'Gynecologist',
-        'Endocrinologist',
-        'Psychiatrist',
-        'Psychotherapist',
-        'Otolaryngologist',
-    ],
-    timeDates: ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'],
-};
+const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
 
 const buttonStyle = {
     padding: { md: '13px 32px' },
@@ -63,21 +47,61 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const [selectedTime, setSelectedTime] = useState(null);
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
-    const [appointmentDate, setAppointmentDate] = useState(null);
+    const [selectDoctor, setSelectDoctor] = useState(null);
+    const [userAppointments, setUserAppointments] = useState();
+    const [userHour, setUserHour] = useState();
+
+    const dispatch = useDispatch();
+    const allDoctors = useSelector(selectAllDoctors);
+
+    useEffect(() => {
+        dispatch(getCurrentUserAppointments()).then(el => setUserAppointments(el.payload));
+    }, [userHour]);
+
+    const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
+
+    const specs = doctorsWithSpecialization.map(el => el.specialization);
+    const doctorsName = doctorsWithSpecialization.map(el => el.name);
+
+    const uniqueSpecialization = Array.from(new Set(specs));
+
+    console.log(uniqueSpecialization);
+
+    const today = new Date();
+    const formattedDateToday = today.toLocaleDateString('uk-UA');
+
+    // const doctorAppointments = userAppointments.filter(el => el.doctor.name === selectDoctor);
+    // const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDateToday);
+    // const doctorHour = doctorAppointmentsDate.map(el => el.time);
+    // console.log(doctorHour);
+    // setUserHour(doctorHour);
 
     const handleSpecializationChange = value => {
-        setSpecialization(value);
+        const doctorSpecialization = value.currentTarget.innerText;
+        setSpecialization(doctorSpecialization);
+
+        const doctorNames = doctorsWithSpecialization
+            .filter(el => (doctorSpecialization ? el.specialization === doctorSpecialization : el))
+            .map(el => el.name);
+        setDoctor(doctorNames);
+        setSelectDoctor(null);
     };
 
-    const handleDoctorChange = value => {
-        setDoctor(value);
+    const handleDoctorChange = event => {
+        const name = event.currentTarget.innerText;
+        setSelectDoctor(name);
     };
 
     const handleTimeChange = value => {
-        setSelectedTime(value);
+        setSelectedTime(value.currentTarget.innerText);
     };
 
     const handleDateChange = formattedDate => {
+        console.log(formattedDate);
+        const doctorAppointments = userAppointments.filter(el => el.doctor.name === selectDoctor);
+        const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDate);
+        const doctorHour = doctorAppointmentsDate.map(el => el.time);
+        setUserHour(doctorHour);
         setSelectedDate(formattedDate);
     };
 
@@ -85,22 +109,25 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         event.preventDefault();
 
         const requiredFields = [selectedDate, selectedTime, specialization, doctor];
+        console.log(requiredFields);
         if (requiredFields.every(field => field !== null)) {
-            const timeDate = [{ date: selectedDate, time: [selectedTime] }];
+            const selectDoctorInfo = allDoctors.filter(el => el.name === selectDoctor);
 
             const data = {
-                name: doctor,
-                spec: specialization,
-                timeDate,
+                doctor: selectDoctorInfo[0]._id,
+                specialization,
+                date: selectedDate,
+                time: selectedTime,
             };
+            console.log(data);
 
-            setAppointmentDate(data);
-            setSpecialization(null);
+            dispatch(setAppointment(data));
+
             setSelectedTime(null);
+            setSpecialization(null);
+            setUserHour(...userHour, selectedTime);
             setDoctor(null);
             setSelectedDate(dayjs(Date.now()));
-            console.log(data);
-            console.log(appointmentDate);
 
             setApp(!open);
         } else {
@@ -145,9 +172,9 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={doctorData.specs}
-                            value={doctorData.spec}
-                            onChange={handleDoctorChange}
+                            options={uniqueSpecialization}
+                            value={specialization}
+                            onChange={handleSpecializationChange}
                             sx={{ width: '100%' }}
                             renderInput={params => (
                                 <TextField {...params} sx={inputStyles} placeholder="Enter specialization" />
@@ -161,9 +188,9 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={doctorData.names}
-                            value={doctorData.name}
-                            onChange={handleSpecializationChange}
+                            options={doctor ? doctor : doctorsName}
+                            value={selectDoctor}
+                            onChange={handleDoctorChange}
                             sx={{ width: '100%' }}
                             renderInput={params => (
                                 <TextField {...params} sx={inputStyles} placeholder="Enter doctors" />
@@ -181,12 +208,20 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                         marginBottom: { xs: '20px', md: '32px' },
                     }}
                 >
-                    {doctorData.timeDates.map(e => {
-                        return (
-                            <button type="button" key={e} className={css.timeBtn} onClick={handleTimeChange}>
-                                {e}
-                            </button>
-                        );
+                    {timeDates?.map(e => {
+                        if (!userHour?.includes(e)) {
+                            return (
+                                <button type="button" key={e} className={css.timeBtn} onClick={handleTimeChange}>
+                                    {e}
+                                </button>
+                            );
+                        } else {
+                            return (
+                                <button type="button" disabled key={e} className={css.timeBtnDisable}>
+                                    {e}
+                                </button>
+                            );
+                        }
                     })}
                 </Box>
                 <Button

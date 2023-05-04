@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const setAppointment = createAsyncThunk('setAppointment', async (credentials, { rejectWithValue }) => {
     try {
@@ -14,9 +14,9 @@ export const setAppointment = createAsyncThunk('setAppointment', async (credenti
 
 export const getCurrentUserAppointments = createAsyncThunk(
     'getCurrentUserAppointment',
-    async (credentials, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get('/appointment', credentials);
+            const { data } = await axios.get('/appointment');
             return data;
         } catch (error) {
             return rejectWithValue(error.response.status);
