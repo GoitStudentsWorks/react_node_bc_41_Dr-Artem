@@ -4,6 +4,7 @@ import { PagePagination } from 'components/PagePagination/PagePagination';
 import UsersList from 'components/UsersList/UsersList';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { getAppointmentById, getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
 import style from './PatientDoctors.module.css';
 
@@ -51,6 +52,23 @@ export const PatientDoctors = () => {
         }
     };
 
+    const handleClick = el => {
+        console.log(el);
+        // const qq = dispatch(
+        //     setAppointment({
+        //         specialization: 'hirirg',
+        //         doctor: '64417972d4e00b5a6bb8389a',
+        //         date: '345234123',
+        //         time: '1234234234',
+        //     })
+        // );
+        // qq.then(el => console.log(el));
+
+        dispatch(getCurrentUserAppointments());
+
+        // dispatch(getAppointmentById('64515633d28be343862f9973'));
+    };
+
     return (
         <>
             <div className={style.filter}>
@@ -66,7 +84,7 @@ export const PatientDoctors = () => {
                 </div>
             </div>
             <UsersList listOfUsers={allDoctors}>
-                <Button variant="outlined" color="primary">
+                <Button variant="outlined" color="primary" onClick={handleClick}>
                     make an appointment
                 </Button>
             </UsersList>
