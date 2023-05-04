@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import { Box, Input } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -12,9 +12,69 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import css from './ExperienceModal.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { addUserExperience, updateUserExperience, getAllInstitution } from '../../redux/info/operation';
-import { selectInstitution } from 'redux/info/selectors';
+
+const institutionData = [
+    {
+        name: 'Harvard Medical School',
+        address: '25 Shattuck St, Boston, MA 02115, United States',
+        phone: '(617) 432-1000',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010159/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_bijhvy.png',
+    },
+    {
+        name: 'Johns Hopkins School of Medicine',
+        address: '733 N Broadway, Baltimore, MD 21205, United States',
+        phone: '(410) 955-5000',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010159/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_1_ta3d36.png',
+    },
+    {
+        name: 'Stanford University School of Medicine',
+        address: '291 Campus Dr, Stanford, CA 94305, United States',
+        phone: '(650) 723-6861',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010159/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_ftkoak.jpg',
+    },
+    {
+        name: 'Yale School of Medicine',
+        address: '333 Cedar St, New Haven, CT 06510, United States',
+        phone: '(203) 785-4672',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010159/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_2_hjyetd.png',
+    },
+    {
+        name: 'Columbia University Vagelos College of Physicians and Surgeons',
+        address: '630 W 168th St, New York, NY 10032, United States',
+        phone: '(212) 305-2500',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010158/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_1_sodzqb.jpg',
+    },
+    {
+        name: 'Perelman School of Medicine at the University of Pennsylvania',
+        address: '3400 Civic Center Blvd, Philadelphia, PA 19104, United States',
+        phone: '(215) 662-4000',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010158/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_3_kuhghl.png',
+    },
+    {
+        name: 'David Geffen School of Medicine at UCLA',
+        address: '10833 Le Conte Ave, Los Angeles, CA 90095, United States',
+        phone: '(310) 825-9111',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010158/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_4_wahgsy.png',
+    },
+    {
+        name: 'University of Michigan Medical School',
+        address: '5301 E Huron River Dr, Ann Arbor, MI 48105, United States',
+        phone: '(734) 647-5600',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010158/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_5_utolcf.png',
+    },
+    {
+        name: 'Duke University School of Medicine',
+        address: 'Duke University, Durham, NC 27710, United States',
+        phone: '(919) 684-8111',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010158/Med-back/images_1_pa1z5a.jpg',
+    },
+    {
+        name: 'Baylor College of Medicine',
+        address: '1 Baylor Plaza, Houston, TX 77030, United States',
+        phone: '(713) 798-4951',
+        image: 'https://res.cloudinary.com/dec1shvoo/image/upload/v1682010158/Med-back/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_2_tohlev.jpg',
+    },
+];
 
 const buttonStyle = {
     padding: { xs: '12px 24px', md: '13px 32px' },
@@ -41,24 +101,33 @@ const inputStyles = {
     },
 };
 
-const datePickerStyles = {
+const datePickerStyles ={
     '& .MuiOutlinedInput-root': {
-        borderRadius: '8px',
-    },
-};
+        borderRadius: '8px'
+      }
+}
 
-export const ExperienceModal = ({ open, setModalOpen, title, doctorInfo, id }) => {
+export const ExperienceModal = ({ open, setModalOpen, title }) => {
     const [selectedStartDate, setSelectedStartDate] = useState(dayjs());
     const [selectedEndDate, setSelectedEndDate] = useState(dayjs());
     const [selectedInstitution, setSelectedInstitution] = useState(null);
     const [description, setDescription] = useState('');
 
-    const dispatch = useDispatch();
-    const institution = useSelector(selectInstitution);
+    const handleInstitutionChange = (event, value) => {
+        setSelectedInstitution(value);
+    };
 
-    useEffect(() => {
-        dispatch(getAllInstitution())
-    }, [ dispatch]);
+    const handleStartDateChange = date => {
+        setSelectedStartDate(date);
+    };
+
+    const handleEndDateChange = date => {
+        setSelectedEndDate(date);
+    };
+
+    const handleDescriptionChange = event => {
+        setDescription(event.target.value);
+    };
 
     const handleKeyDown = event => {
         if (event.key === 'Enter') {
@@ -70,29 +139,18 @@ export const ExperienceModal = ({ open, setModalOpen, title, doctorInfo, id }) =
     const handleSubmit = event => {
         event.preventDefault();
 
-        if (!selectedInstitution && !description) {
+        if (!selectedInstitution) {
             alert('Institution is not selected!');
             return;
         }
 
-        const addData = {
-            institution: selectedInstitution.name,
-            description: description,
-            startDate: selectedStartDate.format('DD.MM.YYYY'),
-            endDate: selectedEndDate.format('DD.MM.YYYY'),
-            institutionLogo: selectedInstitution.image,
+        const data = {
+            Institution: selectedInstitution.name,
+            Description: description,
+            StartDate: selectedStartDate.format('DD.MM.YYYY'),
+            EndDate: selectedEndDate.format('DD.MM.YYYY'),
         };
-
-        const updateData = {
-            id,
-            institution: selectedInstitution.name,
-            description: description,
-            startDate: selectedStartDate.format('DD.MM.YYYY'),
-            endDate: selectedEndDate.format('DD.MM.YYYY'),
-            institutionLogo: selectedInstitution.image,
-        };
-
-        title === 'Add experience' ? dispatch(addUserExperience(addData)) : dispatch(updateUserExperience(updateData));
+        console.log(data);
 
         setSelectedStartDate(dayjs());
         setSelectedEndDate(dayjs());
@@ -120,20 +178,16 @@ export const ExperienceModal = ({ open, setModalOpen, title, doctorInfo, id }) =
                         />
                     </IconButton>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form>
                     <ul className={css.formWrapp}>
                         <li className={css.inputWrapp}>
-                            <p htmlFor="combo-box-demo" className={css.label}>
-                                Institution
-                            </p>
+                            <p htmlFor="combo-box-demo" className={css.label}>Institution</p>
                             <Autocomplete
                                 disablePortal
                                 id="combo-box-demo"
-                                options={institution}
+                                options={institutionData}
                                 value={selectedInstitution}
-                                onChange={(event, value) => {
-                                    setSelectedInstitution(value);
-                                }}
+                                onChange={handleInstitutionChange}
                                 sx={{ width: '100%' }}
                                 getOptionLabel={option => option.name}
                                 renderInput={params => (
@@ -148,9 +202,7 @@ export const ExperienceModal = ({ open, setModalOpen, title, doctorInfo, id }) =
                                 color="primary"
                                 type="text"
                                 value={description}
-                                onChange={event => {
-                                    setDescription(event.target.value);
-                                }}
+                                onChange={handleDescriptionChange}
                                 onKeyDown={handleKeyDown}
                                 multiline
                                 disableUnderline
@@ -159,34 +211,38 @@ export const ExperienceModal = ({ open, setModalOpen, title, doctorInfo, id }) =
                         <li className={css.inputWrapp}>
                             <p className={css.label}>Start date</p>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                <DemoItem components={['DatePicker']}>
+                                <DemoItem components={['DatePicker']} >
                                     <DatePicker
-                                        sx={{ width: '100%', ...datePickerStyles }}
+                                        sx={{ width: '100%', ...datePickerStyles}}
                                         value={selectedStartDate}
-                                        onChange={date => {
-                                            setSelectedStartDate(date);
-                                        }}
+                                        onChange={handleStartDateChange}
                                     />
                                 </DemoItem>
                             </LocalizationProvider>
                         </li>
                         <li>
-                            <p className={css.label}>End date</p>
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <p className={css.label}>End date</p>
+                            <LocalizationProvider dateAdapter={AdapterDayjs} >
                                 <DemoItem components={['DatePicker']}>
                                     <DatePicker
-                                        sx={{ width: '100%', ...datePickerStyles }}
+                                        sx={{ width: '100%', ...datePickerStyles}}
                                         value={selectedEndDate}
-                                        onChange={date => {
-                                            setSelectedEndDate(date);
-                                        }}
+                                        onChange={handleEndDateChange}
+                              
                                     />
                                 </DemoItem>
                             </LocalizationProvider>
                         </li>
                     </ul>
 
-                    <Button variant="contained" color="secondary" type="submit" sx={buttonStyle} disableElevation>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        type="submit"
+                        onClick={handleSubmit}
+                        sx={buttonStyle}
+                        disableElevation
+                    >
                         save
                     </Button>
                 </form>

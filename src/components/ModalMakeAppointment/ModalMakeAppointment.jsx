@@ -13,10 +13,6 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
 import css from './ModalMakeAppointment.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAppointment } from 'redux/appointment/operation';
-import { selectAllDoctors } from 'redux/info/selectors';
-import { getCurrentUserAppointments } from 'redux/appointment/operation';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
 
@@ -46,14 +42,13 @@ const inputStyles = {
 };
 
 export const ModalMakeAppointment = ({ open, setApp }) => {
-    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()));
+    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).format('DD.MM.YYYY'));
     const [selectedTime, setSelectedTime] = useState(null);
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
     const [selectDoctor, setSelectDoctor] = useState(null);
     const [userAppointments, setUserAppointments] = useState();
     const [userHour, setUserHour] = useState();
-
     const [allDoctors, setAllDoctors] = useState([]);
 
     const dispatch = useDispatch();
@@ -123,6 +118,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                 date: selectedDate,
                 time: selectedTime,
             };
+            console.log(data);
 
             dispatch(setAppointment(data));
 

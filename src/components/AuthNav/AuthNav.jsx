@@ -1,13 +1,19 @@
 import { Avatar, Button } from '@mui/material';
 import { useAuth } from 'hooks';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { logout } from 'redux/auth/operation';
 import s from '../AuthNav/AuthNav.module.css';
 
 const AuthNav = ({ user }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { isLoggedIn } = useAuth();
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/');
+    };
 
     return (
         <div className={s.auth_wrapper}>
@@ -55,7 +61,7 @@ const AuthNav = ({ user }) => {
                                 fontSize: { md: '14px' },
                                 lineHeight: { md: 1.428 },
                             }}
-                            onClick={() => dispatch(logout())}
+                            onClick={handleLogout}
                         >
                             Log Out
                         </Button>

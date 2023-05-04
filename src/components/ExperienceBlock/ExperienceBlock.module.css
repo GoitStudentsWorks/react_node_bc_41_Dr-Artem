@@ -50,33 +50,10 @@
 }
 
 .experienceImage {
-    border: 1px solid rgba(71, 117, 119, 0.3);
-    border-radius: 8px;
-
-    overflow: hidden;
-
     min-width: 60px;
     margin-right: 8px;
     @media (min-width: 768px) {
         min-width: 72px;
-    }
-}
-
-.plugLogo {
-    min-width: 60px;
-    margin-right: 8px;
-    @media (min-width: 768px) {
-        min-width: 72px;
-    }
-}
-
-.image {
-    width: 60px;
-    height: 60px;
-
-    @media (min-width: 768px) {
-        width: 72px;
-        height: 72px;
     }
 }
 
@@ -121,6 +98,7 @@
 .buttonEditWrapper {
     display: flex;
 }
+
 
 .buttonEdit {
     display: flex;
