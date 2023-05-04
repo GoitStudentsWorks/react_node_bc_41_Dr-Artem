@@ -65,16 +65,8 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
 
     const uniqueSpecialization = Array.from(new Set(specs));
 
-    console.log(uniqueSpecialization);
-
     const today = new Date();
     const formattedDateToday = today.toLocaleDateString('uk-UA');
-
-    // const doctorAppointments = userAppointments.filter(el => el.doctor.name === selectDoctor);
-    // const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDateToday);
-    // const doctorHour = doctorAppointmentsDate.map(el => el.time);
-    // console.log(doctorHour);
-    // setUserHour(doctorHour);
 
     const handleSpecializationChange = value => {
         const doctorSpecialization = value.currentTarget.innerText;
@@ -85,11 +77,17 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
             .map(el => el.name);
         setDoctor(doctorNames);
         setSelectDoctor(null);
+        setUserHour(null);
     };
 
     const handleDoctorChange = event => {
         const name = event.currentTarget.innerText;
         setSelectDoctor(name);
+
+        const doctorAppointments = userAppointments.filter(el => el.doctor.name === name);
+        const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDateToday);
+        const doctorHour = doctorAppointmentsDate.map(el => el.time);
+        setUserHour(doctorHour);
     };
 
     const handleTimeChange = value => {
@@ -97,7 +95,6 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     };
 
     const handleDateChange = formattedDate => {
-        console.log(formattedDate);
         const doctorAppointments = userAppointments.filter(el => el.doctor.name === selectDoctor);
         const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDate);
         const doctorHour = doctorAppointmentsDate.map(el => el.time);
@@ -109,7 +106,6 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         event.preventDefault();
 
         const requiredFields = [selectedDate, selectedTime, specialization, doctor];
-        console.log(requiredFields);
         if (requiredFields.every(field => field !== null)) {
             const selectDoctorInfo = allDoctors.filter(el => el.name === selectDoctor);
 
@@ -119,16 +115,15 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                 date: selectedDate,
                 time: selectedTime,
             };
-            console.log(data);
 
             dispatch(setAppointment(data));
 
             setSelectedTime(null);
             setSpecialization(null);
-            setUserHour(...userHour, selectedTime);
+            setUserHour(null);
             setDoctor(null);
+            setSelectDoctor(null);
             setSelectedDate(dayjs(Date.now()));
-
             setApp(!open);
         } else {
             alert('Fill in all fields!');
@@ -138,102 +133,97 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     return (
         <Modal open={open} onClose={() => setApp(!open)}>
             <Box sx={modalProperty}>
-                <div className={css.titleWrapp}>
+                <form onSubmit={handleSubmit}>
+                    <div className={css.titleWrapp}>
+                        <Typography
+                            variant="subtitle"
+                            component="p"
+                            sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
+                        >
+                            Doctor's appointment
+                        </Typography>
+                        <IconButton aria-label="close modal" size="small" onClick={() => setApp(!open)}>
+                            <CloseIcon
+                                sx={{
+                                    color: 'text.black',
+                                    width: '24px',
+                                    height: '24px',
+                                }}
+                            />
+                        </IconButton>
+                    </div>
                     <Typography
-                        variant="subtitle"
+                        variant="text"
+                        color="text.gray"
                         component="p"
-                        sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
+                        sx={{ fontSize: { md: '16px' }, lineHeight: { md: 1.5 }, mb: { xs: '40px', md: '32px' } }}
                     >
-                        Doctor's appointment
+                        Choose the desired appointment time and wait for confirmation
                     </Typography>
-                    <IconButton aria-label="close modal" size="small" onClick={() => setApp(!open)}>
-                        <CloseIcon
-                            sx={{
-                                color: 'text.black',
-                                width: '24px',
-                                height: '24px',
-                            }}
-                        />
-                    </IconButton>
-                </div>
-                <Typography
-                    variant="text"
-                    color="text.gray"
-                    component="p"
-                    sx={{ fontSize: { md: '16px' }, lineHeight: { md: 1.5 }, mb: { xs: '40px', md: '32px' } }}
-                >
-                    Choose the desired appointment time and wait for confirmation
-                </Typography>
-                <ul className={css.inputList}>
-                    <li>
-                        <InputLabel variant="standard" color="primary">
-                            Specialization
-                        </InputLabel>
-                        <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={uniqueSpecialization}
-                            value={specialization}
-                            onChange={handleSpecializationChange}
-                            sx={{ width: '100%' }}
-                            renderInput={params => (
-                                <TextField {...params} sx={inputStyles} placeholder="Enter specialization" />
-                            )}
-                        />
-                    </li>
-                    <li>
-                        <InputLabel variant="standard" color="primary">
-                            Doctors
-                        </InputLabel>
-                        <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={doctor ? doctor : doctorsName}
-                            value={selectDoctor}
-                            onChange={handleDoctorChange}
-                            sx={{ width: '100%' }}
-                            renderInput={params => (
-                                <TextField {...params} sx={inputStyles} placeholder="Enter doctors" />
-                            )}
-                        />
-                    </li>
-                </ul>
-                <DatePickers value={selectedDate} onDateSelected={handleDateChange} />
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '8px',
-                        marginTop: { xs: '20px', md: '16px' },
-                        marginBottom: { xs: '20px', md: '32px' },
-                    }}
-                >
-                    {timeDates?.map(e => {
-                        if (!userHour?.includes(e)) {
-                            return (
-                                <button type="button" key={e} className={css.timeBtn} onClick={handleTimeChange}>
-                                    {e}
-                                </button>
-                            );
-                        } else {
-                            return (
-                                <button type="button" disabled key={e} className={css.timeBtnDisable}>
-                                    {e}
-                                </button>
-                            );
-                        }
-                    })}
-                </Box>
-                <Button
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                    disableElevation
-                    sx={buttonStyle}
-                    onClick={handleSubmit}
-                >
-                    send
-                </Button>
+                    <ul className={css.inputList}>
+                        <li>
+                            <InputLabel variant="standard" color="primary">
+                                Specialization
+                            </InputLabel>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={uniqueSpecialization}
+                                value={specialization}
+                                onChange={handleSpecializationChange}
+                                sx={{ width: '100%' }}
+                                renderInput={params => (
+                                    <TextField {...params} sx={inputStyles} placeholder="Enter specialization" />
+                                )}
+                            />
+                        </li>
+                        <li>
+                            <InputLabel variant="standard" color="primary">
+                                Doctors
+                            </InputLabel>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={doctor ? doctor : doctorsName}
+                                value={selectDoctor}
+                                onChange={handleDoctorChange}
+                                sx={{ width: '100%' }}
+                                renderInput={params => (
+                                    <TextField {...params} sx={inputStyles} placeholder="Enter doctors" />
+                                )}
+                            />
+                        </li>
+                    </ul>
+                    <DatePickers value={selectedDate} onDateSelected={handleDateChange} />
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '8px',
+                            marginTop: { xs: '20px', md: '16px' },
+                            marginBottom: { xs: '20px', md: '32px' },
+                        }}
+                    >
+                        {timeDates?.map(e => {
+                            if (!userHour?.includes(e)) {
+                                return (
+                                    <button type="button" key={e} className={css.timeBtn} onClick={handleTimeChange}>
+                                        {e}
+                                    </button>
+                                );
+                            } else {
+                                return (
+                                    <button type="button" disabled key={e} className={css.timeBtnDisable}>
+                                        {e}
+                                    </button>
+                                );
+                            }
+                        })}
+                    </Box>
+                    <Button type="submit" variant="contained" color="secondary" disableElevation sx={buttonStyle}>
+                        send
+                    </Button>
+                </form>
             </Box>
         </Modal>
     );
