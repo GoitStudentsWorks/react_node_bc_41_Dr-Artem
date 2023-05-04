@@ -9,7 +9,7 @@ import { visitsReducer } from './visits/slice';
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ['accessToken', 'user'],
+    whitelist: ['accessToken', 'user', 'isLoggedIn'],
 };
 
 export const store = configureStore({
