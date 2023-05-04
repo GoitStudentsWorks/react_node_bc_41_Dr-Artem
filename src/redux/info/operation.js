@@ -3,8 +3,24 @@ import axios from 'axios';
 axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api';
 // axios.defaults.baseURL = 'http://localhost:3000/api';
 
-export const getUserInfo = createAsyncThunk('/getUserInfo', async (_, { rejectWithValue }) => {
+const token = {
+    set(token) {
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    },
+
+    unset() {
+        axios.defaults.headers.common.Authorization = '';
+    },
+};
+
+export const getUserInfo = createAsyncThunk('/getUserInfo', async (_, { getState, rejectWithValue }) => {
+    const state = getState();
+    const persistedToken = state.auth.accessToken;
+    if (persistedToken === null) {
+        return rejectWithValue();
+    }
     try {
+        token.set(persistedToken);
         const { data } = await axios.get('/info');
         return data;
     } catch (error) {
