@@ -1,7 +1,7 @@
-import { Route, Routes } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { useAuth } from 'hooks';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 
@@ -21,7 +21,6 @@ export const App = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (user) {
-            console.log(user);
             dispatch(getUserInfo());
         }
     }, [dispatch, user]);
