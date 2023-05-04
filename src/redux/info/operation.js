@@ -94,3 +94,12 @@ export const deleteUserExperience = createAsyncThunk('/deleteUserExperience', as
         return rejectWithValue(error.message);
     }
 });
+
+export const getAllInstitution = createAsyncThunk('/institution', async (_, { rejectWithValue }) => {
+    try {
+        const { data } = await axios.get('/institution');
+        return data;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
