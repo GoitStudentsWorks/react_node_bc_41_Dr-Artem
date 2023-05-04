@@ -7,6 +7,7 @@ import {
     addUserExperience,
     updateUserExperience,
     deleteUserExperience,
+    getAllInstitution,
 } from './operation';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
     userInfoById: null,
     allPatients: null,
     allDoctors: null,
+    allInstitution: null,
 };
 
 const infoSlice = createSlice({
@@ -67,6 +69,12 @@ const infoSlice = createSlice({
             state.currentUserInfo = action.payload;
         },
         [deleteUserExperience.rejected](state, action) {
+            console.log(action.payload);
+        },
+        [getAllInstitution.fulfilled](state, action) {
+            state.allInstitution = action.payload;
+        },
+        [getAllInstitution.rejected](state, action) {
             console.log(action.payload);
         },
     },

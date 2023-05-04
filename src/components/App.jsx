@@ -1,7 +1,7 @@
-import { useAuth } from 'hooks';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useAuth } from 'hooks';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
 
@@ -16,14 +16,13 @@ import {
 } from 'pages/DoctorMain';
 import { PatientDoctors, PatientMain, PatientMedicalHistory, PatientVisitsToDoctor } from 'pages/PatientMain';
 import { getUserInfo } from 'redux/info/operation';
-import { getAllVisits } from 'redux/visits/operation';
 export const App = () => {
     const { user } = useAuth();
     const dispatch = useDispatch();
     useEffect(() => {
         if (user) {
+            console.log(user);
             dispatch(getUserInfo());
-            dispatch(getAllVisits());
         }
     }, [dispatch, user]);
 
