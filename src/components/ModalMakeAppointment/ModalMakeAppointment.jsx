@@ -54,7 +54,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserAppointments()).then(el => setUserAppointments(el.payload));
+        dispatch(getCurrentUserAppointments()).then(({ payload }) => setUserAppointments(payload));
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
     }, [userHour]);
 
@@ -68,12 +68,19 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const today = new Date();
     const formattedDateToday = today.toLocaleDateString('uk-UA');
 
+    const filterAppointments = (doctorName, formattedDate) => {
+        const doctorAppointments = userAppointments.filter(el => el.doctor.name === doctorName);
+        const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDate);
+        const doctorHour = doctorAppointmentsDate.map(el => el.time);
+        return doctorHour;
+    };
+
     const handleSpecializationChange = value => {
         const doctorSpecialization = value.currentTarget.innerText;
         setSpecialization(doctorSpecialization);
 
         const doctorNames = doctorsWithSpecialization
-            .filter(el => (doctorSpecialization ? el.specialization === doctorSpecialization : el))
+            .filter(({ specialization }) => specialization === doctorSpecialization)
             .map(el => el.name);
         setDoctor(doctorNames);
         setSelectDoctor(null);
@@ -84,9 +91,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         const name = event.currentTarget.innerText;
         setSelectDoctor(name);
 
-        const doctorAppointments = userAppointments.filter(el => el.doctor.name === name);
-        const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDateToday);
-        const doctorHour = doctorAppointmentsDate.map(el => el.time);
+        const doctorHour = filterAppointments(name, formattedDateToday);
         setUserHour(doctorHour);
     };
 
@@ -95,9 +100,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     };
 
     const handleDateChange = formattedDate => {
-        const doctorAppointments = userAppointments.filter(el => el.doctor.name === selectDoctor);
-        const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDate);
-        const doctorHour = doctorAppointmentsDate.map(el => el.time);
+        const doctorHour = filterAppointments(selectDoctor, formattedDate);
         setUserHour(doctorHour);
         setSelectedDate(formattedDate);
     };
