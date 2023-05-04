@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api/';
+// axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api/';
+axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const getAllVisits = createAsyncThunk('/getAllVisits', async (_, { rejectWithValue }) => {
     try {
@@ -13,16 +14,16 @@ export const getAllVisits = createAsyncThunk('/getAllVisits', async (_, { reject
 
 export const addVisit = createAsyncThunk('/addVisit', async (information, { rejectWithValue }) => {
     try {
-        const { data } = await axios.post('/visits');
+        const { data } = await axios.post('/visits', information);
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
     }
 });
 
-export const updateVisit = createAsyncThunk('/updateVisit', async (id, { rejectWithValue }) => {
+export const updateVisit = createAsyncThunk('/updateVisit', async ({ id, ...updatedVisit }, { rejectWithValue }) => {
     try {
-        const { data } = await axios.patch(`/visits/${id}`);
+        const { data } = await axios.patch(`/visits/${id}`, updatedVisit);
         return data;
     } catch (error) {
         return rejectWithValue(error.message);

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api';
-// axios.defaults.baseURL = 'http://localhost:3000/api';
+// axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api';
+axios.defaults.baseURL = 'http://localhost:3000/api';
 
 const token = {
     set(token) {
