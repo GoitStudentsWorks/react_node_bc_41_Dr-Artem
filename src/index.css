@@ -161,8 +161,8 @@ input {
     box-shadow: none;
 }
 
-.css-tlj3tq-MuiTabs-root {
-    border-bottom: none;
+.MuiTabs-root {
+    display: none;
 }
 
 .MuiAccordionSummary-content {
