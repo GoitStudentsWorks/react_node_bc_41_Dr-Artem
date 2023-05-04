@@ -8,12 +8,11 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
+import { getAllUsersForRole } from 'redux/info/operation';
 import css from './ModalMakeAppointment.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAppointment } from 'redux/appointment/operation';
-import { selectAllDoctors } from 'redux/info/selectors';
-import { getCurrentUserAppointments } from 'redux/appointment/operation';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
 
@@ -50,12 +49,13 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const [selectDoctor, setSelectDoctor] = useState(null);
     const [userAppointments, setUserAppointments] = useState();
     const [userHour, setUserHour] = useState();
+    const [allDoctors, setAllDoctors] = useState([]);
 
     const dispatch = useDispatch();
-    const allDoctors = useSelector(selectAllDoctors);
 
     useEffect(() => {
         dispatch(getCurrentUserAppointments()).then(el => setUserAppointments(el.payload));
+        dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
     }, [userHour]);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
