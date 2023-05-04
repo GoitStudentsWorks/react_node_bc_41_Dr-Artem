@@ -109,37 +109,37 @@ const theme = createTheme({
         },
     },
     components: {
-        // MuiInputLabel: {
-        //     styleOverrides: {
-        //         root: ({ ownerState }) => ({
-        //             ...(ownerState.variant === 'standard' &&
-        //                 ownerState.color === 'primary' && {
-        //                     fontSize: 12,
-        //                     lineHeight: 1.16,
-        //                     fontWeight: 700,
-        //                     marginBottom: '8px',
-        //                     color: COLOR.black,
-        //                 }),
-        //             ...(ownerState.variant === 'select' &&
-        //                 ownerState.color === 'primary' && {
-        //                     fontSize: 16,
-        //                     lineHeight: 1.5,
-        //                     fontWeight: 500,
-        //                     top: '50%',
-        //                     left: '20px',
-        //                     transform: 'translate(0, -50%) scale(1)',
-        //                     color: COLOR.black,
+        MuiInputLabel: {
+            styleOverrides: {
+                root: ({ ownerState }) => ({
+                    ...(ownerState.variant === 'standard' &&
+                        ownerState.color === 'primary' && {
+                            fontSize: 12,
+                            lineHeight: 1.16,
+                            fontWeight: 700,
+                            marginBottom: '8px',
+                            color: COLOR.black,
+                        }),
+                    ...(ownerState.variant === 'select' &&
+                        ownerState.color === 'primary' && {
+                            fontSize: 16,
+                            lineHeight: 1.5,
+                            fontWeight: 500,
+                            top: '50%',
+                            left: '20px',
+                            transform: 'translate(0, -50%) scale(1)',
+                            color: COLOR.black,
 
-        //                     '&.Mui-focused': {
-        //                         transform: 'translate(-10px, -30px) scale(0) ',
-        //                     },
-        //                     '&.MuiFormLabel-filled': {
-        //                         transform: 'translate(-10px, -30px) scale(0)',
-        //                     },
-        //                 }),
-        //         }),
-        //     },
-        // },
+                            '&.Mui-focused': {
+                                transform: 'translate(-10px, -30px) scale(0) ',
+                            },
+                            '&.MuiFormLabel-filled': {
+                                transform: 'translate(-10px, -30px) scale(0)',
+                            },
+                        }),
+                }),
+            },
+        },
         MuiInput: {
             styleOverrides: {
                 root: ({ ownerState }) => ({

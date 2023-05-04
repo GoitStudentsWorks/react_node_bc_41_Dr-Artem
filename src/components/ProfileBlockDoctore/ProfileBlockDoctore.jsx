@@ -1,8 +1,9 @@
+// import { selectUserId } from 'redux/auth/selectors';
 import { UilPen } from '@iconscout/react-unicons';
 import { Button, Typography } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';
-import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProdileModule';
+import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProfileModal';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
 import { useState } from 'react';
@@ -11,48 +12,52 @@ import css from './ProfileBlockDoctore.module.css';
 
 const ident = 1;
 
-export const ProfileBlockDoctore = ({ children }) => {
+export const ProfileBlockDoctore = ({ children, doctorInfo }) => {
     const [appModal, setAppModal] = useState(false);
-    const personalLoc = useLocation().pathname.startsWith(`/doctor/personal/${ident}`);
-    return (
-        <Card>
-            <Badge>Doctor</Badge>
-            <StarRating />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-                <ProfileImage personalLoc={personalLoc} />
-                <div style={{ textAlign: 'center' }}>
-                    <ul className={css.list}>
-                        <li className={css.item}>
-                            Name:<p className={css.data}>Shumeiko Timur Bohdanovich</p>
-                        </li>
-                        {personalLoc && (
-                            <li className={css.item}>
-                                Gender:<p className={css.data}>Male</p>
-                            </li>
-                        )}
 
-                        <li className={css.item}>
-                            Date of birth:<p className={css.data}>12/05/1992</p>
-                        </li>
-                        <li className={css.item}>
-                            Phone number:<p className={css.data}>+380 (97) 77 77 7 77</p>
-                        </li>
-                        <li className={css.item}>
-                            Price:<p className={css.data}>750 UAH /1 hour</p>
-                        </li>
-                    </ul>
+    const personalLoc = useLocation().pathname.startsWith(`/doctor/personal/${ident}`);
+
+    return (
+        <>
+            <Card>
+                <Badge> {doctorInfo.role}</Badge>
+                <StarRating value={doctorInfo.rating} />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+                    <ProfileImage avatar={doctorInfo.avatarURL} personalLoc={personalLoc} />
+                    <div style={{ textAlign: 'center' }}>
+                        <ul className={css.list}>
+                            <li className={css.item}>
+                                Name:
+                                <p className={css.data}>{doctorInfo.name}</p>
+                            </li>
+                            {personalLoc && (
+                                <li className={css.item}>
+                                    Gender:<p className={css.data}>{doctorInfo.gender}</p>
+                                </li>
+                            )}
+
+                            <li className={css.item}>
+                                Date of birth:<p className={css.data}>{doctorInfo.birthday}</p>
+                            </li>
+                            <li className={css.item}>
+                                Phone number:<p className={css.data}>{doctorInfo.number}</p>
+                            </li>
+                            <li className={css.item}>
+                                Price:<p className={css.data}>750 UAH /1 hour</p>
+                            </li>
+                        </ul>
+                    </div>
+                    {/* {personalLoc && ( */}
+                    <Button color="primary" onClick={() => setAppModal(!appModal)}>
+                        <UilPen style={{ width: '20px', height: '20px' }} />
+                        <Typography color="text.black" sx={{ lineHeight: 1.285, textTransform: 'none' }}>
+                            Edit profile
+                        </Typography>
+                    </Button>
+                    {children}
                 </div>
-                {/* {personalLoc && ( */}
-                <Button color="primary" onClick={() => setAppModal(!appModal)}>
-                    <UilPen style={{ width: '20px', height: '20px' }} />
-                    <Typography color="text.black" sx={{ lineHeight: 1.285, textTransform: 'none' }}>
-                        Edit profile
-                    </Typography>
-                </Button>
-                {/* )} */}
-                {children}
-            </div>
-            <EditDoctorProfileModal open={appModal} setApp={setAppModal} />
-        </Card>
+                <EditDoctorProfileModal open={appModal} setApp={setAppModal} />
+            </Card>
+        </>
     );
 };

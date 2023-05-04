@@ -1,7 +1,7 @@
 import { Navigation } from 'components/Navigation/Navigation';
 import { Outlet } from 'react-router-dom';
 
-const DoctorMain = () => {
+export const DoctorMain = () => {
     return (
         <>
             <Navigation />
@@ -10,5 +10,3 @@ const DoctorMain = () => {
         </>
     );
 };
-
-export default DoctorMain;

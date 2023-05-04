@@ -6,7 +6,7 @@ import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlock
 import UsersList from 'components/UsersList/UsersList';
 import style from './PatientDoctors.module.css';
 
-const PatientDoctors = () => {
+export const PatientDoctors = () => {
     const sorting = ['By default', 'Rating', 'Price'];
     const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -30,5 +30,3 @@ const PatientDoctors = () => {
         </>
     );
 };
-
-export default PatientDoctors;

@@ -1,7 +1,7 @@
 import AnalysisBlock from 'components/AnalysisBlock/AnalysisBlock';
 import { ProfileBlockPatient } from 'components/ProfileBlockPatient/ProfileBlockPatient';
 
-const PatientMedicalHistory = () => {
+export const PatientMedicalHistory = () => {
     return (
         <>
             <ProfileBlockPatient />
@@ -11,4 +11,3 @@ const PatientMedicalHistory = () => {
         </>
     );
 };
-export default PatientMedicalHistory;

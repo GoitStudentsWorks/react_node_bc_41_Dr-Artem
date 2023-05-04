@@ -6,7 +6,6 @@ import { NotificationContainer, NotificationManager } from 'react-notifications'
 import 'react-notifications/lib/notifications.css';
 import { useDispatch } from 'react-redux';
 import { login } from 'redux/auth/operation';
-import { getAllUsersForRole, getUserInfo } from 'redux/info/operation';
 import * as yup from 'yup';
 import css from '../Login/LoginForm.module.css';
 // eslint-disable-next-line
@@ -35,7 +34,7 @@ export const LoginForm = () => {
         };
         const res = dispatch(login(user));
         res.then(el => {
-            console.log(typeof el.payload);
+            console.log(el.payload);
             if (typeof el.payload === 'number') {
                 if (el.payload === 400) {
                     NotificationManager.warning('Введіть номер телефону та пароль');
@@ -46,7 +45,6 @@ export const LoginForm = () => {
                 NotificationManager.success('Ви авторизовані');
             }
         });
-        dispatch(getAllUsersForRole('Doctor'));
     };
     const [showPassword, setShow] = useState(false);
     // const [disabled, setDisabled] = useState(false);
@@ -71,7 +69,7 @@ export const LoginForm = () => {
             <form onSubmit={formik.handleSubmit}>
                 <ul className={css.formWraper}>
                     <li className={css.formItem}>
-                        <InputLabel htmlFor="phone" className={css.label}>
+                        <InputLabel variant="standard" color="primary" htmlFor="phone">
                             Phone Number
                         </InputLabel>
                         <TextField
@@ -87,7 +85,7 @@ export const LoginForm = () => {
                         />
                     </li>
                     <li className={css.formItem}>
-                        <InputLabel htmlFor="password" className={css.label}>
+                        <InputLabel variant="standard" color="primary" htmlFor="password">
                             Password
                         </InputLabel>
                         <div className={css.showWraper}>
@@ -113,11 +111,25 @@ export const LoginForm = () => {
                     </li>
                 </ul>
                 {formik.values.phone && formik.values.password === '' ? (
-                    <Button disabled variant="contained" color="secondary" disableElevation type="submit">
+                    <Button
+                        disabled
+                        variant="contained"
+                        color="secondary"
+                        disableElevation
+                        type="submit"
+                        sx={{ fontSize: '18px', lineHeight: 1.55, borderRadius: '8px', textTransform: 'capitalize' }}
+                    >
                         Log In
                     </Button>
                 ) : (
-                    <Button variant="contained" color="secondary" disableElevation type="submit">
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="secondaryAuth"
+                        disableElevation
+                        type="submit"
+                        sx={{ fontSize: '18px', lineHeight: 1.55, borderRadius: '8px', textTransform: 'capitalize' }}
+                    >
                         Log In
                     </Button>
                 )}
