@@ -8,7 +8,10 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
+import { getAllUsersForRole } from 'redux/info/operation';
 import css from './ModalMakeAppointment.module.css';
 
 const doctorData = {
@@ -63,7 +66,27 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const [selectedTime, setSelectedTime] = useState(null);
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
-    const [appointmentDate, setAppointmentDate] = useState(null);
+    const [selectDoctor, setSelectDoctor] = useState(null);
+    const [userAppointments, setUserAppointments] = useState();
+    const [userHour, setUserHour] = useState();
+    const [allDoctors, setAllDoctors] = useState([]);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getCurrentUserAppointments()).then(el => setUserAppointments(el.payload));
+        dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
+    }, [userHour]);
+
+    const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
+
+    const specs = doctorsWithSpecialization.map(el => el.specialization);
+    const doctorsName = doctorsWithSpecialization.map(el => el.name);
+
+    const uniqueSpecialization = Array.from(new Set(specs));
+
+    const today = new Date();
+    const formattedDateToday = today.toLocaleDateString('uk-UA');
 
     const handleSpecializationChange = value => {
         setSpecialization(value);
