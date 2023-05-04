@@ -13,14 +13,9 @@ const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 
 const schema = yup.object().shape({
     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
-    // password: yup
-    //     .string()
-    //     .min(6, 'Password must be at least 6 characters')
-    //     .matches(
-    //         passwordRules,
-    //         'Password must contain at least 8 characters, one uppercase, one number and one special case character'
-    //     )
-    //     .required('Password is a required field'),
+    name: yup.string().required('Name is required'),
+    gender: yup.string().required('Gender is required'),
+    date: yup.string().required('Date is required'),
 });
 
 const style = {
@@ -38,10 +33,54 @@ const style = {
 const ModalEditPatientProfile = ({ open, setApp }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs);
 
+    // function handleDateChange(date) {
+    //     setSelectedDate(date);
+    // }
+
+    // function handleDateChange(date) {
+    //     setFormData(prevFormData => ({
+    //         ...prevFormData,
+    //         date: date.format('YYYY-MM-DD'),
+    //     }));
+    // }
+
+    const [formData, setFormData] = useState({
+        name: '',
+        gender: '',
+        dateOfBirth: '',
+        phone: '',
+    });
+
     function handleDateChange(date) {
         setSelectedDate(date);
+        setFormData(prevState => ({ ...prevState, dateOfBirth: date.format('YYYY-MM-DD') }));
     }
 
+    const handleInputChange = event => {
+        const { name, value } = event.target;
+        console.log('🚀 ~ event.target:', event.target);
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
+
+    const [errors, setErrors] = useState({});
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log(formData);
+        try {
+            schema.validateSync(formData, { abortEarly: false });
+            // send data to backend
+        } catch (error) {
+            const errors = error.inner.reduce((acc, curr) => {
+                acc[curr.path] = curr.message;
+                return acc;
+            }, {});
+            setErrors(errors);
+        }
+    };
     return (
         <Modal open={open} onClose={() => setApp(!open)}>
             <Box sx={style} className={s.box_style} validationSchema={schema}>
@@ -53,19 +92,23 @@ const ModalEditPatientProfile = ({ open, setApp }) => {
                         <CloseIcon sx={{ width: '24px', height: '24px', color: 'text.black' }} />
                     </IconButton>
                 </div>
-                <form noValidate autoComplete="off">
+                <form onSubmit={handleSubmit} noValidate autoComplete="off">
                     <ul className={s.input_wrapper}>
                         <li>
                             <InputLabel variant="standard" color="primary" htmlFor="name">
                                 Name
                             </InputLabel>
                             <Input
+                                value={formData.name}
+                                onChange={handleInputChange}
                                 variant="primary"
                                 color="primary"
                                 disableUnderline
                                 type="text"
                                 id="name"
                                 name="name"
+                                error={Boolean(errors.name)}
+                                helperText={errors.name}
                             />
                         </li>
                         <li>
@@ -73,12 +116,16 @@ const ModalEditPatientProfile = ({ open, setApp }) => {
                                 Gender
                             </InputLabel>
                             <Input
+                                value={formData.gender}
+                                onChange={handleInputChange}
                                 variant="primary"
                                 color="primary"
                                 disableUnderline
                                 type="text"
                                 id="gender"
                                 name="gender"
+                                error={Boolean(errors.gender)}
+                                helperText={errors.gender}
                             />
                         </li>
                         <li>
@@ -91,6 +138,8 @@ const ModalEditPatientProfile = ({ open, setApp }) => {
                                         sx={{ width: '100%' }}
                                         value={selectedDate}
                                         onChange={handleDateChange}
+                                        error={Boolean(errors.date)}
+                                        helperText={errors.date}
                                     />
                                 </DemoItem>
                             </LocalizationProvider>
@@ -100,19 +149,29 @@ const ModalEditPatientProfile = ({ open, setApp }) => {
                                 Number
                             </InputLabel>
                             <Input
+                                value={formData.phone}
+                                onChange={handleInputChange}
                                 variant="primary"
                                 color="primary"
                                 type="tel"
                                 disableUnderline
                                 id="phone"
                                 name="phone"
+                                error={Boolean(errors.phone)}
+                                helperText={errors.phone}
                             />
                         </li>
                     </ul>
+                    <Button
+                        disableElevation
+                        type="submit"
+                        variant="contained"
+                        color="secondary"
+                        sx={{ p: { md: '13px 32px' } }}
+                    >
+                        Save
+                    </Button>
                 </form>
-                <Button variant="contained" color="secondary" disableElevation sx={{ p: { md: '13px 32px' } }}>
-                    Save
-                </Button>
             </Box>
         </Modal>
     );
