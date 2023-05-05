@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 import { UilBrightnessPlus } from '@iconscout/react-unicons';
 import { IconButton } from '@mui/material';
 import plug from '../../images/ProfileBlock/plug.png';
@@ -7,21 +6,14 @@ import css from './ProfileImage.module.css';
 import { updateAvatar } from 'redux/info/operation';
 const ProfileImage = ({ personalLoc }) => {
     const dispatch = useDispatch();
-    const [file, setFile] = useState(null);
+
     const handleFileChange = evt => {
-        setFile(evt.target.files[0]);
-        // dispatch(updateAvatar(formData));
+        const formData = new FormData();
+        formData.append('image', evt.target.files[0]);
+        dispatch(updateAvatar(formData));
     };
     const onSubmit = evt => {
         evt.preventDefault();
-        // console.log(`file`, formData);
-        // console.log(`evt.target.files[0]`, evt.target.files[0]);
-        if (file) {
-            const formData = new FormData();
-            console.log(`file`, file);
-            formData.append('image', file);
-            dispatch(updateAvatar(formData));
-        }
     };
 
     return (
@@ -47,7 +39,6 @@ const ProfileImage = ({ personalLoc }) => {
                                 accept=".png,.jpeg,.jpg"
                                 style={{ display: 'none' }}
                             />
-                            <button type="submit">submit</button>
                         </IconButton>
                     </form>
                 )}

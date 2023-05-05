@@ -80,7 +80,6 @@ export const updateUserRating = createAsyncThunk('/updateUserRating', async ({ i
 });
 
 export const addUserExperience = createAsyncThunk('/addUserExperience', async (information, { rejectWithValue }) => {
-   
     try {
         const { data } = await axios.post('/experience', information);
         return data;
