@@ -10,6 +10,7 @@ const initialState = {
 const visitsSlice = createSlice({
     name: 'visits',
     initialState,
+  
     extraReducers: {
         [getAllVisits.fulfilled](state, action) {
             state.visits = action.payload;
@@ -51,6 +52,8 @@ const visitsSlice = createSlice({
         },
     },
 });
+
+
 
 export const visitsReducer = visitsSlice.reducer;
 
