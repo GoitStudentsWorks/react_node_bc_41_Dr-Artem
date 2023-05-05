@@ -16,6 +16,9 @@ const visitsSlice = createSlice({
             state.visits = action.payload;
         },
         [getAllVisits.rejected](state, action) {
+            state.visits = [];
+            state.error = action.payload || 'Something went wrong.';
+
             console.log(action.payload);
         },
         [addVisit.fulfilled](state, action) {
@@ -34,6 +37,17 @@ const visitsSlice = createSlice({
             console.log(action.payload);
         },
         [updateVisit.rejected](state, action) {
+            console.log(action.payload);
+        },
+        [uploadPDF.fulfilled](state, action) {
+            const updatedVisit = action.payload;
+            const visitIndex = state.visits.findIndex(visit => visit._id === updatedVisit._id);
+
+            if (visitIndex !== -1) {
+                state.visits.splice(visitIndex, 1, updatedVisit);
+            }
+        },
+        [uploadPDF.rejected](state, action) {
             console.log(action.payload);
         },
     },
