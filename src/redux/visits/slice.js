@@ -10,12 +10,16 @@ const initialState = {
 const visitsSlice = createSlice({
     name: 'visits',
     initialState,
+
     extraReducers: {
         [getAllVisits.fulfilled](state, action) {
             state.visits = action.payload;
         },
         [getAllVisits.rejected](state, action) {
-            // console.log(action.payload);
+            state.visits = [];
+            state.error = action.payload || 'Something went wrong.';
+
+            console.log(action.payload);
         },
         [addVisit.fulfilled](state, action) {
             state.visits.push(action.payload);
@@ -33,7 +37,18 @@ const visitsSlice = createSlice({
             // console.log(action.payload);
         },
         [updateVisit.rejected](state, action) {
-            // console.log(action.payload);
+            console.log(action.payload);
+        },
+        [uploadPDF.fulfilled](state, action) {
+            const updatedVisit = action.payload;
+            const visitIndex = state.visits.findIndex(visit => visit._id === updatedVisit._id);
+
+            if (visitIndex !== -1) {
+                state.visits.splice(visitIndex, 1, updatedVisit);
+            }
+        },
+        [uploadPDF.rejected](state, action) {
+            console.log(action.payload);
         },
     },
 });

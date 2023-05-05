@@ -1,7 +1,21 @@
 import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
+import { useState } from 'react';
 
-export const PagePagination = () => {
+export const PagePagination = ({ numberOfBtnsOnVisitsHistory, handlePageOnVisits }) => {
+    const [page, setPage] = useState(1);
+
+    const handlePrevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+            handlePageOnVisits(page - 1);
+        }
+    };
+
+    const handleNextPage = () => {
+        setPage(page + 1);
+        handlePageOnVisits(page + 1);
+    };
     return (
         <Box
             sx={{
@@ -13,10 +27,15 @@ export const PagePagination = () => {
             }}
         >
             <Pagination
-                count={8}
+                onChange={(event, value) => {
+                    setPage(value);
+                    handlePageOnVisits(value);
+                }}
+                count={numberOfBtnsOnVisitsHistory}
                 color="primary"
                 sx={{
-                    display: 'flex', justifyContent: 'center',
+                    display: 'flex',
+                    justifyContent: 'center',
                     '& .MuiPaginationItem-root': {
                         fontSize: { xs: '14px', md: '16px' },
                         lineHeight: { xs: '1.29', md: '1.5' },
@@ -25,8 +44,10 @@ export const PagePagination = () => {
                         height: { xs: '28px', md: '32px' },
                     },
                 }}
-                boundaryCount={999}
-                siblingCount={999}
+                boundaryCount={3}
+                siblingCount={3}
+                onNext={handleNextPage}
+                onPrev={handlePrevPage}
             />
         </Box>
     );

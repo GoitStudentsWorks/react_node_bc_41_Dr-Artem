@@ -12,6 +12,8 @@ export const AboutBlock = ({ doctorInfo }) => {
         setIsVisitsVisible(!isVisitsVisible);
     };
 
+    console.log(doctorInfo.about);
+
     return (
         <div className={css.aboutBlock}>
             <div className={css.aboutBlockHeadWrapper}>
@@ -37,7 +39,7 @@ export const AboutBlock = ({ doctorInfo }) => {
             </div>
 
             <div className={css.aboutWrapper}>
-                {isVisitsVisible && (
+                {isVisitsVisible && doctorInfo && (
                     <>
                         <svg
                             className={css.aboutDot}
@@ -49,14 +51,8 @@ export const AboutBlock = ({ doctorInfo }) => {
                         >
                             <circle cx="4" cy="4" r="4" fill="#477577" />
                         </svg>
-                        <p className={css.aboutText}>
-                            Hi, I'm Shumeiko Timur Bohdanovich, a highly skilled surgeon with 8 years of experience in
-                            to surgeons. I am committed to providing the highest level of care to my patients and am
-                            dedicated to helping them achieve better health and quality of life through surgical
-                            interventions. I am passionate about my work and am constantly seeking new and innovative
-                            ways to improve patient outcomes and quality of care. Thank you for considering me as your
-                            surgeon.
-                        </p>
+
+                        <p className={css.aboutText}>{doctorInfo.about}</p>
                     </>
                 )}
             </div>

@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
+import { array, number, object } from 'yup';
 import css from './ModalMakeAppointment.module.css';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
@@ -54,19 +55,20 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserAppointments()).then(({ payload }) => setUserAppointments(payload || []));
+        dispatch(getCurrentUserAppointments()).then(({ payload }) => {
+            typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
+        });
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
     }, []);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
+    [].map(el => console.log(el));
 
     const specs = doctorsWithSpecialization.map(el => el.specialization);
     const doctorsName = doctorsWithSpecialization.map(el => el.name);
 
     const uniqueSpecialization = Array.from(new Set(specs));
-
-    const today = new Date();
-    const formattedDateToday = today.toLocaleDateString('uk-UA');
+    console.log(userAppointments);
 
     const filterAppointments = (doctorName, formattedDate) => {
         const doctorAppointments = userAppointments.filter(el => el.doctor.name === doctorName);
@@ -91,7 +93,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         const name = event.currentTarget.innerText;
         setSelectDoctor(name);
 
-        const doctorHour = filterAppointments(name, formattedDateToday);
+        const doctorHour = filterAppointments(name, selectedDate);
         setUserHour(doctorHour);
     };
 
@@ -118,7 +120,6 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                 date: selectedDate,
                 time: selectedTime,
             };
-            console.log(data);
 
             dispatch(setAppointment(data));
 
@@ -127,7 +128,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
             setUserHour(null);
             setDoctor(null);
             setSelectDoctor(null);
-            setSelectedDate(dayjs(Date.now()));
+            setSelectedDate(dayjs(Date.now()).format('DD.MM.YYYY'));
             setApp(!open);
         } else {
             alert('Fill in all fields!');

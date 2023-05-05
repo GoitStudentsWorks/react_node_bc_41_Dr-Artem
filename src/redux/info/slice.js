@@ -71,6 +71,12 @@ const infoSlice = createSlice({
         [deleteUserExperience.rejected](state, action) {
             // console.log(action.payload);
         },
+        [updateUserInfo.fulfilled](state, action) {
+            console.log(action.payload);
+        },
+        [updateUserInfo.rejected](state, action) {
+            console.log('rejected', action.payload);
+        },
         [getAllInstitution.fulfilled](state, action) {
             state.allInstitution = action.payload;
         },

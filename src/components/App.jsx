@@ -24,6 +24,7 @@ export const App = () => {
     useEffect(() => {
         if (user) {
             dispatch(getUserInfo());
+            // dispatch(getAllVisits());
         }
     }, [user]);
 
