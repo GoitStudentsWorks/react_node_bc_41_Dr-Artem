@@ -14,9 +14,9 @@ export const setAppointment = createAsyncThunk('setAppointment', async (credenti
 
 export const getCurrentUserAppointments = createAsyncThunk(
     'getCurrentUserAppointment',
-    async (credentials, { rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
-            const { data } = await axios.get('/appointment', credentials);
+            const { data } = await axios.get('/appointment');
             return data;
         } catch (error) {
             return rejectWithValue(error.response.status);

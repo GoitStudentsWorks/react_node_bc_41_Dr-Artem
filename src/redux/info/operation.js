@@ -80,7 +80,7 @@ export const updateUserRating = createAsyncThunk('/updateUserRating', async ({ i
 });
 
 export const addUserExperience = createAsyncThunk('/addUserExperience', async (information, { rejectWithValue }) => {
-    console.log(`experience`, information);
+   
     try {
         const { data } = await axios.post('/experience', information);
         return data;
@@ -104,6 +104,15 @@ export const updateUserExperience = createAsyncThunk(
 export const deleteUserExperience = createAsyncThunk('/deleteUserExperience', async (id, { rejectWithValue }) => {
     try {
         const { data } = await axios.delete(`/experience/${id}`);
+        return data;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
+
+export const getAllInstitution = createAsyncThunk('/institution', async (_, { rejectWithValue }) => {
+    try {
+        const { data } = await axios.get('/institution');
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
