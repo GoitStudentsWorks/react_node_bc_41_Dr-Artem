@@ -22,9 +22,8 @@ export const App = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         if (user) {
-            console.log(user);
             dispatch(getUserInfo());
-            dispatch(getAllVisits());
+            // dispatch(getAllVisits());
         }
     }, [dispatch, user]);
 
