@@ -56,12 +56,11 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
 
     useEffect(() => {
         dispatch(getCurrentUserAppointments()).then(({ payload }) => {
-            typeof payload !== number ? setUserAppointments(payload) : setUserAppointments([]);
+            typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
         });
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
     }, [userHour]);
 
-    console.log(userAppointments);
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
 
     const specs = doctorsWithSpecialization.map(el => el.specialization);
@@ -122,7 +121,6 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
                 date: selectedDate,
                 time: selectedTime,
             };
-            console.log(data);
 
             dispatch(setAppointment(data));
 
