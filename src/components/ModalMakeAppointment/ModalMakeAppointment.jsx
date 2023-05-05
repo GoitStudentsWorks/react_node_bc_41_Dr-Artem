@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
 import css from './ModalMakeAppointment.module.css';
+import { array, number, object } from 'yup';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
 
@@ -47,17 +48,20 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
     const [selectDoctor, setSelectDoctor] = useState(null);
-    const [userAppointments, setUserAppointments] = useState();
+    const [userAppointments, setUserAppointments] = useState([]);
     const [userHour, setUserHour] = useState();
     const [allDoctors, setAllDoctors] = useState([]);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserAppointments()).then(({ payload }) => setUserAppointments(payload));
+        dispatch(getCurrentUserAppointments()).then(({ payload }) => {
+            typeof payload !== number ? setUserAppointments(payload) : setUserAppointments([]);
+        });
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
     }, [userHour]);
 
+    console.log(userAppointments);
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
 
     const specs = doctorsWithSpecialization.map(el => el.specialization);
