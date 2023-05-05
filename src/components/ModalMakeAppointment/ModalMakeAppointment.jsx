@@ -62,14 +62,13 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     }, [userHour]);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
+    [].map(el => console.log(el));
 
     const specs = doctorsWithSpecialization.map(el => el.specialization);
     const doctorsName = doctorsWithSpecialization.map(el => el.name);
 
     const uniqueSpecialization = Array.from(new Set(specs));
-
-    const today = new Date();
-    const formattedDateToday = today.toLocaleDateString('uk-UA');
+    console.log(userAppointments);
 
     const filterAppointments = (doctorName, formattedDate) => {
         const doctorAppointments = userAppointments.filter(el => el.doctor.name === doctorName);
@@ -94,7 +93,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         const name = event.currentTarget.innerText;
         setSelectDoctor(name);
 
-        const doctorHour = filterAppointments(name, formattedDateToday);
+        const doctorHour = filterAppointments(name, selectedDate);
         setUserHour(doctorHour);
     };
 
@@ -129,7 +128,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
             setUserHour(null);
             setDoctor(null);
             setSelectDoctor(null);
-            setSelectedDate(dayjs(Date.now()));
+            setSelectedDate(dayjs(Date.now()).format('DD.MM.YYYY'));
             setApp(!open);
         } else {
             alert('Fill in all fields!');
