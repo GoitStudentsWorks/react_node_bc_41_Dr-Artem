@@ -7,7 +7,6 @@ import { IconButton } from '@mui/material';
 import { RxPencil1 } from 'react-icons/rx';
 import Divider from '@mui/material/Divider';
 import { ExperienceModal } from 'components/ExperienceModal/ExperienceModal';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { deleteUserExperience } from 'redux/info/operation';
 import moment from 'moment';
 import { UilTrashAlt } from '@iconscout/react-unicons';
@@ -15,10 +14,6 @@ import { UilTrashAlt } from '@iconscout/react-unicons';
 export const ExperienceBlock = ({ doctorInfo }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState('');
-
-    const date = new Date(Date.parse('2011-11-10T22:00:00.000Z'));
-    const formattedDate = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(date);
-    console.log(formattedDate);
 
     const dispatch = useDispatch();
 
@@ -36,7 +31,7 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                 </IconButton>
             </div>
             <ul className={css.experienceList}>
-                {doctorInfo.experience.map(({ institution, description, startDate, endDate, _id }) => {
+                {doctorInfo.experience.map(({ institution, description, startDate, endDate, _id }, index, array) => {
                     return (
                         <>
                             <li className={css.experienceListItem}>
@@ -68,16 +63,27 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                                             <RxPencil1 style={{ color: '#477577' }} />
                                         </IconButton>
                                     </div>
-
-                                    <IconButton sx={{ padding: '0', justifyContent: 'flex-end' }}>
-                                        <UilTrashAlt
-                                            onClick={() => dispatch(deleteUserExperience(_id))}
-                                            style={{ color: '#477577' }}
-                                        />
-                                    </IconButton>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <IconButton
+                                            size="small"
+                                            sx={{ padding: '0', justifyContent: 'flex-end', marginLeft: 'auto' }}
+                                        >
+                                            <UilTrashAlt
+                                                onClick={() => dispatch(deleteUserExperience(_id))}
+                                                style={{ color: '#477577', fontSize: '18px' }}
+                                            />
+                                        </IconButton>
+                                    </div>
                                 </div>
                             </li>
-                            <Divider sx={{ border: '1.5px solid rgba(209, 213, 219, 0.2)', marginBottom: '16px' }} />
+                            {index !== array.length - 1 && (
+                                <Divider
+                                    sx={{
+                                        border: '1.5px solid rgba(209, 213, 219, 0.2)',
+                                        marginBottom: '16px',
+                                    }}
+                                />
+                            )}
                         </>
                     );
                 })}

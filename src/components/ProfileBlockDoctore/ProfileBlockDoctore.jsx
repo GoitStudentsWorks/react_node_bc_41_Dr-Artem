@@ -8,6 +8,7 @@ import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
+import moment from 'moment';
 import css from './ProfileBlockDoctore.module.css';
 
 const ident = 1;
@@ -37,7 +38,8 @@ export const ProfileBlockDoctore = ({ children, doctorInfo }) => {
                             )}
 
                             <li className={css.item}>
-                                Date of birth:<p className={css.data}>{doctorInfo.birthday}</p>
+                                Date of birth:
+                                <p className={css.data}>{moment.utc(doctorInfo.birthday).format('DD.MM.YYYY')}</p>
                             </li>
                             <li className={css.item}>
                                 Phone number:<p className={css.data}>{doctorInfo.number}</p>

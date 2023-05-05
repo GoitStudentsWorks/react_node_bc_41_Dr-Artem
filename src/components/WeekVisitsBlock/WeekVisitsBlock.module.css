@@ -73,15 +73,19 @@
     margin-right: 110px;
     margin-bottom: 14px;
     @media (min-width: 768px) {
-        margin-bottom: 18px;
+        margin-bottom: 0px;
     }
 }
 
 .modalWeekVisitItemInfo {
     display: flex;
     margin-bottom: 14px;
+    font-size: 12px;
+    line-height: 1.2;
     @media (min-width: 768px) {
         margin-bottom: 18px;
+        font-size: 14px;
+        line-height: 1.2;
     }
 }
 .weekVisitAvatar {
@@ -140,6 +144,13 @@
         justify-content: space-between;
     }
 }
+
+.weekVisitItem:not(:last-child) {
+    margin-bottom: 32px;
+    @media (min-width: 768px) {
+        margin-bottom: 16px;
+    }
+}
 .weekVisitsDateInfoWrapper {
     display: flex;
 }
@@ -152,12 +163,16 @@
     border-radius: 1000px;
     padding: 8px 12px;
     margin-right: 8px;
+    font-size: 14px;
+    line-height: 1.3;
+    @media (min-width: 768px) {
+        font-size: 16px;
+        line-height: 1.5;
+    }
 }
 .weekVisitsDate {
     font-family: var(--main-font-family);
     font-weight: var(--semibold-font-weight);
-    font-size: 14px;
-    line-height: 1.3;
 }
 
 .weekVisitsTimeContainer {
@@ -167,12 +182,16 @@
     background: #edf5f5;
     border-radius: 1000px;
     padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.3;
+    @media (min-width: 768px) {
+        font-size: 16px;
+        line-height: 1.5;
+    }
 }
 .weekVisitsTime {
     font-family: var(--main-font-family);
     font-weight: var(--semibold-font-weight);
-    font-size: 14px;
-    line-height: 1.3;
 }
 
 .weekVisitsBlockFlexWrapper {
@@ -195,6 +214,7 @@
     background: #f3f3f3;
     border: none;
     padding: 20px;
+
     @media (min-width: 768px) {
         width: 462px;
         height: 328px;
@@ -225,6 +245,11 @@
     font-weight: var(--regular-font-weight);
     font-size: 12px;
     line-height: 1.2;
+    width: 100%;
+    @media (min-width: 768px) {
+        font-size: 14px;
+        line-height: 1.3;
+    }
 }
 
 .modalWeekVisitItemInfo:not(:last-child) {
@@ -232,8 +257,24 @@
 }
 
 .modalNameFlex {
+    display: flex;
+    justify-content: space-between;
     @media (min-width: 768px) {
-        display: flex;
         align-items: center;
+    }
+}
+
+.weekVisitProfile {
+    width: 100%;
+}
+
+.modalWeekVisitItemInfoText {
+    font-family: var(--main-font-family);
+    font-weight: var(--semibold-font-weight);
+    font-size: 14px;
+    line-height: 1.3;
+    @media (min-width: 768px) {
+        font-size: 16px;
+        line-height: 1.5;
     }
 }
