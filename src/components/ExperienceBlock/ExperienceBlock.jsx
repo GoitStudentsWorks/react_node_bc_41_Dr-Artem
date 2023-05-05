@@ -14,12 +14,15 @@ import { UilTrashAlt } from '@iconscout/react-unicons';
 export const ExperienceBlock = ({ doctorInfo }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState('');
+    const [id, setId] = useState(null);
 
     const dispatch = useDispatch();
 
-    const handleModalChange = currentTitle => {
+    const handleModalChange = (currentTitle, _id) => {
         setModalOpen(!modalOpen);
         setTitle(currentTitle);
+
+        _id ? setId(_id) : setId(null);
     };
 
     return (
@@ -31,64 +34,79 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                 </IconButton>
             </div>
             <ul className={css.experienceList}>
-                {doctorInfo.experience.map(({ institution, description, startDate, endDate, _id }, index, array) => {
-                    return (
-                        <>
-                            <li className={css.experienceListItem}>
-                                <div className={css.experienceItemWrapper}>
-                                    <div className={css.experienceImage}>
-                                        <img src={experienceImg} alt="Logo" />
-                                    </div>
-                                    <div className={css.experienceInfoItem}>
-                                        <p className={css.experienceInfoTitle}>{institution}</p>
-                                        <p className={css.experienceInfoDate}>
-                                            {moment(startDate).format('MMMM YYYY')} -
-                                            {moment(endDate).format('MMMM YYYY')}
-                                        </p>
-
-                                        <p className={css.experienceInfoAbout}>{description}</p>
-                                    </div>
-                                </div>
-                                <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                    <div className={css.buttonEditWrapper}>
-                                        <p className={css.experienceInfoDateFlex}>
-                                            {moment(startDate).format('MMMM YYYY')} -
-                                            {moment(endDate).format('MMMM YYYY')}
-                                        </p>
-
-                                        <IconButton
-                                            sx={{ padding: '0', marginBottom: '12px' }}
-                                            onClick={() => handleModalChange('Edit experience')}
-                                        >
-                                            <RxPencil1 style={{ color: '#477577' }} />
-                                        </IconButton>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        <IconButton
-                                            size="small"
-                                            sx={{ padding: '0', justifyContent: 'flex-end', marginLeft: 'auto' }}
-                                        >
-                                            <UilTrashAlt
-                                                onClick={() => dispatch(deleteUserExperience(_id))}
-                                                style={{ color: '#477577', fontSize: '18px' }}
+                {doctorInfo.experience.map(
+                    ({ institution, description, startDate, endDate, _id, institutionLogo }, index, array) => {
+                        console.log(institutionLogo);
+                        return (
+                            <>
+                                <li className={css.experienceListItem}>
+                                    <div className={css.experienceItemWrapper}>
+                                        <div className={institutionLogo ? css.experienceImage : css.plugLogo}>
+                                            <img
+                                                className={css.image}
+                                                src={institutionLogo ? institutionLogo : experienceImg}
+                                                alt="Logo"
                                             />
-                                        </IconButton>
+                                        </div>
+                                        <div className={css.experienceInfoItem}>
+                                            <p className={css.experienceInfoTitle}>{institution}</p>
+                                            <p className={css.experienceInfoDate}>
+                                                {moment(startDate).format('MMMM YYYY')} -
+                                                {moment(endDate).format('MMMM YYYY')}
+                                            </p>
+
+                                            <p className={css.experienceInfoAbout}>{description}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            {index !== array.length - 1 && (
-                                <Divider
-                                    sx={{
-                                        border: '1.5px solid rgba(209, 213, 219, 0.2)',
-                                        marginBottom: '16px',
-                                    }}
-                                />
-                            )}
-                        </>
-                    );
-                })}
+                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                        <div className={css.buttonEditWrapper}>
+                                            <p className={css.experienceInfoDateFlex}>
+                                                {moment(startDate).format('MMMM YYYY')} -
+                                                {moment(endDate).format('MMMM YYYY')}
+                                            </p>
+
+                                            <IconButton
+                                                sx={{ padding: '0', marginBottom: '12px' }}
+                                                onClick={() => {
+                                                    handleModalChange('Edit experience', _id);
+                                                }}
+                                            >
+                                                <RxPencil1 style={{ color: '#477577' }} />
+                                            </IconButton>
+                                        </div>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <IconButton
+                                                size="small"
+                                                sx={{ padding: '0', justifyContent: 'flex-end', marginLeft: 'auto' }}
+                                            >
+                                                <UilTrashAlt
+                                                    onClick={() => dispatch(deleteUserExperience(_id))}
+                                                    style={{ color: '#477577', fontSize: '18px' }}
+                                                />
+                                            </IconButton>
+                                        </div>
+                                    </div>
+                                </li>
+                                {index !== array.length - 1 && (
+                                    <Divider
+                                        sx={{
+                                            border: '1.5px solid rgba(209, 213, 219, 0.2)',
+                                            marginBottom: '16px',
+                                        }}
+                                    />
+                                )}
+                            </>
+                        );
+                    }
+                )}
             </ul>
-            <ExperienceModal doctorInfo={doctorInfo} open={modalOpen} setModalOpen={handleModalChange} title={title} />
+            <ExperienceModal
+                doctorInfo={doctorInfo}
+                open={modalOpen}
+                setModalOpen={handleModalChange}
+                title={title}
+                id={id}
+            />
         </div>
     );
 };
