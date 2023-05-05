@@ -16,16 +16,16 @@ import {
 } from 'pages/DoctorMain';
 import { PatientDoctors, PatientMain, PatientMedicalHistory, PatientVisitsToDoctor } from 'pages/PatientMain';
 import { getUserInfo } from 'redux/info/operation';
-import { getAllVisits } from 'redux/visits/operation';
+
 export const App = () => {
     const { user } = useAuth();
     const dispatch = useDispatch();
+
     useEffect(() => {
         if (user) {
             dispatch(getUserInfo());
-            dispatch(getAllVisits());
         }
-    }, [dispatch, user]);
+    }, [user]);
 
     return (
         <>
@@ -67,6 +67,14 @@ export const App = () => {
                             }
                         />
                         <Route path="colleuges" element={<Colleagues />} />
+                        <Route
+                            path="colleuges/:id"
+                            element={
+                                <GridLayout>
+                                    <Personal />
+                                </GridLayout>
+                            }
+                        />
                     </Route>
                 </Route>
                 <Route

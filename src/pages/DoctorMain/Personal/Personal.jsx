@@ -22,7 +22,7 @@ export const Personal = () => {
             {doctorInfo && (
                 <>
                     <div className={css.DoctorInformation}>
-                        <ProfileBlockDoctore doctorInfo={doctorInfo} />
+                        <ProfileBlockDoctore userInfo={doctorInfo} />
                         <SpecializationBlock doctorInfo={doctorInfo} />
                     </div>
                     <div className={css.pageAboutBlock}>

@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import css from './ExperienceBlock.module.css';
-import experienceImg from '../../Image/Experience1.png';
+import { UilTrashAlt } from '@iconscout/react-unicons';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { IconButton } from '@mui/material';
-import { RxPencil1 } from 'react-icons/rx';
 import Divider from '@mui/material/Divider';
 import { ExperienceModal } from 'components/ExperienceModal/ExperienceModal';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import { deleteUserExperience } from 'redux/info/operation';
 import moment from 'moment';
-import { UilTrashAlt } from '@iconscout/react-unicons';
+import { useState } from 'react';
+import { RxPencil1 } from 'react-icons/rx';
+import { useDispatch } from 'react-redux';
+import { deleteUserExperience } from 'redux/info/operation';
+import experienceImg from '../../Image/Experience1.png';
+import css from './ExperienceBlock.module.css';
 
 export const ExperienceBlock = ({ doctorInfo }) => {
     const [modalOpen, setModalOpen] = useState(false);

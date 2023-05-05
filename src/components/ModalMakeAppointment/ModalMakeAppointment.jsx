@@ -47,16 +47,16 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
     const [selectDoctor, setSelectDoctor] = useState(null);
-    const [userAppointments, setUserAppointments] = useState();
+    const [userAppointments, setUserAppointments] = useState([]);
     const [userHour, setUserHour] = useState();
     const [allDoctors, setAllDoctors] = useState([]);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserAppointments()).then(({ payload }) => setUserAppointments(payload));
+        dispatch(getCurrentUserAppointments()).then(({ payload }) => setUserAppointments(payload || []));
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
-    }, [userHour]);
+    }, []);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
 
@@ -75,8 +75,8 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         return doctorHour;
     };
 
-    const handleSpecializationChange = value => {
-        const doctorSpecialization = value.currentTarget.innerText;
+    const handleSpecializationChange = event => {
+        const doctorSpecialization = event.currentTarget.innerText;
         setSpecialization(doctorSpecialization);
 
         const doctorNames = doctorsWithSpecialization
