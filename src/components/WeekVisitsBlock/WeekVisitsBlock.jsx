@@ -55,12 +55,12 @@ export const WeekVisitsBlock = () => {
                     </div>
 
                     {!isVisitsVisible && (
-                        <IconButton onClick={handleArrowClick}>
+                        <IconButton sx={{ padding: '0', marginLeft: '32px' }} onClick={handleArrowClick}>
                             <KeyboardArrowDownIcon sx={{ fontSize: '28px', color: '#111111' }} />
                         </IconButton>
                     )}
                     {isVisitsVisible && (
-                        <IconButton onClick={handleArrowClick}>
+                        <IconButton sx={{ padding: '0', marginLeft: '32px' }} onClick={handleArrowClick}>
                             <KeyboardArrowUpIcon sx={{ fontSize: '28px', color: '#111111' }} />
                         </IconButton>
                     )}
@@ -119,8 +119,8 @@ export const WeekVisitsBlock = () => {
                 <div className={css.modalWeekVisit}>
                     <div className={css.modalWeekVisitsTitleWrapper}>
                         <p className={css.modalWeekVisitsTitle}>Doctor's appointment </p>
-                        <IconButton>
-                            <CloseIcon sx={{ minWidth: '12px', color: '#111111' }} onClick={() => setOpen(false)} />
+                        <IconButton onClick={() => setOpen(false)}>
+                            <CloseIcon sx={{ minWidth: '12px', color: '#111111' }} />
                         </IconButton>
                     </div>
                     {selectedItem && (

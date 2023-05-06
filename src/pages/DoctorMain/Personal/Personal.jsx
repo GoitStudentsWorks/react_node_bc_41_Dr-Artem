@@ -31,8 +31,11 @@ const Personal = () => {
                         />
                     </div>
                     <div className={css.pageAboutBlock}>
-                        <AboutBlock about={doctorInfo.about} />
-                        <ExperienceBlock doctorInfo={doctorInfo} />
+                        <div className={css.pageAboutBlockWrapper}>
+                            <AboutBlock about={doctorInfo.about} />
+                            <ExperienceBlock doctorInfo={doctorInfo} />
+                        </div>
+
                         <WeekVisitsBlock />
                     </div>
                 </>
