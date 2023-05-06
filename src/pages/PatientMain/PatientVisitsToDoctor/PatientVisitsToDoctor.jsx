@@ -1,47 +1,31 @@
-import StarIcon from '@mui/icons-material/Star';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import Rating from '@mui/material/Rating';
+import dayjs from 'dayjs';
+import moment from 'moment';
 import { DatePickerMonth } from 'components/DatePickers/DatePickerMonth';
 import { ModalEditRating } from 'components/ModalEditRating/ModalEditRating';
-import { useState } from 'react';
 import { DoctorInfoCard } from '../../../components/DoctorInfoCard/DoctorInfoCard';
+import { selectCurrentUserAppointments } from '../../../redux/appointment/selectors';
+import { updateUserRating } from '../../../redux/info/operation';
 import plug from '../../../images/ProfileBlock/plug.png';
 import css from './PatientVisitsToDoctor.module.css';
-
-const currentAppointments = [
-    {
-        doctor: 'Shumeiko Timur Bohdanovich',
-        specialization: 'Surgeon',
-        date: 'March 8/03/2023',
-        time: '10:00 - 11:30',
-        rating: null,
-    },
-    {
-        doctor: 'Petrova Olena Sergeyevna',
-        specialization: 'Traumatologist',
-        date: 'March 14/03/2023',
-        time: '14:00 - 15:30',
-        rating: null,
-    },
-    {
-        doctor: 'Vergulenko Alla Olehivna',
-        specialization: 'Gynecologist',
-        date: 'March 20/03/2023',
-        time: '12:00 - 13:00',
-        rating: null,
-    },
-    {
-        doctor: 'Aksyonov Pavlo Valeriyovych',
-        specialization: 'Ophtalmologist',
-        date: 'March 29/03/2023',
-        time: '16:00 - 16:30',
-        rating: null,
-    },
-];
+import { getCurrentUserAppointments } from '../../../redux/appointment/operation';
 
 export const PatientVisitsToDoctor = () => {
     const [selectedDoctorData, setSelectedDoctorData] = useState(null);
+    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).startOf('month'));
     const [isOpen, setIsOpen] = useState(false);
+    const allVisits = useSelector(selectCurrentUserAppointments);
+    const dispatch = useDispatch();
+
+    const selectetVisits = allVisits && allVisits.filter(item => moment(item.date).format('MMMM') === selectedDate.format('MMMM'))
+
+    useEffect(() => {
+        dispatch(getCurrentUserAppointments())
+    }, [dispatch]);
 
     const openModal = doctorData => {
         setSelectedDoctorData(doctorData);
@@ -49,11 +33,12 @@ export const PatientVisitsToDoctor = () => {
     };
 
     const closeModal = (value, doctor) => {
+        const newRating = {
+            id: doctor,
+            rating: value,
+        };
+        dispatch(updateUserRating(newRating));
         setSelectedDoctorData(null);
-        const currentDoc = currentAppointments.find(appointment => appointment.doctor === doctor);
-        if (currentDoc) {
-            currentDoc.rating = value;
-        }
         setIsOpen(false);
     };
 
@@ -62,41 +47,45 @@ export const PatientVisitsToDoctor = () => {
             <Typography
                 variant="subtitle"
                 color="text.black"
-                sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
+                sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 }, marginBottom: '16px', display: 'block' }}
             >
                 Visits
             </Typography>
-            <DatePickerMonth />
+            <DatePickerMonth setSelectedDate={setSelectedDate}/>
             <ul className={css.visitsList}>
-                {currentAppointments.map(({ doctor, specialization, date, time, rating }) => {
-                    const doctorData = {
-                        name: doctor,
-                        line: specialization,
-                        visitDate: date,
-                        visitTime: time,
-                        rating,
-                    };
-                    return (
-                        <li className={css.visitsItem} key={`${doctor}-${date}`}>
-                            <div className={css.doctorDetails}>
-                                <DoctorInfoCard doctorData={doctorData} plug={plug} />
-                                <div className={css.rating} onClick={() => openModal(doctorData)}>
-                                    <Rating
-                                        name="read-only"
-                                        value={rating}
-                                        readOnly
-                                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                                    />
+                {selectetVisits && 
+                    selectetVisits.map(({ doctor, date, _id, time }) => {
+
+                        const doctorData = {
+                            id: doctor._id,
+                            name: doctor.name,
+                            line: doctor.specialization,
+                            avatar: doctor.avatarURL,
+                            rating: doctor.rating,
+                        };
+
+                        return (
+                            <li className={css.visitsItem} key={_id}>
+                                <div className={css.doctorDetails}>
+                                    <DoctorInfoCard doctorData={doctorData} />
+                                    <div className={css.rating} onClick={() => openModal(doctorData)}>
+                                        <Rating
+                                            name="read-only"
+                                            value={doctorData.rating}
+                                            precision={0.5}
+                                            readOnly
+                                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={css.visitInfo}>
-                                <p className={css.visitTitle}>Date of admission</p>
-                                <span className={css.visitDate}>{date}</span>
-                                <span className={css.visitDate}>{time}</span>
-                            </div>
-                        </li>
-                    );
-                })}
+                                <div className={css.visitInfo}>
+                                    <p className={css.visitTitle}>Date of admission</p>
+                                    <span className={css.visitDate}>{`${moment(date).format('MMMM')} ${moment(date).format('DD/MM/YYYY')}`}</span>
+                                    <span className={css.visitDate}>{time}</span>
+                                </div>
+                            </li>
+                        );
+                    })}
             </ul>
             {selectedDoctorData && (
                 <ModalEditRating isOpen={isOpen} doctorData={selectedDoctorData} onClose={closeModal} plug={plug} />

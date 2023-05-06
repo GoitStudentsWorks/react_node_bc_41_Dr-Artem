@@ -47,7 +47,7 @@ const datePickerStyles = {
     },
 };
 
-export const ExperienceModal = ({ open, setModalOpen, title, doctorInfo, id }) => {
+export const ExperienceModal = ({ open, setModalOpen, title, id }) => {
     const [selectedStartDate, setSelectedStartDate] = useState(dayjs());
     const [selectedEndDate, setSelectedEndDate] = useState(dayjs());
     const [selectedInstitution, setSelectedInstitution] = useState(null);
