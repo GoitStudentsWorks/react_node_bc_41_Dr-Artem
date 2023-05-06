@@ -17,10 +17,10 @@ const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const schema = yup.object().shape({
     username: yup
         .string()
-        .min(3, 'Username must be at least 3 characters')
-        .max(200, 'Username must be less than or equal to 200 characters')
+        .min(3, 'Name must be at least 3 characters')
+        .max(200, 'Name must be less than or equal to 200 characters')
         .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
-        .required('Username is a required field'),
+        .required('Name is a required field'),
     gender: yup.string().min(4).max(6).required(),
     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
     about: yup.string().required(),
@@ -41,7 +41,6 @@ const style = {
 
 const EditDoctorProfileModal = ({ open, setApp }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs);
-
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
@@ -90,7 +89,7 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
                 <form onSubmit={formik.handleSubmit}>
                     <ul className={css.inputList}>
                         <li>
-                            <InputLabel variant="standard" color="primary" htmlFor="name">
+                            <InputLabel variant="standard" color="primary" htmlFor="username">
                                 Name
                             </InputLabel>
                             <TextField
