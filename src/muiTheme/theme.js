@@ -120,7 +120,7 @@ const theme = createTheme({
                             marginBottom: '8px',
                             color: COLOR.black,
                         }),
-                    ...(ownerState.variant === 'select' &&
+                    ...(ownerState.variant === 'outlined' &&
                         ownerState.color === 'primary' && {
                             fontSize: 16,
                             lineHeight: 1.5,

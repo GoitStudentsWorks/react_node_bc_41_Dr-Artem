@@ -4,11 +4,17 @@ import { getCurrentUserAppointments, getAppointmentById } from './operation';
 const initialState = {
     appointments: null,
     appointment: null,
+    dataPicker: null,
 };
 
 const appointmentSlice = createSlice({
     name: 'appointment',
     initialState,
+    reducers: {
+        setDataVisit(state, action) {
+            state.dataPicker = action.payload;
+        },
+    },
     extraReducers: {
         [getCurrentUserAppointments.fulfilled](state, action) {
             state.appointments = action.payload;
@@ -20,3 +26,4 @@ const appointmentSlice = createSlice({
 });
 
 export const appointmentReducer = appointmentSlice.reducer;
+export const { setDataVisit } = appointmentSlice.actions;

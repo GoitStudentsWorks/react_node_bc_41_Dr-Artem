@@ -1,15 +1,15 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, IconButton, TextField, InputLabel, Modal, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputLabel, Modal, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 import dayjs from 'dayjs';
+import { useFormik } from 'formik';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUserInfo } from 'redux/info/operation';
+import * as yup from 'yup';
 import css from '../EditDoctorProfileModal/EditDoctorProfileModule.module.css';
 
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
@@ -17,10 +17,11 @@ const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const schema = yup.object().shape({
     username: yup
         .string()
-        .min(3, 'Username must be at least 3 characters')
-        .max(200, 'Username must be less than or equal to 200 characters')
-        .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
-    gender: yup.string().min(4).max(6),
+        .min(3, 'Name must be at least 3 characters')
+        .max(200, 'Name must be less than or equal to 200 characters')
+        .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
+        .required('Name is a required field'),
+    gender: yup.string().min(4).max(6).required(),
     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
     about: yup.string(),
 });
@@ -40,12 +41,10 @@ const style = {
 
 const EditDoctorProfileModal = ({ open, setApp, info }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs);
-
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
         setSelectedDate(date.format('DD.MM.YYYY'));
-        // console.log(date.format('DD.MM.YYYY'));
     }
 
     const handleSubmitForm = values => {
@@ -58,7 +57,6 @@ const EditDoctorProfileModal = ({ open, setApp, info }) => {
             about: values.about,
         };
         dispatch(updateUserInfo(data));
-        // console.log(dispatch(updateUserInfo(data)));
         setApp(!open);
     };
     // console.log(info)
@@ -91,7 +89,7 @@ const EditDoctorProfileModal = ({ open, setApp, info }) => {
                 <form onSubmit={formik.handleSubmit}>
                     <ul className={css.inputList}>
                         <li>
-                            <InputLabel variant="standard" color="primary" htmlFor="name">
+                            <InputLabel variant="standard" color="primary" htmlFor="username">
                                 Name
                             </InputLabel>
                             <TextField
