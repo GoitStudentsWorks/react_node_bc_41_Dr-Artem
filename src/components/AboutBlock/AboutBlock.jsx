@@ -1,11 +1,10 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import IconButton from '@mui/material/IconButton';
-import { ExperienceBlock } from 'components/ExperienceBlock/ExperienceBlock';
 import React, { useState } from 'react';
 import css from './AboutBlock.module.css';
 
-export const AboutBlock = ({ doctorInfo }) => {
+export const AboutBlock = ({ about }) => {
     const [isVisitsVisible, setIsVisitsVisible] = useState(true);
 
     const handleArrowClick = () => {
@@ -18,19 +17,13 @@ export const AboutBlock = ({ doctorInfo }) => {
                 <h2 className={css.aboutTitle}>About </h2>
                 <div className={css.aboutArrowIcon}>
                     {!isVisitsVisible && (
-                        <IconButton>
-                            <KeyboardArrowDownIcon
-                                sx={{ color: '#111111', fontSize: '28px' }}
-                                onClick={handleArrowClick}
-                            />
+                        <IconButton onClick={handleArrowClick}>
+                            <KeyboardArrowDownIcon sx={{ color: '#111111', fontSize: '28px' }} />
                         </IconButton>
                     )}
                     {isVisitsVisible && (
-                        <IconButton>
-                            <KeyboardArrowUpIcon
-                                sx={{ color: '#111111', fontSize: '28px' }}
-                                onClick={handleArrowClick}
-                            />
+                        <IconButton onClick={handleArrowClick}>
+                            <KeyboardArrowUpIcon sx={{ color: '#111111', fontSize: '28px' }} />
                         </IconButton>
                     )}
                 </div>
@@ -49,18 +42,11 @@ export const AboutBlock = ({ doctorInfo }) => {
                         >
                             <circle cx="4" cy="4" r="4" fill="#477577" />
                         </svg>
-                        <p className={css.aboutText}>
-                            Hi, I'm Shumeiko Timur Bohdanovich, a highly skilled surgeon with 8 years of experience in
-                            to surgeons. I am committed to providing the highest level of care to my patients and am
-                            dedicated to helping them achieve better health and quality of life through surgical
-                            interventions. I am passionate about my work and am constantly seeking new and innovative
-                            ways to improve patient outcomes and quality of care. Thank you for considering me as your
-                            surgeon.
-                        </p>
+
+                        <p className={css.aboutText}>{about}</p>
                     </>
                 )}
             </div>
-            <ExperienceBlock doctorInfo={doctorInfo} />
         </div>
     );
 };

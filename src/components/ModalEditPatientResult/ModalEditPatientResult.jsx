@@ -7,53 +7,34 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { uploadPDF } from 'redux/visits/operation';
 import style from './ModalEditPatientResult.module.css';
 
 export const ModalEditPatientResult = ({ open, setOpen }) => {
-    const [files, setFiles] = useState([]);
+    const [file, setFile] = useState(null);
     const [selectedDate, setSelectedDate] = useState(dayjs);
+    const dispatch = useDispatch();
 
     function handleDateChange(date) {
         setSelectedDate(date);
     }
 
     const handleFileChange = event => {
-        const newFiles = Array.from(event.target.files);
-
-        const uniqueFile = {
-            name: newFiles[0].name,
-            file: newFiles[0],
-        };
-
-        const isFound = files.some(file => file.name === uniqueFile.name);
-        if (isFound) {
-            return;
-        }
-        setFiles(prevArray => [...prevArray, uniqueFile]);
+        setFile(event.target.files[0]);
     };
 
-    const handleFileDelete = i => {
-        setFiles(files.filter((file, index) => index !== i));
+    const handleFileDelete = () => {
+        setFile(null);
     };
 
     const handleSubmit = event => {
         event.preventDefault();
-        const formData = new FormData(event.target);
-
-        if (selectedDate) {
-            formData.append('date', selectedDate.toISOString());
-        }
-        files.forEach(file => {
-            formData.append('files[]', JSON.stringify(file));
-        });
-
-        console.log(formData.getAll('files[]'));
-        console.log(formData.get('doctor'));
-        console.log(formData.get('date'));
-
-        // Далее можно отправить данные на сервер, используя методы fetch или axios
+        const formData = new FormData();
+        formData.append('pdf', file);
+        dispatch(uploadPDF({ id: '64536d7e0d6fb48460bca28c', formData: formData }));
+        setFile(null);
     };
-
     const modalProperty = {
         position: 'absolute',
         top: '50%',
@@ -66,7 +47,6 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
         maxWidth: { sm: '335px', md: '500px' },
         width: '100%',
     };
-
     return (
         <Modal open={open} onClose={() => setOpen(false)}>
             <Box sx={modalProperty}>
@@ -83,7 +63,7 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
                         <CloseIcon sx={{ width: '24px', height: '24px', color: 'text.black' }} />
                     </IconButton>
                 </div>
-                <form className={style.Modal_Form} onSubmit={handleSubmit}>
+                <form className={style.Modal_Form} encType="multipart/form-data" onSubmit={handleSubmit}>
                     <ul className={style.Modal_FormList}>
                         <li className={style.Modal_FormItem}>
                             <InputLabel variant="standard" color="primary" sx={{ mb: '8px' }}>
@@ -118,26 +98,26 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
                             <input
                                 type="file"
                                 id="fileInput"
-                                name="files"
+                                name="pdf"
                                 onChange={handleFileChange}
                                 className={style.Modal_FormUpload}
                             />
                         </li>
                     </ul>
                     <ul className={style.Modal_Form_UploadedFilesList} id="file-list">
-                        {files.map(({ name }, index) => (
-                            <li key={index} className={style.Modal_Form_UploadedFilesItem}>
+                        {file && (
+                            <li key={file.index} className={style.Modal_Form_UploadedFilesItem}>
                                 <div className={style.Modal_Form_UploadedFilesSubItem}>
                                     <Icon sx={{ display: 'flex' }} color="primary">
                                         <UilFileAlt style={{ width: '20px', height: '20px' }} />
                                     </Icon>
-                                    <span className={style.Modal_Form_UploadedFileName}>{name}</span>
+                                    <span className={style.Modal_Form_UploadedFileName}>{file.name}</span>
                                 </div>
-                                <IconButton size="small" color="primary" onClick={() => handleFileDelete(index)}>
+                                <IconButton size="small" color="primary" onClick={() => handleFileDelete()}>
                                     <UilTrashAlt style={{ width: '20px', height: '20px' }} />
                                 </IconButton>
                             </li>
-                        ))}
+                        )}
                     </ul>
                     <Button variant="contained" color="secondary" disableElevation type="submit">
                         Save

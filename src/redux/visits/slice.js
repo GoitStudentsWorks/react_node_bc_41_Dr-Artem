@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getAllVisits, addVisit, updateVisit, uploadPDF, deletePDF } from './operation';
+import { addVisit, getAllVisits, updateVisit, uploadPDF } from './operation';
 
 const initialState = {
     visits: [],
@@ -10,18 +10,22 @@ const initialState = {
 const visitsSlice = createSlice({
     name: 'visits',
     initialState,
+
     extraReducers: {
         [getAllVisits.fulfilled](state, action) {
             state.visits = action.payload;
         },
         [getAllVisits.rejected](state, action) {
+            state.visits = [];
+            state.error = action.payload || 'Something went wrong.';
+
             console.log(action.payload);
         },
         [addVisit.fulfilled](state, action) {
             state.visits.push(action.payload);
         },
         [addVisit.rejected](state, action) {
-            console.log(action.payload);
+            // console.log(action.payload);
         },
         [updateVisit.fulfilled](state, action) {
             const updatedVisit = action.payload;
@@ -30,9 +34,20 @@ const visitsSlice = createSlice({
             if (visitIndex !== -1) {
                 state.visits.splice(visitIndex, 1, updatedVisit);
             }
-            console.log(action.payload);
+            // console.log(action.payload);
         },
         [updateVisit.rejected](state, action) {
+            console.log(action.payload);
+        },
+        [uploadPDF.fulfilled](state, action) {
+            const updatedVisit = action.payload;
+            const visitIndex = state.visits.findIndex(visit => visit._id === updatedVisit._id);
+
+            if (visitIndex !== -1) {
+                state.visits.splice(visitIndex, 1, updatedVisit);
+            }
+        },
+        [uploadPDF.rejected](state, action) {
             console.log(action.payload);
         },
     },

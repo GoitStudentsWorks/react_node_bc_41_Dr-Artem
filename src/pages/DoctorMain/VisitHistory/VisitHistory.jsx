@@ -1,17 +1,13 @@
 import { Box, Button, Divider, Grid, List, ListItem } from '@mui/material';
+import axios from 'axios';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllVisits } from 'redux/visits/operation';
+import { selectAllVisits } from 'redux/visits/selectors';
 import { PagePagination } from '../../../components/PagePagination/PagePagination';
 import plug from '../../../images/ProfileBlock/plug.png';
 import css from './VisitHistory.module.css';
-
-const patients = [
-    { id: 1, name: 'Melnyk Victoria Petrivna', date: 'November 23/11/2023' },
-    { id: 2, name: 'Kichaty Serhiy Viktorovych', date: 'November 23/11/2023' },
-    { id: 3, name: 'Obozna Yuliya Anatolyivna', date: 'November 23/11/2023' },
-    { id: 4, name: 'Solomchuk Viktor Ivanovych', date: 'November 23/11/2023' },
-    { id: 5, name: 'Storozhuk Viktor Serhiyovych', date: 'November 23/11/2023' },
-    { id: 6, name: 'Kuznets Dmytro Vasyliovych', date: 'November 23/11/2023' },
-    { id: 7, name: 'Radko Vitaly Yuriyovych', date: 'November 23/11/2023' },
-];
 
 const gridStyles = {
     marginLeft: '0',
@@ -44,7 +40,30 @@ const buttonStyle = {
     lineHeight: { xs: '1.17', md: '1.4' },
 };
 
-export const VisitHistory = () => {
+const VisitHistory = () => {
+    const dispatch = useDispatch();
+    const visits = useSelector(selectAllVisits);
+    const [page, setPage] = useState(1);
+    const [allVisits, setAllVisits] = useState(null);
+    useEffect(() => {
+        dispatch(getAllVisits({ page, limit: 7 }));
+    }, [dispatch, page]);
+
+    useEffect(() => {
+        async function fetchVisits() {
+            const { data } = await axios.get(`/visits`);
+            setAllVisits(data);
+        }
+        fetchVisits();
+    }, []);
+
+    const handlePageOnVisits = data => {
+        setPage(data);
+    };
+    let numberOfPaginationButton = 8;
+    if (allVisits) {
+        numberOfPaginationButton = Math.round(allVisits.length / 7);
+    }
     return (
         <section className={css.section}>
             <List
@@ -55,9 +74,9 @@ export const VisitHistory = () => {
                     marginBottom: { xs: '20px', md: '32px' },
                 }}
             >
-                {patients.map(({ name, date, id }, index) => {
+                {visits.map(({ patient, date, _id }, index) => {
                     return (
-                        <div key={id}>
+                        <div key={_id}>
                             <ListItem sx={{ marginBottom: { xs: '20px', md: '16px' }, padding: '0px' }}>
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Grid
@@ -75,14 +94,16 @@ export const VisitHistory = () => {
                                                 <Grid item xs={12} md={3} lg={6} sx={gridStyles}>
                                                     <div>
                                                         <span className={css.lable}>Name</span>
-                                                        <p className={css.patientName}>{name}</p>
+                                                        <p className={css.patientName}>{patient.name}</p>
                                                     </div>
                                                 </Grid>
                                                 <Grid item xs={12} md={5} lg={3} sx={{ ...gridStyles }}>
                                                     <div className={`${css.visitInfo} visitInfo`}>
                                                         <div className={css.infoWrapp}>
                                                             <span className={css.lable}>Last visit</span>
-                                                            <p className={css.visitDate}>{date}</p>
+                                                            <p className={css.visitDate}>
+                                                                {moment(date).format('MMMM DD/MM/YYYY')}
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </Grid>
@@ -101,7 +122,7 @@ export const VisitHistory = () => {
                             <Divider
                                 sx={{
                                     width: '100%',
-                                    marginBottom: index !== patients.length - 1 ? '32px' : '0px',
+                                    marginBottom: index !== visits.length - 1 ? '32px' : '0px',
                                     borderBottom: '1px solid rgba(17, 17, 17, 0.1)',
                                 }}
                             />
@@ -109,7 +130,12 @@ export const VisitHistory = () => {
                     );
                 })}
             </List>
-            <PagePagination />
+            <PagePagination
+                numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
+                handlePageOnVisits={handlePageOnVisits}
+            />
         </section>
     );
 };
+
+export default VisitHistory;

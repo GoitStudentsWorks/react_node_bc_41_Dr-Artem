@@ -1,11 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api/';
+// axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api/';
 // axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL = 'https://wild-tan-mackerel-kilt.cyclic.app/api';
 
-export const getAllVisits = createAsyncThunk('/getAllVisits', async (_, { rejectWithValue }) => {
+export const getAllVisits = createAsyncThunk('/getAllVisits', async ({ page, limit }, { rejectWithValue }) => {
     try {
-        const { data } = await axios.get('/visits');
+        if (page && limit) {
+            const { data } = await axios.get(`/visits?page=${page}&limit=${limit}`);
+            return data;
+        }
+        const { data } = await axios.get(`/visits`);
         return data;
     } catch (error) {
         return rejectWithValue(error.message);
@@ -30,12 +35,17 @@ export const updateVisit = createAsyncThunk('/updateVisit', async ({ id, ...upda
     }
 });
 
-export const uploadPDF = createAsyncThunk('/uploadPDF', async (id, information, { rejectWithValue }) => {
+export const uploadPDF = createAsyncThunk('/uploadPDF', async ({ id, formData }, { rejectWithValue }) => {
     try {
-        const { data } = await axios.post(`/visits/${id}/upload-pdf`);
+        console.log(`id`, id);
+        const { data } = await axios.post(`/visits/${id}/upload-pdf`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
         return data;
     } catch (error) {
-        return rejectWithValue(error.message);
+        return rejectWithValue(error);
     }
 });
 export const deletePDF = createAsyncThunk('/deletePDF', async (id, information, { rejectWithValue }) => {
