@@ -26,7 +26,7 @@ const infoSlice = createSlice({
             state.currentUserInfo = action.payload;
         },
         [getUserInfo.rejected](state, action) {
-            // console.log(action.payload);
+            console.log(action.payload);
         },
         [getUserInfoById.fulfilled](state, action) {
             state.userInfoById = action.payload;
@@ -45,14 +45,15 @@ const infoSlice = createSlice({
         [getAllUsersForRole.rejected](state, action) {
             // console.log(action.payload);
         },
+
         [updateUserInfo.fulfilled](state, action) {
             // console.log(action.payload);
-
             state.currentUserInfo = action.payload;
         },
         [updateUserInfo.rejected](state, action) {
-            // console.log(action.payload);
+            console.log('rejected', action.payload);
         },
+
         [addUserExperience.fulfilled](state, action) {
             state.currentUserInfo = action.payload;
         },
@@ -70,12 +71,6 @@ const infoSlice = createSlice({
         },
         [deleteUserExperience.rejected](state, action) {
             // console.log(action.payload);
-        },
-        [updateUserInfo.fulfilled](state, action) {
-            console.log(action.payload);
-        },
-        [updateUserInfo.rejected](state, action) {
-            console.log('rejected', action.payload);
         },
         [getAllInstitution.fulfilled](state, action) {
             state.allInstitution = action.payload;

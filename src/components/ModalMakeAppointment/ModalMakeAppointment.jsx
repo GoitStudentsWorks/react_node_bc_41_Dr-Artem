@@ -68,7 +68,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const doctorsName = doctorsWithSpecialization.map(el => el.name);
 
     const uniqueSpecialization = Array.from(new Set(specs));
-    console.log(userAppointments);
+    // console.log(userAppointments);
 
     const filterAppointments = (doctorName, formattedDate) => {
         const doctorAppointments = userAppointments.filter(el => el.doctor.name === doctorName);

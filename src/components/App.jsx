@@ -1,6 +1,4 @@
 import { useAuth } from 'hooks';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router';
 import { PrivateRoute } from './PrivateRoute';
 import { RestrictedRoute } from './RestrictedRoute';
@@ -15,18 +13,9 @@ import {
     VisitHistory,
 } from 'pages/DoctorMain';
 import { PatientDoctors, PatientMain, PatientMedicalHistory, PatientVisitsToDoctor } from 'pages/PatientMain';
-import { getUserInfo } from 'redux/info/operation';
 
 export const App = () => {
     const { user } = useAuth();
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (user) {
-            dispatch(getUserInfo());
-            // dispatch(getAllVisits());
-        }
-    }, [user]);
 
     return (
         <>

@@ -17,64 +17,66 @@ export const ProfileBlockPatient = ({ children, userInfo }) => {
     const personalLoc = useLocation().pathname.startsWith('/patient/');
     return (
         <>
-            <Card>
-                <Badge>{userInfo.role}</Badge>
-                <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                    <ProfileImage personalLoc={personalLoc} />
-                    <div>
-                        <ul className={css.list}>
-                            <li className={css.item}>
-                                Name:<p className={css.data}>{userInfo.name}</p>
-                            </li>
-                            {userInfo.gender && (
+            {
+                <Card>
+                    <Badge>{userInfo.role}</Badge>
+                    <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                        <ProfileImage personalLoc={personalLoc} />
+                        <div>
+                            <ul className={css.list}>
                                 <li className={css.item}>
-                                    Gender:<p className={css.data}>{userInfo.gender}</p>
+                                    Name:<p className={css.data}>{userInfo.name}</p>
                                 </li>
-                            )}
+                                {userInfo.gender && (
+                                    <li className={css.item}>
+                                        Gender:<p className={css.data}>{userInfo.gender}</p>
+                                    </li>
+                                )}
 
-                            {userInfo.birthday && (
+                                {userInfo.birthday && (
+                                    <li className={css.item}>
+                                        Date of birth:
+                                        <p className={css.data}>{moment(userInfo.birthday).format('DD MMMM YYYY')}</p>
+                                    </li>
+                                )}
+
                                 <li className={css.item}>
-                                    Date of birth:
-                                    <p className={css.data}>{moment(userInfo.birthday).format('DD MMMM YYYY')}</p>
+                                    Phone number:<p className={css.data}>{userInfo.number}</p>
                                 </li>
+                            </ul>
+                            {personalLoc && (
+                                <>
+                                    <Button
+                                        variant="outlined"
+                                        color="primary"
+                                        type="submit"
+                                        onClick={() => setModalAppointment(!modalAppointment)}
+                                    >
+                                        make an appointment
+                                    </Button>
+                                    {mmodalProfile && (
+                                        <ModalEditPatientProfile open={mmodalProfile} setApp={setMmodalProfile} />
+                                    )}
+                                    {modalAppointment && (
+                                        <ModalMakeAppointment open={modalAppointment} setApp={setModalAppointment} />
+                                    )}
+                                </>
                             )}
-
-                            <li className={css.item}>
-                                Phone number:<p className={css.data}>{userInfo.number}</p>
-                            </li>
-                        </ul>
-                        {personalLoc && (
-                            <>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    type="submit"
-                                    onClick={() => setModalAppointment(!modalAppointment)}
-                                >
-                                    make an appointment
-                                </Button>
-                                {mmodalProfile && (
-                                    <ModalEditPatientProfile open={mmodalProfile} setApp={setMmodalProfile} />
-                                )}
-                                {modalAppointment && (
-                                    <ModalMakeAppointment open={modalAppointment} setApp={setModalAppointment} />
-                                )}
-                            </>
-                        )}
-                        {children && cloneElement(children, { id: userInfo._id })}
+                            {children && cloneElement(children, { id: userInfo._id })}
+                        </div>
                     </div>
-                </div>
 
-                {personalLoc && (
-                    <IconButton
-                        color="primary"
-                        sx={{ position: 'absolute', top: '16px', right: '16px' }}
-                        onClick={() => setMmodalProfile(!mmodalProfile)}
-                    >
-                        <UilPen style={{ width: '20px', height: '20px' }} />
-                    </IconButton>
-                )}
-            </Card>
+                    {personalLoc && (
+                        <IconButton
+                            color="primary"
+                            sx={{ position: 'absolute', top: '16px', right: '16px' }}
+                            onClick={() => setMmodalProfile(!mmodalProfile)}
+                        >
+                            <UilPen style={{ width: '20px', height: '20px' }} />
+                        </IconButton>
+                    )}
+                </Card>
+            }
         </>
     );
 };
