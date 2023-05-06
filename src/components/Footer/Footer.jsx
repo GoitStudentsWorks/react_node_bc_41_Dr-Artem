@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom';
 import Logo from 'components/Logo/Logo';
 import logo_desk from '../../images/logo/logo_footer_desk.png';
 import logo_mobile from '../../images/logo/logo_footer_mobile.png';
+import { useSelector } from 'react-redux';
+import { selectUserRole } from 'redux/auth/selectors';
 
 const iconButtonStyles = {
     width: { xs: '40px', md: '56px' },
@@ -31,6 +33,8 @@ export const Footer = () => {
     const { isLoggedIn } = useAuth();
     const navigate = useNavigate();
 
+    const userRole = useSelector(selectUserRole);
+
     const handleClick = () => {
         isLoggedIn ? setModalAppointment(!modalAppointment) : navigate('/auth/login');
     };
@@ -50,14 +54,18 @@ export const Footer = () => {
         <div className={css.section}>
             <div className={css.box}>
                 <div className={css.container}>
-                    <div className={css.firstpart}>
+                    <div className={userRole !== 'Doctor' ? css.firstpart : css.firstpart_doctor}>
                         <div className={css.logo}>
                             <Logo footer_desc={logo_desk} footer_mob={logo_mobile} />
                         </div>
-                        <p className={css.title}>Choose a doctor and make an appointment at a convenient time</p>
-                        <button type="button" onClick={handleClick} className={css.btn}>
-                            make an appointment
-                        </button>
+                        <p className={userRole !== 'Doctor' ? css.title : css.title_doctor}>
+                            Choose a doctor and make an appointment at a convenient time
+                        </p>
+                        {userRole !== 'Doctor' && (
+                            <button type="button" onClick={handleClick} className={css.btn}>
+                                make an appointment
+                            </button>
+                        )}
                     </div>
 
                     <div className={css.secondpart}>

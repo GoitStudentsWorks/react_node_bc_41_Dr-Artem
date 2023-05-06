@@ -10,7 +10,7 @@ import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
+import { getCurrentUserAppointments, setAppointment, getAppointmentById } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
 // import { array, number, object } from 'yup';
 import css from './ModalMakeAppointment.module.css';
@@ -47,34 +47,38 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const [selectedTime, setSelectedTime] = useState(null);
     const [specialization, setSpecialization] = useState(null);
     const [doctor, setDoctor] = useState(null);
+
     const [selectDoctor, setSelectDoctor] = useState(null);
-    const [userAppointments, setUserAppointments] = useState([]);
+    const [doctorAppointments, setDoctorAppointments] = useState([]);
     const [userHour, setUserHour] = useState();
     const [allDoctors, setAllDoctors] = useState([]);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserAppointments()).then(({ payload }) => {
-            typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
-        });
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
     }, [dispatch]);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
-    [].map(el => console.log(el));
 
     const specs = doctorsWithSpecialization.map(el => el.specialization);
     const doctorsName = doctorsWithSpecialization.map(el => el.name);
 
     const uniqueSpecialization = Array.from(new Set(specs));
-    // console.log(userAppointments);
 
-    const filterAppointments = (doctorName, formattedDate) => {
-        const doctorAppointments = userAppointments.filter(el => el.doctor.name === doctorName);
-        const doctorAppointmentsDate = doctorAppointments.filter(el => el.date === formattedDate);
+    const filterAppointments = (doctorAppointments, doctorId, Date) => {
+        const doctorAppointment = doctorAppointments.filter(el => el.doctor == doctorId);
+        const doctorAppointmentsDate = doctorAppointment.filter(el => {
+            const formattedDate = dayjs(el.date).format('DD.MM.YYYY');
+            return formattedDate === Date;
+        });
         const doctorHour = doctorAppointmentsDate.map(el => el.time);
         return doctorHour;
+    };
+
+    const doctorsIdByName = name => {
+        const doctorsId = doctorsWithSpecialization.filter(el => el.name === name).map(el => el._id);
+        return doctorsId[0];
     };
 
     const handleSpecializationChange = event => {
@@ -93,8 +97,13 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         const name = event.currentTarget.innerText;
         setSelectDoctor(name);
 
-        const doctorHour = filterAppointments(name, selectedDate);
-        setUserHour(doctorHour);
+        const doctorId = doctorsIdByName(name);
+
+        dispatch(getAppointmentById(doctorId)).then(data => {
+            const doctorHour = filterAppointments(data.payload, doctorId, selectedDate);
+            setDoctorAppointments(data.payload);
+            setUserHour(doctorHour);
+        });
     };
 
     const handleTimeChange = value => {
@@ -102,7 +111,9 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     };
 
     const handleDateChange = formattedDate => {
-        const doctorHour = filterAppointments(selectDoctor, formattedDate);
+        const id = doctorsIdByName(selectDoctor);
+
+        const doctorHour = filterAppointments(doctorAppointments, id, formattedDate);
         setUserHour(doctorHour);
         setSelectedDate(formattedDate);
     };
@@ -113,13 +124,16 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         const requiredFields = [selectedDate, selectedTime, specialization, doctor];
         if (requiredFields.every(field => field !== null)) {
             const selectDoctorInfo = allDoctors.filter(el => el.name === selectDoctor);
+            const formattedDate = dayjs(selectedDate).format('DD.MM.YYYY');
 
             const data = {
                 doctor: selectDoctorInfo[0]._id,
                 specialization,
-                date: selectedDate,
+                date: formattedDate,
                 time: selectedTime,
             };
+
+            console.log(data);
 
             dispatch(setAppointment(data));
 
