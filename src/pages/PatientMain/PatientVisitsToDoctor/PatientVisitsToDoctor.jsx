@@ -1,48 +1,23 @@
-import StarIcon from '@mui/icons-material/Star';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
+import StarIcon from '@mui/icons-material/Star';
 import Rating from '@mui/material/Rating';
-import { Badge } from 'components/Badge/Badge';
 import { DatePickerMonth } from 'components/DatePickers/DatePickerMonth';
 import { ModalEditRating } from 'components/ModalEditRating/ModalEditRating';
-import { useState } from 'react';
 import { DoctorInfoCard } from '../../../components/DoctorInfoCard/DoctorInfoCard';
+import { selectAllVisits } from '../../../redux/visits/selectors';
+import {updateUserRating} from '../../../redux/info/operation'
 import plug from '../../../images/ProfileBlock/plug.png';
 import css from './PatientVisitsToDoctor.module.css';
-
-const currentAppointments = [
-    {
-        doctor: 'Shumeiko Timur Bohdanovich',
-        specialization: 'Surgeon',
-        date: 'March 8/03/2023',
-        time: '10:00 - 11:30',
-        rating: null,
-    },
-    {
-        doctor: 'Petrova Olena Sergeyevna',
-        specialization: 'Traumatologist',
-        date: 'March 14/03/2023',
-        time: '14:00 - 15:30',
-        rating: null,
-    },
-    {
-        doctor: 'Vergulenko Alla Olehivna',
-        specialization: 'Gynecologist',
-        date: 'March 20/03/2023',
-        time: '12:00 - 13:00',
-        rating: null,
-    },
-    {
-        doctor: 'Aksyonov Pavlo Valeriyovych',
-        specialization: 'Ophtalmologist',
-        date: 'March 29/03/2023',
-        time: '16:00 - 16:30',
-        rating: null,
-    },
-];
 
 export const PatientVisitsToDoctor = () => {
     const [selectedDoctorData, setSelectedDoctorData] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
+    const allVisits = useSelector(selectAllVisits);
+    const dispatch = useDispatch();
+
+    console.log(allVisits)
 
     const openModal = doctorData => {
         setSelectedDoctorData(doctorData);
@@ -50,11 +25,12 @@ export const PatientVisitsToDoctor = () => {
     };
 
     const closeModal = (value, doctor) => {
-        setSelectedDoctorData(null);
-        const currentDoc = currentAppointments.find(appointment => appointment.doctor === doctor);
-        if (currentDoc) {
-            currentDoc.rating = value;
+        const newRating = {
+            id: doctor,
+            rating: value,
         }
+        dispatch(updateUserRating(newRating))
+        setSelectedDoctorData(null);
         setIsOpen(false);
     };
 
@@ -63,41 +39,76 @@ export const PatientVisitsToDoctor = () => {
             <Typography
                 variant="subtitle"
                 color="text.black"
-                sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 } }}
+                sx={{ fontSize: { md: '20px' }, lineHeight: { md: 1.5 }, marginBottom: '16px', display: 'block' }}
             >
                 Visits
             </Typography>
             <DatePickerMonth />
             <ul className={css.visitsList}>
-                {currentAppointments.map(({ doctor, specialization, date, time, rating }) => {
-                    const doctorData = {
-                        name: doctor,
-                        line: specialization,
-                        visitDate: date,
-                        visitTime: time,
-                        rating,
-                    };
-                    return (
-                        <li className={css.visitsItem} key={`${doctor}-${date}`}>
-                            <div className={css.doctorDetails}>
-                                <DoctorInfoCard doctorData={doctorData} plug={plug} />
-                                <div className={css.rating} onClick={() => openModal(doctorData)}>
-                                    <Rating
-                                        name="read-only"
-                                        value={rating}
-                                        readOnly
-                                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                                    />
+                {allVisits &&
+                    allVisits.map(({ doctor, date, _id }) => {
+                        console.log(doctor)
+                    
+                        const newDate = new Date(date);
+
+                        const optionsMonth = {
+                            month: 'long',
+                            timeZone: 'UTC',
+                        };
+                        const monthFormatted = newDate.toLocaleDateString('en-US', optionsMonth);
+
+                        const optionsDate = {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            timeZone: 'UTC',
+                        };
+                        const dateFormatted = newDate.toLocaleDateString('en-US', optionsDate);
+
+                        const optionsTime = {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: false,
+                            timeZone: 'UTC',
+                        };
+                        const timeFormatted = newDate.toLocaleTimeString('en-US', optionsTime); 
+
+                        const endTime = new Date(newDate.getTime() + 30 * 60000).toLocaleTimeString('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: false,
+                            timeZone: 'UTC',
+                        });
+
+                        const doctorData = {
+                            id: doctor._id,
+                            name: doctor.name,
+                            line: doctor.specialization,
+                            avatar: doctor.avatarURL,
+                            rating: doctor.rating,
+                        };
+
+                        return (
+                            <li className={css.visitsItem} key={_id}>
+                                <div className={css.doctorDetails}>
+                                    <DoctorInfoCard doctorData={doctorData} />
+                                    <div className={css.rating} onClick={() => openModal(doctorData)}>
+                                        <Rating
+                                            name="read-only"
+                                            value={doctorData.rating}
+                                            readOnly
+                                            emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={css.visitInfo}>
-                                <p className={css.visitTitle}>Date of admission</p>
-                                <span className={css.visitDate}>{date}</span>
-                                <span className={css.visitDate}>{time}</span>
-                            </div>
-                        </li>
-                    );
-                })}
+                                <div className={css.visitInfo}>
+                                    <p className={css.visitTitle}>Date of admission</p>
+                                    <span className={css.visitDate}>{`${monthFormatted} ${dateFormatted}`}</span>
+                                    <span className={css.visitDate}>{`${timeFormatted} - ${endTime}`}</span>
+                                </div>
+                            </li>
+                        );
+                    })}
             </ul>
             {selectedDoctorData && (
                 <ModalEditRating isOpen={isOpen} doctorData={selectedDoctorData} onClose={closeModal} plug={plug} />

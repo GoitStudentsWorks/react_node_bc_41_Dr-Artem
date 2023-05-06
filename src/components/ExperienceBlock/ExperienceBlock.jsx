@@ -95,7 +95,7 @@ export const ExperienceBlock = ({doctorInfo}) => {
                     );
                 })}
             </ul>
-            <ExperienceModal doctorInfo={doctorInfo} open={modalOpen} setModalOpen={handleModalChange} title={title} id={id}/>
+            <ExperienceModal open={modalOpen} setModalOpen={handleModalChange} title={title} id={id}/>
         </div>
     );
 };
