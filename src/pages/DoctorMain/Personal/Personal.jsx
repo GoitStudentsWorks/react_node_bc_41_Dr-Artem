@@ -1,16 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { ExperienceBlock } from 'components/ExperienceBlock/ExperienceBlock';
-import { useSelector } from 'react-redux';
-import { selectUserInfo } from 'redux/info/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { selectUserInfoById } from 'redux/info/selectors';
 
 import { AboutBlock } from 'components/AboutBlock/AboutBlock';
 import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlockDoctore';
 import { SpecializationBlock } from 'components/SpecializationBlock/SpecializationBlock';
 import { WeekVisitsBlock } from 'components/WeekVisitsBlock/WeekVisitsBlock';
+import { useEffect } from 'react';
+import { getUserInfoById } from 'redux/info/operation';
 import css from './Personal.module.css';
 
 const Personal = () => {
-    const doctorInfo = useSelector(selectUserInfo);
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const doctorInfo = useSelector(selectUserInfoById);
+
+    useEffect(() => {
+        dispatch(getUserInfoById(id));
+    }, [id]);
 
     return (
         <>

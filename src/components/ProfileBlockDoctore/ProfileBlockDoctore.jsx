@@ -18,7 +18,6 @@ export const ProfileBlockDoctore = ({ children, userInfo }) => {
 
     const doctorId = useSelector(selectUserInfo)?._id;
     const { id } = useParams();
-
     const personalLoc = doctorId === id;
 
     return (
