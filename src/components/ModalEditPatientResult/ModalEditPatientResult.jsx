@@ -12,7 +12,7 @@ import { uploadPDF } from 'redux/visits/operation';
 import style from './ModalEditPatientResult.module.css';
 
 export const ModalEditPatientResult = ({ open, setOpen }) => {
-    const [file, setFile] = useState([]);
+    const [file, setFile] = useState(null);
     const [selectedDate, setSelectedDate] = useState(dayjs);
     const dispatch = useDispatch();
 
@@ -30,7 +30,6 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        const file = event.target.files[0];
         const formData = new FormData();
         formData.append('pdf', file);
         dispatch(uploadPDF({ id: '64536d7e0d6fb48460bca28c', formData: formData }));
