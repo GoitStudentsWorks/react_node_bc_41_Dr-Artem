@@ -18,20 +18,6 @@ const iconButtonStyles = {
 export const DatePickerMonth = () => {
     const [selectedMonth, setSelectedMonth] = useState(dayjs(Date.now()).startOf('month'));
 
-    const handleMonthChange = newDate => {
-        setSelectedMonth(dayjs(newDate).startOf('month'));
-    };
-
-    const onBackClick = () => {
-        const newMonth = dayjs(selectedMonth).subtract(1, 'M');
-        setSelectedMonth(newMonth);
-    };
-
-    const onForwardClick = () => {
-        const newMonth = dayjs(selectedMonth).add(1, 'M');
-        setSelectedMonth(newMonth);
-    };
-
     return (
         <div className={css.wrapp}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -41,7 +27,9 @@ export const DatePickerMonth = () => {
                     views={['year', 'month']}
                     minDate={dayjs('2015-01-01')}
                     maxDate={dayjs('2099-12-31')}
-                    onChange={handleMonthChange}
+                    onChange={newDate => {
+                        setSelectedMonth(dayjs(newDate).startOf('month'));
+                    }}
                     format={`MMM D- ${dayjs(selectedMonth).endOf('month').format('D/MM/YYYY')}`}
                     sx={{
                         border: '1px solid rgba(71, 117, 119, 0.3)',
@@ -89,7 +77,13 @@ export const DatePickerMonth = () => {
                 />
             </LocalizationProvider>
             <div className={css.btnGrup}>
-                <IconButton onClick={onBackClick} sx={iconButtonStyles}>
+                <IconButton
+                    onClick={() => {
+                        const newMonth = dayjs(selectedMonth).subtract(1, 'M');
+                        setSelectedMonth(newMonth);
+                    }}
+                    sx={iconButtonStyles}
+                >
                     <ArrowBackIosNewIcon
                         sx={{
                             width: '14px',
@@ -105,7 +99,13 @@ export const DatePickerMonth = () => {
                     }}
                 />
 
-                <IconButton onClick={onForwardClick} sx={iconButtonStyles}>
+                <IconButton
+                    onClick={() => {
+                        const newMonth = dayjs(selectedMonth).add(1, 'M');
+                        setSelectedMonth(newMonth);
+                    }}
+                    sx={iconButtonStyles}
+                >
                     <ArrowForwardIosIcon
                         sx={{
                             width: '14px',

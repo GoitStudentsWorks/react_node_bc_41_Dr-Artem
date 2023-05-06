@@ -6,18 +6,18 @@ import Rating from '@mui/material/Rating';
 import { DatePickerMonth } from 'components/DatePickers/DatePickerMonth';
 import { ModalEditRating } from 'components/ModalEditRating/ModalEditRating';
 import { DoctorInfoCard } from '../../../components/DoctorInfoCard/DoctorInfoCard';
-import { selectAllVisits } from '../../../redux/visits/selectors';
-import {updateUserRating} from '../../../redux/info/operation'
+import { selectCurrentUserAppointments } from '../../../redux/appointment/selectors';
+import { updateUserRating } from '../../../redux/info/operation';
 import plug from '../../../images/ProfileBlock/plug.png';
 import css from './PatientVisitsToDoctor.module.css';
+// import { getCurrentUserAppointments } from '../../../redux/appointment/operation';
 
 export const PatientVisitsToDoctor = () => {
     const [selectedDoctorData, setSelectedDoctorData] = useState(null);
+    const [selectedDate, setSelectedDate] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-    const allVisits = useSelector(selectAllVisits);
+    const allVisits = useSelector(selectCurrentUserAppointments);
     const dispatch = useDispatch();
-
-    console.log(allVisits)
 
     const openModal = doctorData => {
         setSelectedDoctorData(doctorData);
@@ -25,11 +25,12 @@ export const PatientVisitsToDoctor = () => {
     };
 
     const closeModal = (value, doctor) => {
+        console.log(value)
         const newRating = {
             id: doctor,
             rating: value,
-        }
-        dispatch(updateUserRating(newRating))
+        };
+        dispatch(updateUserRating(newRating));
         setSelectedDoctorData(null);
         setIsOpen(false);
     };
@@ -46,9 +47,7 @@ export const PatientVisitsToDoctor = () => {
             <DatePickerMonth />
             <ul className={css.visitsList}>
                 {allVisits &&
-                    allVisits.map(({ doctor, date, _id }) => {
-                        console.log(doctor)
-                    
+                    allVisits.map(({ doctor, date, _id, time }) => {
                         const newDate = new Date(date);
 
                         const optionsMonth = {
@@ -56,29 +55,6 @@ export const PatientVisitsToDoctor = () => {
                             timeZone: 'UTC',
                         };
                         const monthFormatted = newDate.toLocaleDateString('en-US', optionsMonth);
-
-                        const optionsDate = {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: 'numeric',
-                            timeZone: 'UTC',
-                        };
-                        const dateFormatted = newDate.toLocaleDateString('en-US', optionsDate);
-
-                        const optionsTime = {
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            hour12: false,
-                            timeZone: 'UTC',
-                        };
-                        const timeFormatted = newDate.toLocaleTimeString('en-US', optionsTime); 
-
-                        const endTime = new Date(newDate.getTime() + 30 * 60000).toLocaleTimeString('en-US', {
-                            hour: 'numeric',
-                            minute: 'numeric',
-                            hour12: false,
-                            timeZone: 'UTC',
-                        });
 
                         const doctorData = {
                             id: doctor._id,
@@ -96,6 +72,7 @@ export const PatientVisitsToDoctor = () => {
                                         <Rating
                                             name="read-only"
                                             value={doctorData.rating}
+                                            precision={0.5}
                                             readOnly
                                             emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
                                         />
@@ -103,8 +80,8 @@ export const PatientVisitsToDoctor = () => {
                                 </div>
                                 <div className={css.visitInfo}>
                                     <p className={css.visitTitle}>Date of admission</p>
-                                    <span className={css.visitDate}>{`${monthFormatted} ${dateFormatted}`}</span>
-                                    <span className={css.visitDate}>{`${timeFormatted} - ${endTime}`}</span>
+                                    <span className={css.visitDate}>{`${monthFormatted} ${date}`}</span>
+                                    <span className={css.visitDate}>{time}</span>
                                 </div>
                             </li>
                         );
