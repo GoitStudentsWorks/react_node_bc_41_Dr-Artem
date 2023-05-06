@@ -144,10 +144,10 @@ export const RegisterForm = () => {
                     </li>
                     <li className={css.formItem}>
                         {/* RADIO */}
-                        <FormControl >
-                            <RadioGroup row name="role" >
-                                <FormControlLabel value="patient" control={<Radio />} label="Patient" />
-                                <FormControlLabel value="doctore" control={<Radio />} label="Doctor" />
+                        <FormControl>
+                            <RadioGroup row name="role" defaultValue="Patient">
+                                <FormControlLabel value="Patient" control={<Radio />} label="Patient" />
+                                <FormControlLabel value="Doctor" control={<Radio />} label="Doctor" />
                             </RadioGroup>
                         </FormControl>
                     </li>

@@ -1,10 +1,12 @@
 import css from './DoctorInfoCard.module.css';
+import plug from '../../images/ProfileBlock/plug.png';
 
-export const DoctorInfoCard = ({ doctorData, plug }) => {
+export const DoctorInfoCard = ({ doctorData }) => {
+
     return (
         <div className={css.doctorInfo}>
             <div className={css.imgWrapper}>
-                <img src={plug} alt="plug" className={css.photo} />
+                <img src={doctorData.avatar ? doctorData.avatar : plug} alt="avatar" className={css.photo} />
             </div>
             <div>
                 <h3 className={css.doctorName}>{doctorData.name}</h3>
