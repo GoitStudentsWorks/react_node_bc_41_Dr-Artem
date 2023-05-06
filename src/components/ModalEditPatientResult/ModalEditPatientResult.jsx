@@ -24,13 +24,12 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
         setFile(event.target.files[0]);
     };
 
-    const handleFileDelete = i => {
+    const handleFileDelete = () => {
         setFile(null);
     };
 
     const handleSubmit = event => {
         event.preventDefault();
-        const file = event.target.files[0];
         const formData = new FormData();
         formData.append('pdf', file);
         dispatch(uploadPDF({ id: '64536d7e0d6fb48460bca28c', formData: formData }));
@@ -48,7 +47,6 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
         maxWidth: { sm: '335px', md: '500px' },
         width: '100%',
     };
-    // console.log(`files123`, file);
     return (
         <Modal open={open} onClose={() => setOpen(false)}>
             <Box sx={modalProperty}>
