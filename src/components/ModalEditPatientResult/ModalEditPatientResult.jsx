@@ -12,7 +12,7 @@ import { uploadPDF } from 'redux/visits/operation';
 import style from './ModalEditPatientResult.module.css';
 
 export const ModalEditPatientResult = ({ open, setOpen }) => {
-    const [file, setFile] = useState(null);
+    const [file, setFile] = useState([]);
     const [selectedDate, setSelectedDate] = useState(dayjs);
     const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
         setFile(event.target.files[0]);
     };
 
-    const handleFileDelete = i => {
+    const handleFileDelete = () => {
         setFile(null);
     };
 
@@ -48,7 +48,6 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
         maxWidth: { sm: '335px', md: '500px' },
         width: '100%',
     };
-    // console.log(`files123`, file);
     return (
         <Modal open={open} onClose={() => setOpen(false)}>
             <Box sx={modalProperty}>
