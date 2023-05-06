@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 import { ProfileBlockPatient } from 'components/ProfileBlockPatient/ProfileBlockPatient';
 import UsersList from 'components/UsersList/UsersList';
@@ -9,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { getAllUsersForRole } from 'redux/info/operation';
 import css from './ListOfPatients.module.css';
 
-export const ListOfPatients = () => {
+const ListOfPatients = () => {
     const [allPatients, setAllPatients] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const dispatch = useDispatch();
@@ -22,14 +21,14 @@ export const ListOfPatients = () => {
             setFiltered(payload);
         });
         // eslint-disable-next-line
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
             <div className={css.filter}>
                 <BasicSelect title={'Patients'} filter={frequency} />
             </div>
-            <UsersList listOfUsers={allPatients}>
+            <UsersList listOfUsers={filtered || allPatients}>
                 <ProfileBlockPatient>
                     <LinkViewProfile>view profile</LinkViewProfile>
                 </ProfileBlockPatient>
@@ -37,3 +36,5 @@ export const ListOfPatients = () => {
         </>
     );
 };
+
+export default ListOfPatients;

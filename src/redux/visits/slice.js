@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addVisit, deletePDF, getAllVisits, updateVisit, uploadPDF } from './operation';
+import { addVisit, getAllVisits, updateVisit, uploadPDF } from './operation';
 
 const initialState = {
     visits: [],

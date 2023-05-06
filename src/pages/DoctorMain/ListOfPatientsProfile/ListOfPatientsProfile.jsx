@@ -24,7 +24,8 @@ export const ListOfPatientsProfile = () => {
         dispatch(getUserInfoById(id)).then(({ payload }) => {
             setUserInfo(payload);
         });
-    }, []);
+        // eslint-disable-next-line
+    }, [dispatch]);
 
     const analysis = [
         {

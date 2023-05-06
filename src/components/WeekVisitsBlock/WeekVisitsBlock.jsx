@@ -8,9 +8,8 @@ import Card from 'components/Card/Card';
 import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments } from 'redux/appointment/operation';
-import { selectUserAppointments } from 'redux/appointment/selectors';
 import Avatar from '../../Image/Avatar.png';
 import css from './WeekVisitsBlock.module.css';
 

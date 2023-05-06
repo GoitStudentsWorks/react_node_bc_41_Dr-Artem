@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
-import { array, number, object } from 'yup';
+// import { array, number, object } from 'yup';
 import css from './ModalMakeAppointment.module.css';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
@@ -59,7 +59,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
             typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
         });
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
-    }, []);
+    }, [dispatch]);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
     [].map(el => console.log(el));

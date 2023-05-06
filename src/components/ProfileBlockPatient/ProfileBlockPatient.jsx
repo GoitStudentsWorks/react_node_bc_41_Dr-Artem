@@ -1,4 +1,4 @@
-import { UilBrightnessPlus, UilPen } from '@iconscout/react-unicons';
+import { UilPen } from '@iconscout/react-unicons';
 import { Button, IconButton } from '@mui/material';
 import { Badge } from 'components/Badge/Badge';
 import Card from 'components/Card/Card';

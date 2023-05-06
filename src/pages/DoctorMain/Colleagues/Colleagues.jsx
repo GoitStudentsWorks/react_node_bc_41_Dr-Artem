@@ -1,5 +1,5 @@
 import { UilSearch } from '@iconscout/react-unicons';
-import { Button, IconButton, Input } from '@mui/material';
+import { IconButton, Input } from '@mui/material';
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 // import { useEffect, useRef } from 'react';
 import LinkViewProfile from 'components/LinkViewProfile/LinkViewProfile';
@@ -8,7 +8,7 @@ import UsersList from 'components/UsersList/UsersList';
 import debounce from 'lodash.debounce';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { getAllUsersForRole } from 'redux/info/operation';
 import css from './Colleagues.module.css';
 
@@ -27,11 +27,11 @@ const specializations = [
 const categories = ['Show all', 'The first', 'The second', 'Higher'];
 const DEBOUNCE_DELAY = 300;
 
-export const Colleagues = () => {
+const Colleagues = () => {
     const [allDoctors, setAllDoctors] = useState([]);
     const [filteredByName, setFilteredByName] = useState([]);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => {
@@ -39,7 +39,7 @@ export const Colleagues = () => {
             setFilteredByName(payload);
         });
         // eslint-disable-next-line
-    }, []);
+    }, [dispatch]);
 
     const handleFilterName = e => {
         const inputValue = e.target.value.trim();
@@ -47,10 +47,10 @@ export const Colleagues = () => {
         setFilteredByName(filtered);
     };
 
-    const handleClick = event => {
-        console.log(event.target.id);
-        // navigate(`/doctor/personal/${event.target.id}`, { replace: true });
-    };
+    // const handleClick = event => {
+    //     console.log(event.target.id);
+    //     navigate(`/doctor/personal/${event.target.id}`, { replace: true });
+    // };
 
     return (
         <>
@@ -84,3 +84,5 @@ export const Colleagues = () => {
         </>
     );
 };
+
+export default Colleagues;

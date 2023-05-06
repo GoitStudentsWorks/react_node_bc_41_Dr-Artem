@@ -18,7 +18,7 @@ export const PatientDoctors = () => {
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => {
             setAllDoctors(payload);
         });
-    }, []);
+    }, [dispatch]);
 
     const sortDoctors = selectedValue => {
         switch (selectedValue) {

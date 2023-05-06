@@ -5,14 +5,19 @@ import { RestrictedRoute } from './RestrictedRoute';
 
 import { AuthPage, ErrorPage, GridLayout, Layout, MainPage } from 'pages';
 import {
-    Colleagues,
+    // Colleagues,
     DoctorMain,
-    ListOfPatients,
+    // ListOfPatients,
     ListOfPatientsProfile,
-    Personal,
-    VisitHistory,
 } from 'pages/DoctorMain';
 import { PatientDoctors, PatientMain, PatientMedicalHistory, PatientVisitsToDoctor } from 'pages/PatientMain';
+
+import { lazy } from 'react';
+
+const Colleagues = lazy(() => import('../pages/DoctorMain/Colleagues/Colleagues'));
+const ListOfPatients = lazy(() => import('../pages/DoctorMain/ListOfPatients/ListOfPatients'));
+const Personal = lazy(() => import('../pages/DoctorMain/Personal/Personal'));
+const VisitHistory = lazy(() => import('../pages/DoctorMain/VisitHistory/VisitHistory'));
 
 export const App = () => {
     const { user } = useAuth();

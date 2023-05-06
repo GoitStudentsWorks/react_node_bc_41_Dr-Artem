@@ -1,7 +1,7 @@
 import { UilTrashAlt } from '@iconscout/react-unicons';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
-import Divider from '@mui/material/Divider';
+// import Divider from '@mui/material/Divider';
 import { ExperienceModal } from 'components/ExperienceModal/ExperienceModal';
 import moment from 'moment';
 import { useState } from 'react';
