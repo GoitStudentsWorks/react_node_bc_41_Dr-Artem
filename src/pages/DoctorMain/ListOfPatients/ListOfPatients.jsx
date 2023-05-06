@@ -15,39 +15,26 @@ const ListOfPatients = () => {
     const [allPatients, setAllPatients] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [page, setPage] = useState(1);
-    const [allVisits, setAllVisits] = useState(null);
 
     const dispatch = useDispatch();
 
     const frequency = ['All', 'New', 'Permanent'];
 
     useEffect(() => {
-        async function fetchVisits() {
-            const { data } = await axios.get(`/visits`);
-            setAllVisits(data);
-        }
-        fetchVisits();
-    }, []);
-
-    useEffect(() => {
         dispatch(getAllUsersForRole('Patient')).then(({ payload }) => {
+            const result = payload.map((el, i) => (i % 9 === 0 ? payload.slice(i, i + 9) : null)).filter(el => el);
             setAllPatients(payload);
-            setFiltered(payload);
+            setFiltered(result);
         });
-        // eslint-disable-next-line
     }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(getAllVisits({ page, limit: 9 }));
-    }, [dispatch, page]);
 
     const handlePageOnVisits = data => {
         setPage(data);
     };
 
-    let numberOfPaginationButton = 8;
-    if (allVisits) {
-        numberOfPaginationButton = Math.round(allVisits.length / 7);
+    let numberOfPaginationButton = 0;
+    if (filtered) {
+        numberOfPaginationButton = filtered.length;
     }
 
     return (
@@ -55,7 +42,7 @@ const ListOfPatients = () => {
             <div className={css.filter}>
                 <BasicSelect title={'Patients'} filter={frequency} />
             </div>
-            <UsersList listOfUsers={filtered || allPatients}>
+            <UsersList listOfUsers={filtered[page - 1] || allPatients}>
                 <ProfileBlockPatient>
                     <LinkViewProfile>view profile</LinkViewProfile>
                 </ProfileBlockPatient>
