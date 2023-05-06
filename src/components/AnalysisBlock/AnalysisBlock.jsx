@@ -76,12 +76,12 @@ const AnalysisBlock = () => {
                         <Typography variant="subtitle" color="text.black" component="p">
                             Surgery
                         </Typography>
-                        <Typography className={s.header_item}>
+                        <div className={s.header_item}>
                             <div className={s.analysis_item}>
                                 <p className={s.doctor_name}>Shumeiko Timur Bohdanovich</p>
                                 <p className={s.doctor_type_small}>Surgeon</p>
                             </div>
-                        </Typography>
+                        </div>
                     </AccordionSummary>
                     <AccordionDetails>
                         <ul className={s.inside_list}>
@@ -140,12 +140,12 @@ const AnalysisBlock = () => {
                         <Typography variant="subtitle" color="text.black" component="p">
                             Surgery
                         </Typography>
-                        <Typography className={s.header_item}>
+                        <div className={s.header_item}>
                             <div className={s.analysis_item}>
                                 <p className={s.doctor_name}>Shumeiko Timur Bohdanovich</p>
                                 <p className={s.doctor_type_small}>Surgeon</p>
                             </div>
-                        </Typography>
+                        </div>
                     </AccordionSummary>
                     <AccordionDetails>
                         <ul className={s.inside_list}>

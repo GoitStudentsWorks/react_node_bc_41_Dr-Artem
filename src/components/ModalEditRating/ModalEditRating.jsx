@@ -53,7 +53,7 @@ export const ModalEditRating = ({ plug, isOpen, onClose, doctorData }) => {
                         <CloseIcon sx={iconStyle} />
                     </IconButton>
                     <p className={css.ratingTitle}>Rating</p>
-                    <ControlledRating onSubmit={onClose} doctor={doctorData.name} />
+                    <ControlledRating onSubmit={onClose} doctor={doctorData.id} />
                     <div className={css.ratingText}>
                         <p>
                             We understand how important the rating of doctors or clinics is for our users and how it

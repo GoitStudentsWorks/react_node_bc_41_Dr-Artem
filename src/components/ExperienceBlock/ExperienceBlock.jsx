@@ -6,15 +6,21 @@ import { ExperienceModal } from 'components/ExperienceModal/ExperienceModal';
 import moment from 'moment';
 import { useState } from 'react';
 import { RxPencil1 } from 'react-icons/rx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { deleteUserExperience } from 'redux/info/operation';
+import { selectUserInfo } from 'redux/info/selectors';
 import experienceImg from '../../Image/Experience1.png';
 import css from './ExperienceBlock.module.css';
 
 export const ExperienceBlock = ({ doctorInfo }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState('');
-    const [id, setId] = useState(null);
+    const [modalId, setModalId] = useState(null);
+
+    const doctorId = useSelector(selectUserInfo)?._id;
+    const { id } = useParams();
+    const personalLoc = doctorId === id;
 
     const dispatch = useDispatch();
 
@@ -22,16 +28,18 @@ export const ExperienceBlock = ({ doctorInfo }) => {
         setModalOpen(!modalOpen);
         setTitle(currentTitle);
 
-        _id ? setId(_id) : setId(null);
+        _id ? setModalId(_id) : setModalId(null);
     };
 
     return (
         <div className={css.experienceBlock}>
             <div className={css.experienceTitleWrapper}>
                 <h2 className={css.experienceTitle}>Experience </h2>
-                <IconButton sx={{ padding: '0' }} onClick={() => handleModalChange('Add experience')}>
-                    <AddIcon sx={{ color: '#477577' }} />
-                </IconButton>
+                {personalLoc && (
+                    <IconButton sx={{ padding: '0' }} onClick={() => handleModalChange('Add experience')}>
+                        <AddIcon sx={{ color: '#477577' }} />
+                    </IconButton>
+                )}
             </div>
             <ul className={css.experienceList}>
                 {doctorInfo.experience.map(
@@ -63,24 +71,28 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                                             {moment(endDate).format('MMMM YYYY')}
                                         </p>
 
-                                        <IconButton
-                                            sx={{ padding: '0', marginBottom: '12px' }}
-                                            onClick={() => {
-                                                handleModalChange('Edit experience', _id);
-                                            }}
-                                        >
-                                            <RxPencil1 style={{ color: '#477577' }} />
-                                        </IconButton>
+                                        {personalLoc && (
+                                            <IconButton
+                                                sx={{ padding: '0', marginBottom: '12px' }}
+                                                onClick={() => {
+                                                    handleModalChange('Edit experience', _id);
+                                                }}
+                                            >
+                                                <RxPencil1 style={{ color: '#477577' }} />
+                                            </IconButton>
+                                        )}
                                     </div>
-                                    <div style={{ display: 'flex', alignItems: 'center' }}>
-                                        <IconButton
-                                            size="small"
-                                            sx={{ padding: '0', justifyContent: 'flex-end', marginLeft: 'auto' }}
-                                            onClick={() => dispatch(deleteUserExperience(_id))}
-                                        >
-                                            <UilTrashAlt style={{ color: '#477577', fontSize: '18px' }} />
-                                        </IconButton>
-                                    </div>
+                                    {personalLoc && (
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <IconButton
+                                                size="small"
+                                                sx={{ padding: '0', justifyContent: 'flex-end', marginLeft: 'auto' }}
+                                                onClick={() => dispatch(deleteUserExperience(_id))}
+                                            >
+                                                <UilTrashAlt style={{ color: '#477577', fontSize: '18px' }} />
+                                            </IconButton>
+                                        </div>
+                                    )}
                                 </div>
                                 {/* {index !== array.length - 1 && (
                                     <Divider
@@ -100,7 +112,7 @@ export const ExperienceBlock = ({ doctorInfo }) => {
                 open={modalOpen}
                 setModalOpen={handleModalChange}
                 title={title}
-                id={id}
+                id={modalId}
             />
         </div>
     );

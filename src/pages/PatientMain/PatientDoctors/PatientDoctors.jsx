@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import BasicSelect from 'components/BasicSelect/BasicSelect';
+import { ModalDoctorsAppointmentTime } from 'components/ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime';
 import { PagePagination } from 'components/PagePagination/PagePagination';
 import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlockDoctore';
 import UsersList from 'components/UsersList/UsersList';
@@ -12,6 +13,10 @@ const sorting = ['Name', 'Rating', 'Price'];
 
 export const PatientDoctors = () => {
     const [allDoctors, setAllDoctors] = useState([]);
+    const [timeModal, setTimeModal] = useState(false);
+    const [id, setId] = useState('');
+    const [specialization, setSpecialization] = useState('');
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,6 +24,12 @@ export const PatientDoctors = () => {
             setAllDoctors(payload);
         });
     }, [dispatch]);
+
+    const handleClick = event => {
+        setId(event.target.id);
+        setSpecialization(event.target.specialization);
+        setTimeModal(!timeModal);
+    };
 
     const sortDoctors = selectedValue => {
         switch (selectedValue) {
@@ -68,12 +79,18 @@ export const PatientDoctors = () => {
             </div>
             <UsersList listOfUsers={allDoctors}>
                 <ProfileBlockDoctore>
-                    <Button variant="outlined" color="primary">
+                    <Button variant="outlined" color="primary" onClick={handleClick}>
                         make an appointment
                     </Button>
                 </ProfileBlockDoctore>
             </UsersList>
             <PagePagination />
+            <ModalDoctorsAppointmentTime
+                id={id}
+                specialization={specialization}
+                open={timeModal}
+                setOpen={setTimeModal}
+            />
         </>
     );
 };

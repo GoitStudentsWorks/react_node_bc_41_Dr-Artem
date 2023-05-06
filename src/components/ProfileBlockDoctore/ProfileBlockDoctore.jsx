@@ -1,5 +1,10 @@
 import { UilPen } from '@iconscout/react-unicons';
 import { Button, Typography } from '@mui/material';
+import { Badge } from 'components/Badge/Badge';
+import Card from 'components/Card/Card';
+import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProfileModal';
+import ProfileImage from 'components/ProfileImage/ProfileImage';
+import StarRating from 'components/StarRating/StarRating';
 import moment from 'moment';
 import { cloneElement, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -7,18 +12,11 @@ import { useParams } from 'react-router-dom';
 import { selectUserInfo } from 'redux/info/selectors';
 import css from './ProfileBlockDoctore.module.css';
 
-import { Badge } from 'components/Badge/Badge';
-import Card from 'components/Card/Card';
-import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProfileModal';
-import ProfileImage from 'components/ProfileImage/ProfileImage';
-import StarRating from 'components/StarRating/StarRating';
-
 export const ProfileBlockDoctore = ({ children, userInfo }) => {
     const [appModal, setAppModal] = useState(false);
 
     const doctorId = useSelector(selectUserInfo)?._id;
     const { id } = useParams();
-
     const personalLoc = doctorId === id;
 
     return (
@@ -71,9 +69,10 @@ export const ProfileBlockDoctore = ({ children, userInfo }) => {
                         </Typography>
                     </Button>
                 )}
-                {children && cloneElement(children, { id: userInfo._id })}
+
+                {children && cloneElement(children, { id: userInfo._id, specialization: userInfo.specialization })}
             </div>
-            <EditDoctorProfileModal open={appModal} setApp={setAppModal} />
+            <EditDoctorProfileModal open={appModal} setApp={setAppModal} info={userInfo} />
         </Card>
     );
 };
