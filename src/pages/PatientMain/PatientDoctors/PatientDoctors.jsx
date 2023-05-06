@@ -3,6 +3,7 @@ import BasicSelect from 'components/BasicSelect/BasicSelect';
 import { PagePagination } from 'components/PagePagination/PagePagination';
 import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlockDoctore';
 import UsersList from 'components/UsersList/UsersList';
+import { ModalDoctorsAppointmentTime } from 'components/ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAllUsersForRole } from 'redux/info/operation';
@@ -12,6 +13,8 @@ const sorting = ['Name', 'Rating', 'Price'];
 
 export const PatientDoctors = () => {
     const [allDoctors, setAllDoctors] = useState([]);
+    const [timeModal, setTimeModal] = useState(false);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -68,12 +71,27 @@ export const PatientDoctors = () => {
             </div>
             <UsersList listOfUsers={allDoctors}>
                 <ProfileBlockDoctore>
-                    <Button variant="outlined" color="primary">
-                        make an appointment
-                    </Button>
+                <Button variant="outlined" color="primary" onClick={() => setTimeModal(!timeModal)}>
+                    make an appointment
+                </Button>
                 </ProfileBlockDoctore>
             </UsersList>
             <PagePagination />
+            <ModalDoctorsAppointmentTime open={timeModal} setOpen={setTimeModal} />
         </>
     );
 };
+
+{/* <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => {
+                            setTimeModal(!timeModal);
+                            setDoctor({
+                                id: userInfo._id,
+                                specialization: userInfo.specialization || 'dermatology',
+                            });
+                        }}
+                    >
+                        make an appointment
+                    </Button> */}

@@ -23,7 +23,7 @@ const schema = yup.object().shape({
         .required('Name is a required field'),
     gender: yup.string().min(4).max(6).required(),
     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
-    about: yup.string().required(),
+    about: yup.string(),
 });
 
 const style = {
@@ -39,7 +39,7 @@ const style = {
     width: '100%',
 };
 
-const EditDoctorProfileModal = ({ open, setApp }) => {
+const EditDoctorProfileModal = ({ open, setApp, info }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs);
     const dispatch = useDispatch();
 
@@ -59,14 +59,14 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
         dispatch(updateUserInfo(data));
         setApp(!open);
     };
-
+    // console.log(info)
     const formik = useFormik({
         initialValues: {
-            username: '',
-            gender: '',
+            username: info.name,
+            gender: info.gender,
             date: selectedDate,
-            phone: '',
-            price: '',
+            phone: info.number,
+            price: info.price,
             about: '',
         },
         validationSchema: schema,

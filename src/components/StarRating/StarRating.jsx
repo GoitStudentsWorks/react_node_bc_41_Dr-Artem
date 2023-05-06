@@ -31,8 +31,8 @@ export default function StarRating({value}) {
                 display: 'flex',
                 alignItems: 'center',
                 position: 'absolute',
-                top: '16px',
-                right: '8px',
+                top: '20px',
+                right: '30px',
                 fontWeight: '600',
             }}
         >
