@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Typography } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import Rating from '@mui/material/Rating';
+import dayjs from 'dayjs';
+import moment from 'moment';
 import { DatePickerMonth } from 'components/DatePickers/DatePickerMonth';
 import { ModalEditRating } from 'components/ModalEditRating/ModalEditRating';
 import { DoctorInfoCard } from '../../../components/DoctorInfoCard/DoctorInfoCard';
@@ -10,14 +12,20 @@ import { selectCurrentUserAppointments } from '../../../redux/appointment/select
 import { updateUserRating } from '../../../redux/info/operation';
 import plug from '../../../images/ProfileBlock/plug.png';
 import css from './PatientVisitsToDoctor.module.css';
-// import { getCurrentUserAppointments } from '../../../redux/appointment/operation';
+import { getCurrentUserAppointments } from '../../../redux/appointment/operation';
 
 export const PatientVisitsToDoctor = () => {
     const [selectedDoctorData, setSelectedDoctorData] = useState(null);
-    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).startOf('month'));
     const [isOpen, setIsOpen] = useState(false);
     const allVisits = useSelector(selectCurrentUserAppointments);
     const dispatch = useDispatch();
+
+    const selectetVisits = allVisits && allVisits.filter(item => moment(item.date).format('MMMM') === selectedDate.format('MMMM'))
+
+    useEffect(() => {
+        dispatch(getCurrentUserAppointments())
+    }, [dispatch]);
 
     const openModal = doctorData => {
         setSelectedDoctorData(doctorData);
@@ -25,7 +33,6 @@ export const PatientVisitsToDoctor = () => {
     };
 
     const closeModal = (value, doctor) => {
-        console.log(value)
         const newRating = {
             id: doctor,
             rating: value,
@@ -44,17 +51,10 @@ export const PatientVisitsToDoctor = () => {
             >
                 Visits
             </Typography>
-            <DatePickerMonth />
+            <DatePickerMonth setSelectedDate={setSelectedDate}/>
             <ul className={css.visitsList}>
-                {allVisits &&
-                    allVisits.map(({ doctor, date, _id, time }) => {
-                        const newDate = new Date(date);
-
-                        const optionsMonth = {
-                            month: 'long',
-                            timeZone: 'UTC',
-                        };
-                        const monthFormatted = newDate.toLocaleDateString('en-US', optionsMonth);
+                {selectetVisits && 
+                    selectetVisits.map(({ doctor, date, _id, time }) => {
 
                         const doctorData = {
                             id: doctor._id,
@@ -80,7 +80,7 @@ export const PatientVisitsToDoctor = () => {
                                 </div>
                                 <div className={css.visitInfo}>
                                     <p className={css.visitTitle}>Date of admission</p>
-                                    <span className={css.visitDate}>{`${monthFormatted} ${date}`}</span>
+                                    <span className={css.visitDate}>{`${moment(date).format('MMMM')} ${moment(date).format('DD/MM/YYYY')}`}</span>
                                     <span className={css.visitDate}>{time}</span>
                                 </div>
                             </li>

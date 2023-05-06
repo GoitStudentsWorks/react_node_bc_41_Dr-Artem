@@ -15,7 +15,7 @@ const iconButtonStyles = {
     },
 };
 
-export const DatePickerMonth = () => {
+export const DatePickerMonth = ({setSelectedDate}) => {
     const [selectedMonth, setSelectedMonth] = useState(dayjs(Date.now()).startOf('month'));
 
     return (
@@ -29,6 +29,7 @@ export const DatePickerMonth = () => {
                     maxDate={dayjs('2099-12-31')}
                     onChange={newDate => {
                         setSelectedMonth(dayjs(newDate).startOf('month'));
+                        setSelectedDate(dayjs(newDate).startOf('month'));
                     }}
                     format={`MMM D- ${dayjs(selectedMonth).endOf('month').format('D/MM/YYYY')}`}
                     sx={{
@@ -81,6 +82,7 @@ export const DatePickerMonth = () => {
                     onClick={() => {
                         const newMonth = dayjs(selectedMonth).subtract(1, 'M');
                         setSelectedMonth(newMonth);
+                        setSelectedDate(newMonth);
                     }}
                     sx={iconButtonStyles}
                 >
@@ -103,6 +105,7 @@ export const DatePickerMonth = () => {
                     onClick={() => {
                         const newMonth = dayjs(selectedMonth).add(1, 'M');
                         setSelectedMonth(newMonth);
+                        setSelectedDate(newMonth);
                     }}
                     sx={iconButtonStyles}
                 >

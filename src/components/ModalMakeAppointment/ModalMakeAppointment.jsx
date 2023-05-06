@@ -55,11 +55,14 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getCurrentUserAppointments()).then(({ payload }) => {
-            typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
-        });
-        dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
-    }, [dispatch]);
+        if (open) {
+            console.log('starting appointment');
+            dispatch(getCurrentUserAppointments()).then(({ payload }) => {
+                typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
+            });
+            dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
+        }
+    }, [open, dispatch]);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
     [].map(el => console.log(el));
