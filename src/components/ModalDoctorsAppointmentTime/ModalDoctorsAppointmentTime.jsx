@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
 import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
-import { selectAppointment } from 'redux/appointment/selectors';
-import { getAppointmentById, setAppointment } from 'redux/appointment/operation';
-import css from '../ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime.module.css';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAppointmentById, setAppointment } from 'redux/appointment/operation';
+import { selectAppointment } from 'redux/appointment/selectors';
+import css from '../ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime.module.css';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
 
@@ -28,32 +28,30 @@ const modalProperty = {
     width: '100%',
 };
 
-export const ModalDoctorsAppointmentTime = ({ open, setOpen, info }) => {
-    let disabledTime = []; // зайняті години
+export const ModalDoctorsAppointmentTime = ({ open, setOpen, id, specialization }) => {
+    const [disabledTime, setDisabledTime] = useState();
     const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).format('DD.MM.YYYY'));
     const [selectedTime, setSelectedTime] = useState(null);
 
     const dispatch = useDispatch();
 
     const doctorAppointments = useSelector(selectAppointment);
-    // console.log(doctorAppointments) // всі лікарі
 
     useEffect(() => {
         if (open) {
-            dispatch(getAppointmentById(info.id));
+            dispatch(getAppointmentById(id));
         }
     }, [open]);
 
     function handleDateChange(date) {
         setSelectedDate(date);
         const filteredForDate = doctorAppointments?.filter(el => moment(el.date).format('MM.DD.YYYY') === date);
+        setDisabledTime(filteredForDate);
         filteredForDate.forEach(item => {
-            if (timeDates.includes(item.time)) {
-                disabledTime.push(item.time);
-                console.log(disabledTime);
-            }
+            setDisabledTime(prevState => {
+                return [...prevState, item.time];
+            });
         });
-        // console.log(filteredForDate) // масив, коли вибираю дату то він пустий а коли години зайняті то приходять обєкти doctorAppointments
     }
 
     const handleTimeChange = time => {
@@ -64,8 +62,8 @@ export const ModalDoctorsAppointmentTime = ({ open, setOpen, info }) => {
         event.preventDefault();
 
         const data = {
-            doctor: info.id,
-            specialization: info.specialization || 'dermatology',
+            doctor: id,
+            specialization: specialization || 'dermatology',
             date: selectedDate,
             time: selectedTime,
         };
@@ -95,7 +93,7 @@ export const ModalDoctorsAppointmentTime = ({ open, setOpen, info }) => {
                         component="p"
                         sx={{ fontSize: { md: '16px' }, lineHeight: { md: 1.5 }, mb: { xs: '40px', md: '32px' } }}
                     >
-                        Choose the desired appointment time and wait for confirmation{' '}
+                        Choose the desired appointment time and wait for confirmation
                     </Typography>
                     <DatePickers value={selectedDate} onDateSelected={handleDateChange} />
                     <Box
@@ -107,31 +105,25 @@ export const ModalDoctorsAppointmentTime = ({ open, setOpen, info }) => {
                             marginBottom: { xs: '20px', md: '32px' },
                         }}
                     >
-                        {timeDates?.map(e => {
-                            // disabledTime.includes(e) ? (
-                            //     <button type="button" disabled key={e} className={css.timeBtnDisable}>
-                            //         {e}
-                            //     </button>
-                            // ) : (
-                            //     <button type="button" key={e} className={css.timeBtn} onClick={handleTimeChange}>
-                            //         {e}
-                            //     </button>
-                            // );
-                            console.log(e)
-                            console.log(disabledTime)
-                            if (disabledTime?.includes(e)) {
+                        {timeDates.map(e => {
                             return (
-                                <button type="button" disabled key={e} className={css.timeBtnDisable}>
-                                    {e}
-                                </button>
+                                <>
+                                    {disabledTime?.includes(e) ? (
+                                        <button type="button" disabled key={e} className={css.timeBtnDisable}>
+                                            {e}
+                                        </button>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            key={e}
+                                            className={css.timeBtn}
+                                            onClick={handleTimeChange}
+                                        >
+                                            {e}
+                                        </button>
+                                    )}
+                                </>
                             );
-                            } else {
-                              return (
-                                    <button type="button" key={e} className={css.timeBtn} onClick={handleTimeChange}>
-                                        {e}
-                                    </button>
-                                );
-                            }
                         })}
                     </Box>
                     <Button type="submit" variant="contained" color="secondary" disableElevation sx={buttonStyle}>

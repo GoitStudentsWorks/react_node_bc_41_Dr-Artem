@@ -1,5 +1,5 @@
 import { UilBrightnessPlus } from '@iconscout/react-unicons';
-import { Avatar, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { updateAvatar } from 'redux/info/operation';
 import css from './ProfileImage.module.css';
@@ -19,8 +19,7 @@ const ProfileImage = ({ avatar, personalLoc }) => {
     return (
         <div style={{ position: 'relative' }}>
             <div className={css.imgWrapper}>
-                <Avatar src={avatar} alt="avatar" />
-                {/* <img src={avatar} alt="avatar" style={{ borderRadius: '50%' }} /> */}
+                <img src={avatar} alt="avatar" style={{ borderRadius: '50%' }} />
                 {personalLoc && (
                     <form onSubmit={onSubmit} encType="multipart/form-data">
                         <IconButton
