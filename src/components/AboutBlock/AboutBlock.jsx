@@ -17,12 +17,12 @@ export const AboutBlock = ({ about }) => {
                 <h2 className={css.aboutTitle}>About </h2>
                 <div className={css.aboutArrowIcon}>
                     {!isVisitsVisible && (
-                        <IconButton onClick={handleArrowClick}>
+                        <IconButton sx={{ padding: '0' }} onClick={handleArrowClick}>
                             <KeyboardArrowDownIcon sx={{ color: '#111111', fontSize: '28px' }} />
                         </IconButton>
                     )}
                     {isVisitsVisible && (
-                        <IconButton onClick={handleArrowClick}>
+                        <IconButton sx={{ padding: '0' }} onClick={handleArrowClick}>
                             <KeyboardArrowUpIcon sx={{ color: '#111111', fontSize: '28px' }} />
                         </IconButton>
                     )}
