@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { ExperienceBlock } from 'components/ExperienceBlock/ExperienceBlock';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo } from 'redux/info/operation';
 import { selectUserInfo } from 'redux/info/selectors';
@@ -17,16 +18,21 @@ export const Personal = () => {
     useEffect(() => {
         dispatch(getUserInfo());
     }, []);
+
     return (
         <>
             {doctorInfo && (
                 <>
                     <div className={css.DoctorInformation}>
-                        <ProfileBlockDoctore doctorInfo={doctorInfo} />
-                        <SpecializationBlock doctorInfo={doctorInfo} />
+                        <ProfileBlockDoctore userInfo={doctorInfo} />
+                        <SpecializationBlock
+                            specialization={doctorInfo.specialization}
+                            category={doctorInfo.category}
+                        />
                     </div>
                     <div className={css.pageAboutBlock}>
-                        <AboutBlock doctorInfo={doctorInfo} />
+                        <AboutBlock about={doctorInfo.about} />
+                        <ExperienceBlock doctorInfo={doctorInfo} />
                         <WeekVisitsBlock />
                     </div>
                 </>

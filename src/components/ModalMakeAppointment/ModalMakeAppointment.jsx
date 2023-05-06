@@ -12,8 +12,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
-import css from './ModalMakeAppointment.module.css';
 import { array, number, object } from 'yup';
+import css from './ModalMakeAppointment.module.css';
 
 const timeDates = ['10:00 - 11:30', '12:00 - 13:00', '15:00 - 17:00', '17:00 - 19:00'];
 
@@ -59,7 +59,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
             typeof payload !== 'number' ? setUserAppointments(payload) : setUserAppointments([]);
         });
         dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => setAllDoctors(payload));
-    }, [userHour]);
+    }, []);
 
     const doctorsWithSpecialization = allDoctors.filter(el => el.specialization !== undefined);
     [].map(el => console.log(el));
@@ -68,7 +68,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const doctorsName = doctorsWithSpecialization.map(el => el.name);
 
     const uniqueSpecialization = Array.from(new Set(specs));
-    console.log(userAppointments);
+    // console.log(userAppointments);
 
     const filterAppointments = (doctorName, formattedDate) => {
         const doctorAppointments = userAppointments.filter(el => el.doctor.name === doctorName);
@@ -77,8 +77,8 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
         return doctorHour;
     };
 
-    const handleSpecializationChange = value => {
-        const doctorSpecialization = value.currentTarget.innerText;
+    const handleSpecializationChange = event => {
+        const doctorSpecialization = event.currentTarget.innerText;
         setSpecialization(doctorSpecialization);
 
         const doctorNames = doctorsWithSpecialization
