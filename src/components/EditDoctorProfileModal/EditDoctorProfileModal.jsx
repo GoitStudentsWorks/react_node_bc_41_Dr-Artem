@@ -19,11 +19,10 @@ const schema = yup.object().shape({
         .string()
         .min(3, 'Username must be at least 3 characters')
         .max(200, 'Username must be less than or equal to 200 characters')
-        .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field ')
-        .required('Username is a required field'),
-    gender: yup.string().min(4).max(6).required(),
+        .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
+    gender: yup.string().min(4).max(6),
     phone: yup.string().matches(regex, 'Phone number is not valid').required('Phone is a required field'),
-    about: yup.string().required(),
+    about: yup.string(),
 });
 
 const style = {
@@ -39,14 +38,14 @@ const style = {
     width: '100%',
 };
 
-const EditDoctorProfileModal = ({ open, setApp }) => {
+const EditDoctorProfileModal = ({ open, setApp, info }) => {
     const [selectedDate, setSelectedDate] = useState(dayjs);
 
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
         setSelectedDate(date.format('DD.MM.YYYY'));
-        console.log(date.format('DD.MM.YYYY'));
+        // console.log(date.format('DD.MM.YYYY'));
     }
 
     const handleSubmitForm = values => {
@@ -59,17 +58,17 @@ const EditDoctorProfileModal = ({ open, setApp }) => {
             about: values.about,
         };
         dispatch(updateUserInfo(data));
-        console.log(dispatch(updateUserInfo(data)));
+        // console.log(dispatch(updateUserInfo(data)));
         setApp(!open);
     };
-
+    // console.log(info)
     const formik = useFormik({
         initialValues: {
-            username: '',
-            gender: '',
+            username: info.name,
+            gender: info.gender,
             date: selectedDate,
-            phone: '',
-            price: '',
+            phone: info.number,
+            price: info.price,
             about: '',
         },
         validationSchema: schema,

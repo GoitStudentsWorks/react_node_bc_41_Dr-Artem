@@ -6,6 +6,7 @@ import Card from 'components/Card/Card';
 import EditDoctorProfileModal from 'components/EditDoctorProfileModal/EditDoctorProfileModal';
 import ProfileImage from 'components/ProfileImage/ProfileImage';
 import StarRating from 'components/StarRating/StarRating';
+import { ModalDoctorsAppointmentTime } from 'components/ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime';
 import moment from 'moment';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
@@ -13,10 +14,13 @@ import css from './ProfileBlockDoctore.module.css';
 
 const ident = 1;
 
-export const ProfileBlockDoctore = ({ children, doctorInfo }) => {
+export const ProfileBlockDoctore = ({ children, doctorInfo, handleData }) => {
     const [appModal, setAppModal] = useState(false);
+    const [timeModal, setTimeModal] = useState(false);
+    const [doctor, setDoctor] = useState(null);
 
     const personalLoc = useLocation().pathname.startsWith(`/doctor/personal/${ident}`);
+    const patientDoctorsLoc = useLocation().pathname.startsWith(`/patient/doctors`);
 
     return (
         <Card>
@@ -36,10 +40,19 @@ export const ProfileBlockDoctore = ({ children, doctorInfo }) => {
                             </li>
                         )}
 
-                        <li className={css.item}>
-                            Date of birth:
-                            <p className={css.data}>{moment(doctorInfo.birthday).format('DD MMMM YYYY')}</p>
-                        </li>
+                        {patientDoctorsLoc && (
+                            <li className={css.item}>
+                                Specialization:<p className={css.data}>{doctorInfo.specialization}</p>
+                            </li>
+                        )}
+
+                        {!patientDoctorsLoc && (
+                            <li className={css.item}>
+                                Date of birth:
+                                <p className={css.data}>{moment(doctorInfo.birthday).format('DD MMMM YYYY')}</p>
+                            </li>
+                        )}
+
                         <li className={css.item}>
                             Phone number:<p className={css.data}>{doctorInfo.number}</p>
                         </li>
@@ -56,9 +69,26 @@ export const ProfileBlockDoctore = ({ children, doctorInfo }) => {
                         </Typography>
                     </Button>
                 )}
+                {patientDoctorsLoc && (
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => {
+                            setTimeModal(!timeModal);
+                            setDoctor({
+                                id: doctorInfo._id,
+                                specialization: doctorInfo.specialization || 'dermatology',
+                            });
+                        }}
+                    >
+                        make an appointment
+                    </Button>
+                )}
+
                 {children}
             </div>
-            <EditDoctorProfileModal open={appModal} setApp={setAppModal} />
+            <EditDoctorProfileModal open={appModal} setApp={setAppModal} info={doctorInfo} />
+            <ModalDoctorsAppointmentTime open={timeModal} setOpen={setTimeModal} info={doctor} />
         </Card>
     );
 };

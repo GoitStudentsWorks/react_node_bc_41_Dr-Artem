@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 import { PagePagination } from 'components/PagePagination/PagePagination';
 import UsersList from 'components/UsersList/UsersList';
+import { ModalDoctorsAppointmentTime } from 'components/ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getAppointmentById, getCurrentUserAppointments, setAppointment } from 'redux/appointment/operation';
@@ -11,6 +12,8 @@ import style from './PatientDoctors.module.css';
 export const PatientDoctors = () => {
     const sorting = ['Name', 'Rating', 'Price'];
     const [allDoctors, setAllDoctors] = useState([]);
+    // const [timeModal, setTimeModal] = useState(false);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -52,22 +55,23 @@ export const PatientDoctors = () => {
         }
     };
 
-    const handleClick = el => {
-        console.log(el);
-        // const qq = dispatch(
-        //     setAppointment({
-        //         specialization: 'hirirg',
-        //         doctor: '64417972d4e00b5a6bb8389a',
-        //         date: '345234123',
-        //         time: '1234234234',
-        //     })
-        // );
-        // qq.then(el => console.log(el));
+    // const handleClick = el => {
+    //     console.log(el);
+    //     const qq = dispatch(
+    //         setAppointment({
+    //             specialization: 'hirirg',
+    //             doctor: '64417972d4e00b5a6bb8389a',
+    //             date: '345234123',
+    //             time: '1234234234',
+    //         })
+    //     );
+    //     qq.then(el => console.log(el));
 
-        dispatch(getCurrentUserAppointments());
+    //     console.log(dispatch(getCurrentUserAppointments()));
 
-        // dispatch(getAppointmentById('64515633d28be343862f9973'));
-    };
+    //     console.log(dispatch(getAppointmentById('64515633d28be343862f9973')));
+    // };
+
 
     return (
         <>
@@ -84,11 +88,12 @@ export const PatientDoctors = () => {
                 </div>
             </div>
             <UsersList listOfUsers={allDoctors}>
-                <Button variant="outlined" color="primary" onClick={handleClick}>
+                {/* <Button variant="outlined" color="primary" onClick={() => setTimeModal(!timeModal)}>
                     make an appointment
-                </Button>
+                </Button> */}
             </UsersList>
             <PagePagination />
+            {/* <ModalDoctorsAppointmentTime open={timeModal} setOpen={setTimeModal} /> */}
         </>
     );
 };
