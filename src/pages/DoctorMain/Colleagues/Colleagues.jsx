@@ -79,14 +79,6 @@ const Colleagues = () => {
         setPagination(result);
     }, [windowWidth]);
 
-    const filter = (users, pagination) => {
-        let numberOfPaginationButton = 0;
-        if (users || pagination) {
-            numberOfPaginationButton = users.length || pagination.length;
-        }
-        return numberOfPaginationButton;
-    };
-
     useEffect(() => {
         let filtered = doctors;
 
