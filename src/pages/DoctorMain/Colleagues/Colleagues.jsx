@@ -88,10 +88,9 @@ const Colleagues = () => {
             <div className={css.filter}>
                 <div>
                     <Input
-                        sx={{ minWidth: '270px', 
-                        '.MuiInputBase-input::placeholder': {
-                            color: '#111111'
-                        } }}
+                        sx={{
+                            minWidth: '270px'
+                        }}
                         variant="filter"
                         color="primary"
                         disableUnderline
@@ -112,7 +111,11 @@ const Colleagues = () => {
                                 disablePortal
                                 id="combo-box-demo"
                                 options={specializations}
-                                sx={{...autocompleteStyles, maxWidth: '220px', marginRight: {xs: '8px', md: '16px'}}}
+                                sx={{
+                                    ...autocompleteStyles,
+                                    maxWidth: '220px',
+                                    marginRight: { xs: '8px', md: '16px' },
+                                }}
                                 value={specialization}
                                 onChange={handleFilterSpecialization}
                                 renderInput={params => <TextField {...params} />}
@@ -123,7 +126,7 @@ const Colleagues = () => {
                                 disablePortal
                                 id="combo-box-demo"
                                 options={categories}
-                                sx={{...autocompleteStyles, maxWidth: '184px'}}
+                                sx={{ ...autocompleteStyles, maxWidth: '184px' }}
                                 value={category}
                                 onChange={handleFilterCategory}
                                 renderInput={params => <TextField {...params} />}
