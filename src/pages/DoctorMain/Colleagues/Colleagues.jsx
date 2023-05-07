@@ -27,6 +27,21 @@ const specializations = [
 const categories = ['Show All', 'The First', 'The Second', 'Higher'];
 const DEBOUNCE_DELAY = 300;
 
+const autocompleteStyles = {
+    '&.MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon.MuiAutocomplete-root .MuiOutlinedInput-root': {
+        borderRadius: '16px',
+        padding: '14px 18px',
+    },
+    '&.MuiAutocomplete-root .MuiOutlinedInput-root .MuiAutocomplete-input ': {
+        padding: '0px',
+        fontWeight: '500',
+        fontSize: '16px',
+        lineHeight: '1.5',
+        color: '#111111',
+        width: '100%',
+    },
+};
+
 const Colleagues = () => {
     const [allDoctors, setAllDoctors] = useState([]);
     const [filteredByName, setFilteredByName] = useState([]);
@@ -73,7 +88,10 @@ const Colleagues = () => {
             <div className={css.filter}>
                 <div>
                     <Input
-                        sx={{ minWidth: '270px' }}
+                        sx={{ minWidth: '270px', 
+                        '.MuiInputBase-input::placeholder': {
+                            color: '#111111'
+                        } }}
                         variant="filter"
                         color="primary"
                         disableUnderline
@@ -94,10 +112,7 @@ const Colleagues = () => {
                                 disablePortal
                                 id="combo-box-demo"
                                 options={specializations}
-                                sx={{
-                                    '& .MuiOutlinedInput-root .MuiAutocomplete-input': { padding: '0', height: '28px' },
-                                    marginBottom: { sm: '14px', md: '16px' },
-                                }}
+                                sx={{...autocompleteStyles, maxWidth: '220px', marginRight: {xs: '8px', md: '16px'}}}
                                 value={specialization}
                                 onChange={handleFilterSpecialization}
                                 renderInput={params => <TextField {...params} />}
@@ -108,13 +123,7 @@ const Colleagues = () => {
                                 disablePortal
                                 id="combo-box-demo"
                                 options={categories}
-                                sx={{
-                                    '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
-                                        padding: '0',
-                                        height: '28px',
-                                    },
-                                    marginBottom: { sm: '20px', md: '32px' },
-                                }}
+                                sx={{...autocompleteStyles, maxWidth: '184px'}}
                                 value={category}
                                 onChange={handleFilterCategory}
                                 renderInput={params => <TextField {...params} />}
