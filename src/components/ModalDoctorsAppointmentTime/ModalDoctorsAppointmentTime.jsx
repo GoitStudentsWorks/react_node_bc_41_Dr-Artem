@@ -39,19 +39,26 @@ export const ModalDoctorsAppointmentTime = ({ open, setOpen, id, specialization 
 
     useEffect(() => {
         if (open) {
-            dispatch(getAppointmentById(id));
+            dispatch(getAppointmentById(id)).then(({ payload }) => {
+                const todayAppointments = payload.filter(el => moment(el.date).format('MM.DD.YYYY') === selectedDate);
+                let appointmentsList = [];
+                todayAppointments.forEach(item => {
+                    appointmentsList.push(item.time);
+                });
+                setDisabledTime(appointmentsList);
+            });
         }
+        // eslint-disable-next-line
     }, [open]);
 
     function handleDateChange(date) {
         setSelectedDate(date);
         const filteredForDate = doctorAppointments?.filter(el => moment(el.date).format('MM.DD.YYYY') === date);
-        setDisabledTime(filteredForDate);
+        let appointmentsList = [];
         filteredForDate.forEach(item => {
-            setDisabledTime(prevState => {
-                return [...prevState, item.time];
-            });
+            appointmentsList.push(item.time);
         });
+        setDisabledTime(appointmentsList);
     }
 
     const handleTimeChange = time => {
@@ -105,26 +112,27 @@ export const ModalDoctorsAppointmentTime = ({ open, setOpen, id, specialization 
                             marginBottom: { xs: '20px', md: '32px' },
                         }}
                     >
-                        {timeDates.map(e => {
-                            return (
-                                <>
-                                    {disabledTime?.includes(e) ? (
-                                        <button type="button" disabled key={e} className={css.timeBtnDisable}>
-                                            {e}
-                                        </button>
-                                    ) : (
-                                        <button
-                                            type="button"
-                                            key={e}
-                                            className={css.timeBtn}
-                                            onClick={handleTimeChange}
-                                        >
-                                            {e}
-                                        </button>
-                                    )}
-                                </>
-                            );
-                        })}
+                        {disabledTime &&
+                            timeDates.map(e => {
+                                return (
+                                    <>
+                                        {disabledTime?.includes(e) ? (
+                                            <button type="button" disabled key={e} className={css.timeBtnDisable}>
+                                                {e}
+                                            </button>
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                key={e}
+                                                className={css.timeBtn}
+                                                onClick={handleTimeChange}
+                                            >
+                                                {e}
+                                            </button>
+                                        )}
+                                    </>
+                                );
+                            })}
                     </Box>
                     <Button type="submit" variant="contained" color="secondary" disableElevation sx={buttonStyle}>
                         send

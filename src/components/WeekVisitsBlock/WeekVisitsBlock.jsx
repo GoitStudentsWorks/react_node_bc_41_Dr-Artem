@@ -28,7 +28,7 @@ export const WeekVisitsBlock = () => {
         });
     }, [dispatch]);
 
-    const filteredArray = dateVisits.filter(item => item.date === selectedDate);
+    const filteredArray = dateVisits?.filter(item => item.date === selectedDate);
 
     const handleDateChange = formattedDate => {
         setSelectedDate(formattedDate);

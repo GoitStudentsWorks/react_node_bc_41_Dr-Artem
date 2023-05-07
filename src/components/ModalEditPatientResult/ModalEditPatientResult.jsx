@@ -11,9 +11,9 @@ import { useDispatch } from 'react-redux';
 import { uploadPDF } from 'redux/visits/operation';
 import style from './ModalEditPatientResult.module.css';
 
-export const ModalEditPatientResult = ({ open, setOpen }) => {
+export const ModalEditPatientResult = ({ open, setOpen, data }) => {
     const [file, setFile] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(dayjs);
+    const [selectedDate, setSelectedDate] = useState(dayjs(data.updatedAt));
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
@@ -32,7 +32,7 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('pdf', file);
-        dispatch(uploadPDF({ id: '64536d7e0d6fb48460bca28c', formData: formData }));
+        dispatch(uploadPDF({ id: `${data._id}`, formData: formData }));
         setFile(null);
     };
     const modalProperty = {
@@ -76,6 +76,7 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
                                 type="text"
                                 id="doctor"
                                 name="doctor"
+                                defaultValue={data.doctor.name}
                                 className={style.Modal_FormInput}
                             />
                         </li>
@@ -118,6 +119,22 @@ export const ModalEditPatientResult = ({ open, setOpen }) => {
                                 </IconButton>
                             </li>
                         )}
+                        {/* {files &&
+                            files.map(({ fileName }, index) => {
+                                return (
+                                    <li key={index} className={style.Modal_Form_UploadedFilesItem}>
+                                        <div className={style.Modal_Form_UploadedFilesSubItem}>
+                                            <Icon sx={{ display: 'flex' }} color="primary">
+                                                <UilFileAlt style={{ width: '20px', height: '20px' }} />
+                                            </Icon>
+                                            <span className={style.Modal_Form_UploadedFileName}>{fileName}</span>
+                                        </div>
+                                        <IconButton size="small" color="primary" onClick={() => handleFileDelete()}>
+                                            <UilTrashAlt style={{ width: '20px', height: '20px' }} />
+                                        </IconButton>
+                                    </li>
+                                );
+                            })} */}
                     </ul>
                     <Button variant="contained" color="secondary" disableElevation type="submit">
                         Save

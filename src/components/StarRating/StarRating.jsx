@@ -1,6 +1,6 @@
-import Rating from '@mui/material/Rating';
-import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
 
 const labels = {
     0: '0.0',
@@ -16,13 +16,10 @@ const labels = {
     5: '5',
 };
 
-
-
-export default function StarRating({value}) {
-
-    const getLabelText = (value) => {
+export default function StarRating({ value }) {
+    const getLabelText = value => {
         return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
-    }
+    };
 
     return (
         <Box
@@ -36,8 +33,7 @@ export default function StarRating({value}) {
                 fontWeight: '600',
             }}
         >
-
-<Box sx={{ mr: 1 }}>{value ? labels[value] : labels[0]}</Box>
+            <Box sx={{ mr: 1 }}>{value ? labels[value] : labels[0]}</Box>
 
             {/* {value !== null ? <Box sx={{ mr: 1 }}>{labels[value]}</Box> : <Box sx={{ mr: 1 }}>{labels[0]}</Box>} */}
             <Rating

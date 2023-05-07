@@ -1,5 +1,5 @@
-import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
+import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
 
 export const PagePagination = ({ numberOfBtnsOnVisitsHistory, handlePageOnVisits }) => {

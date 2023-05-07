@@ -1,21 +1,21 @@
-import { NotificationContainer, NotificationManager } from 'react-notifications';
-import ShowPassword from 'components/ShowPassword/ShowPassword';
 import {
     Button,
+    FormControl,
+    FormControlLabel,
     InputAdornment,
     InputLabel,
-    TextField,
     Radio,
     RadioGroup,
-    FormControlLabel,
-    FormControl,
+    TextField,
 } from '@mui/material';
+import ShowPassword from 'components/ShowPassword/ShowPassword';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
-import css from '..//Register/Register.module.css';
+import { useState } from 'react';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operation';
-import { useState } from 'react';
+import * as yup from 'yup';
+import css from '..//Register/Register.module.css';
 
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
@@ -42,14 +42,12 @@ export const RegisterForm = () => {
     const dispatch = useDispatch();
 
     const handleSubmitForm = values => {
-        console.log(values);
         const newUser = {
             name: values.username,
             number: values.phone,
             password: values.password,
             role: values.role,
         };
-        console.log(newUser);
         const res = dispatch(register(newUser));
         res.then(el => {
             console.log(typeof el.payload);
