@@ -1,6 +1,6 @@
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 import LinkViewProfile from 'components/LinkViewProfile/LinkViewProfile';
-import { PagePagination, paginationDoctors, windowSizePagination } from 'components/PagePagination/PagePagination';
+import { PagePagination, paginationUsers, windowSizePagination } from 'components/PagePagination/PagePagination';
 import { ProfileBlockPatient } from 'components/ProfileBlockPatient/ProfileBlockPatient';
 import UsersList from 'components/UsersList/UsersList';
 import { useEffect, useState } from 'react';
@@ -33,7 +33,7 @@ const ListOfPatients = () => {
         let limit = null;
         let limitResult = windowSizePagination(windowWidth, setLimit, limit, 'yes');
         dispatch(getAllUsersForRole('Patient')).then(({ payload }) => {
-            const result = paginationDoctors(payload, limitResult);
+            const result = paginationUsers(payload, limitResult);
             setAllPatients(payload);
             setPagination(result);
         });
@@ -43,7 +43,7 @@ const ListOfPatients = () => {
     useEffect(() => {
         windowSizePagination(windowWidth, setLimit);
 
-        const result = paginationDoctors(filtered.length > 0 ? filtered : allPatients, limit);
+        const result = paginationUsers(filtered.length > 0 ? filtered : allPatients, limit);
         setPagination(result);
     }, [windowWidth]);
 
@@ -59,7 +59,7 @@ const ListOfPatients = () => {
     const sortDoctors = status => {
         console.log(status);
         const filterDoctor = allPatients.filter(el => el.patientStatus === status);
-        const result = paginationDoctors(filterDoctor, limit);
+        const result = paginationUsers(filterDoctor, limit);
 
         setFiltered(result);
         console.log(result[page - 1]);

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsersForRole } from 'redux/info/operation';
 import { selectAllDoctors } from 'redux/info/selectors';
 import css from './Colleagues.module.css';
-import { paginationDoctors, windowSizePagination, PagePagination } from 'components/PagePagination/PagePagination';
+import { paginationUsers, windowSizePagination, PagePagination } from 'components/PagePagination/PagePagination';
 
 const specializations = [
     'Show All',
@@ -75,7 +75,7 @@ const Colleagues = () => {
     useEffect(() => {
         windowSizePagination(windowWidth, setLimit);
 
-        const result = paginationDoctors(filteredByName, limit);
+        const result = paginationUsers(filteredByName, limit);
         setPagination(result);
     }, [windowWidth]);
 
@@ -90,7 +90,7 @@ const Colleagues = () => {
             filtered = filtered.filter(doctor => doctor.category === category);
         }
 
-        const result = paginationDoctors(filtered, limit);
+        const result = paginationUsers(filtered, limit);
         setPagination(result);
 
         setAllDoctors(filtered);
