@@ -50,7 +50,6 @@ const AnalysisBlock = () => {
     const visits = useSelector(selectAllVisits);
     const allVisits = [...visits].reverse();
 
-    console.log(allVisits)
     const handleChange = panel => (event, isExpanded) => {
         setExpandedPanel(isExpanded ? panel : null);
     };
@@ -203,7 +202,7 @@ const AnalysisBlock = () => {
                                                     {files.map(file => {
                                                         return (
                                                             <li key={Math.random()}>
-                                                                <Icon color="primary" sx={{marginRight: '4px'}}>
+                                                                <Icon color="primary" sx={{ marginRight: '4px' }}>
                                                                     <UilFileAlt
                                                                         style={{
                                                                             width: '20px',
