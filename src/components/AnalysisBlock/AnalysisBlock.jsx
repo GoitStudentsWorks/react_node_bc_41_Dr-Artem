@@ -1,29 +1,52 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Accordion } from '@mui/material';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
-import s from '../AnalysisBlock/AnalysisBlock.module.css';
-import { selectAllVisits } from '../../redux/visits/selectors';
-import { useSelector } from 'react-redux';
+import { Accordion } from '@mui/material';
 import { Icon } from '@mui/material';
 import { UilFileAlt } from '@iconscout/react-unicons';
-import Card from 'components/Card/Card';
-import { useState } from 'react';
+import s from '../AnalysisBlock/AnalysisBlock.module.css';
+import { selectAllVisits } from '../../redux/visits/selectors';
+
+const wrapp = {
+    marginBottom: '16px',
+    boxShadow: 'none',
+    borderRadius: '16px',
+    padding: { xs: '16px', md: '32px' },
+    background: '#FAFAFA',
+    '&:first-of-type': {
+        borderRadius: '16px',
+    },
+    '&:last-of-type': {
+        borderRadius: '16px',
+    },
+    '&:before ': {
+        content: 'none',
+    },
+};
+
+const summaryStyles = {
+    padding: '0px',
+    minHeight: '0px',
+    '& .MuiAccordionSummary-content': {
+        margin: '0px',
+    },
+    '& .MuiAccordionSummary-content.Mui-expanded': { margin: '0px' },
+};
 
 const AnalysisBlock = () => {
+    const [expandedPanel, setExpandedPanel] = useState(null);
     const visits = useSelector(selectAllVisits);
     const allVisits = [...visits].reverse();
-    console.log(allVisits);
-
-    const [expandedPanel, setExpandedPanel] = useState(null);
 
     const handleChange = panel => (event, isExpanded) => {
         setExpandedPanel(isExpanded ? panel : null);
     };
     return (
         <>
-            <Card>
+            <div>
                 {allVisits &&
                     allVisits.map(
                         ({
@@ -37,6 +60,7 @@ const AnalysisBlock = () => {
                             complaints,
                             associatedDiseases,
                             files,
+                            _id,
                         }) => {
                             const medcart = [
                                 {
@@ -74,12 +98,13 @@ const AnalysisBlock = () => {
                                     expanded={expandedPanel === createdAt}
                                     onChange={handleChange(createdAt)}
                                     key={createdAt}
-                                    sx={{ boxShadow: 'none', marginBottom: '16px', borderRadius: '16px' }}
+                                    sx={wrapp}
                                 >
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
                                         aria-controls={createdAt}
                                         id={createdAt}
+                                        sx={summaryStyles}
                                     >
                                         <Typography variant="subtitle" color="text.black" component="p">
                                             {doctor.specialization}
@@ -93,9 +118,9 @@ const AnalysisBlock = () => {
                                     </AccordionSummary>
                                     <AccordionDetails>
                                         <ul className={s.inside_list}>
-                                            {medcart.map(({ title, textList }) => {
+                                            {medcart.map(({ title, textList, _id }) => {
                                                 return (
-                                                    <li className={s.inside_item}>
+                                                    <li className={s.inside_item} key={Math.random()}>
                                                         <Typography
                                                             component="p"
                                                             variant="subtitle"
@@ -111,7 +136,7 @@ const AnalysisBlock = () => {
                                                         <ul className={s.inside_itemNested}>
                                                             {textList.map(text => {
                                                                 return (
-                                                                    <li>
+                                                                    <li key={Math.random()}>
                                                                         <Typography
                                                                             component="p"
                                                                             variant="text"
@@ -146,7 +171,7 @@ const AnalysisBlock = () => {
                                                 <ul>
                                                     {files.map(file => {
                                                         return (
-                                                            <li key={file.fileName}>
+                                                            <li key={Math.random()}>
                                                                 <Icon color="primary">
                                                                     <UilFileAlt
                                                                         style={{
@@ -169,7 +194,7 @@ const AnalysisBlock = () => {
                             );
                         }
                     )}
-            </Card>
+            </div>
         </>
     );
 };
