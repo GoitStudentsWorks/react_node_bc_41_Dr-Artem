@@ -11,7 +11,8 @@ import axios from 'axios';
 // });
 // axios.defaults.baseURL = 'http://localhost:3000/api';
 // axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api';
-axios.defaults.baseURL = 'https://wild-tan-mackerel-kilt.cyclic.app/api';
+// axios.defaults.baseURL = 'https://wild-tan-mackerel-kilt.cyclic.app/api';
+axios.defaults.baseURL = 'https://meddoc-backend.onrender.com/api';
 
 const token = {
     set(token) {
