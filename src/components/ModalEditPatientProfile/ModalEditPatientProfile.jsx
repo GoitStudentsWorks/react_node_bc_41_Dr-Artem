@@ -49,7 +49,7 @@ const ModalEditPatientProfile = ({ open, setApp, userInfo }) => {
         const data = {
             name: values.username,
             gender: values.gender,
-            birthday: selectedDate.format('DD.MM.YYYY'),
+            birthday: selectedDate.format('MM.DD.YYYY'),
             number: values.phone,
         };
         dispatch(updateUserInfo(data));

@@ -24,6 +24,8 @@ export const PatientVisitsToDoctor = () => {
     const selectetVisits =
         allVisits && allVisits.filter(item => moment(item.date).format('MMMM') === selectedDate.format('MMMM'));
 
+    console.log(selectetVisits);
+
     useEffect(() => {
         dispatch(getCurrentUserAppointments());
     }, [dispatch]);
