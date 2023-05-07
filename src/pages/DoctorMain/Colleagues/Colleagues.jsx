@@ -135,7 +135,7 @@ const Colleagues = () => {
                     </ul>
                 </div>
             </div>
-            <UsersList listOfUsers={filteredByName}>
+            <UsersList listOfUsers={filteredByName ? filteredByName : doctors}>
                 <ProfileBlockDoctore>
                     <LinkViewProfile>view profile</LinkViewProfile>
                 </ProfileBlockDoctore>

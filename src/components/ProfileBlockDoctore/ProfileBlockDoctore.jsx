@@ -39,12 +39,12 @@ export const ProfileBlockDoctore = ({ children, userInfo }) => {
                             Name:
                             <p className={css.data}>{userInfo.name}</p>
                         </li>
-                        {userInfo.gender && (
+                        {userInfo.gender && !userInfo.specialization && (
                             <li className={css.item}>
                                 Gender:<p className={css.data}>{userInfo.gender}</p>
                             </li>
                         )}
-                        {userInfo.birthday && (
+                        {userInfo.birthday && !userInfo.specialization && (
                             <li className={css.item}>
                                 Date of birth:
                                 <p className={css.data}>{moment(userInfo.birthday).format('DD MMMM YYYY')}</p>
@@ -57,6 +57,11 @@ export const ProfileBlockDoctore = ({ children, userInfo }) => {
                         {userInfo.price && (
                             <li className={css.item}>
                                 Price:<p className={css.data}>{userInfo.price} UAH /1 hour</p>
+                            </li>
+                        )}
+                        {userInfo.specialization && (
+                            <li className={css.item}>
+                                Specialization:<p className={css.data}>{userInfo.specialization} </p>
                             </li>
                         )}
                     </ul>

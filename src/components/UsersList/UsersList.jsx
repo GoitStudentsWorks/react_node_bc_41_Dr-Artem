@@ -1,12 +1,12 @@
 import { cloneElement } from 'react';
-import css from './UsersList.module.css';
 
+import css from './UsersList.module.css';
 const UsersList = ({ listOfUsers, children }) => {
+    console.log(listOfUsers);
     return (
         <ul className={css.cardsList}>
-            {listOfUsers.map((userInfo, index) => (
-                <li key={index}>{cloneElement(children, { userInfo })}</li>
-            ))}
+            {listOfUsers &&
+                listOfUsers.map((userInfo, index) => <li key={index}>{cloneElement(children, { userInfo })}</li>)}
         </ul>
     );
 };
