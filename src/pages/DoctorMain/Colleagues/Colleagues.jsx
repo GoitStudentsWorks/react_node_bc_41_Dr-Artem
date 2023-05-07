@@ -1,16 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { UilSearch } from '@iconscout/react-unicons';
-import { useSelector } from 'react-redux';
-import { Autocomplete, IconButton, Input, InputLabel, TextField } from '@mui/material';
-import BasicSelect from 'components/BasicSelect/BasicSelect';
-// import { useEffect, useRef } from 'react';
+import { Autocomplete, IconButton, Input, TextField } from '@mui/material';
 import LinkViewProfile from 'components/LinkViewProfile/LinkViewProfile';
 import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlockDoctore';
 import UsersList from 'components/UsersList/UsersList';
 import debounce from 'lodash.debounce';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsersForRole } from 'redux/info/operation';
 import { selectAllDoctors } from 'redux/info/selectors';
 import css from './Colleagues.module.css';
