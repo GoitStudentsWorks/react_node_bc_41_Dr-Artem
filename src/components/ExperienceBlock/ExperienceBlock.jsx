@@ -13,7 +13,7 @@ import { selectUserInfo } from 'redux/info/selectors';
 import experienceImg from '../../Image/Experience1.png';
 import css from './ExperienceBlock.module.css';
 
-export const ExperienceBlock = ({ doctorInfo }) => {
+export const ExperienceBlock = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [modalId, setModalId] = useState(null);
@@ -21,6 +21,7 @@ export const ExperienceBlock = ({ doctorInfo }) => {
     const doctorId = useSelector(selectUserInfo)?._id;
     const { id } = useParams();
     const personalLoc = doctorId === id;
+    const doctorInfo = useSelector(selectUserInfo);
 
     const dispatch = useDispatch();
 

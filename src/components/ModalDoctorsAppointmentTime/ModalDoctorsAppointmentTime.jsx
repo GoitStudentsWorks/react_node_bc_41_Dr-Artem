@@ -30,7 +30,7 @@ const modalProperty = {
 
 export const ModalDoctorsAppointmentTime = ({ open, setOpen, id, specialization }) => {
     const [disabledTime, setDisabledTime] = useState();
-    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).format('DD.MM.YYYY'));
+    const [selectedDate, setSelectedDate] = useState(dayjs(Date.now()).format('MM.DD.YYYY'));
     const [selectedTime, setSelectedTime] = useState(null);
 
     const dispatch = useDispatch();
