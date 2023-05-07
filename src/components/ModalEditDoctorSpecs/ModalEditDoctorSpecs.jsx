@@ -4,9 +4,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from 'redux/info/operation';
 import css from './ModalEditDoctorSpecs.module.css';
+import { selectUserInfo } from 'redux/info/selectors';
 const specializations = [
     'Cardiologist',
     'Dermatologist',
@@ -39,8 +40,9 @@ const modalProperty = {
 };
 
 export const ModalEditDoctorSpecs = ({ open, setOpen }) => {
-    const [specialization, setSpecialization] = useState(null);
-    const [category, setCategory] = useState(null);
+    const userInfo = useSelector(selectUserInfo);
+    const [specialization, setSpecialization] = useState(userInfo.specialization);
+    const [category, setCategory] = useState(userInfo.category);
     const dispatch = useDispatch();
 
     const handleSubmit = evt => {
