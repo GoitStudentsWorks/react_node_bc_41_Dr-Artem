@@ -76,9 +76,9 @@ export const ListOfPatientsProfile = () => {
                 {userInfo && <ProfileBlockPatient userInfo={userInfo} />}
                 <div className={style.PatientResults}>
                     <ul className={style.PatientResults_VisitRecord}>
-                        {/* <li key={clickedVisit.doctor.name}>
+                        <li key={clickedVisit.doctor.name}>
                             Doctor:<span>{clickedVisit.doctor.name}</span>
-                        </li> */}
+                        </li>
                         <li key={clickedVisit.updatedAt}>
                             Date:<span>{moment(clickedVisit.updatedAt).format('MM/DD/YYYY')}</span>
                         </li>
