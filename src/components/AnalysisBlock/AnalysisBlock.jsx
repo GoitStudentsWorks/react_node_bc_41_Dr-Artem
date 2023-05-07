@@ -4,12 +4,18 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import s from '../AnalysisBlock/AnalysisBlock.module.css';
+import { selectAllVisits } from '../../redux/visits/selectors';
+import { useSelector } from 'react-redux';
 
 import Card from 'components/Card/Card';
 import { useState } from 'react';
 
 const AnalysisBlock = () => {
     const [expanded, setExpanded] = useState(false);
+
+    const visits = useSelector(selectAllVisits);
+    const allVisits = [...visits].reverse();
+    console.log(allVisits);
 
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
