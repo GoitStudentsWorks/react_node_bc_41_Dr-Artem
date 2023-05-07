@@ -78,8 +78,8 @@ export const ExperienceModal = ({ open, setModalOpen, title, id }) => {
         const addData = {
             institution: selectedInstitution.name,
             description: description,
-            startDate: selectedStartDate.format('DD.MM.YYYY'),
-            endDate: selectedEndDate.format('DD.MM.YYYY'),
+            startDate: selectedStartDate.format('MM.DD.YYYY'),
+            endDate: selectedEndDate.format('MM.DD.YYYY'),
             institutionLogo: selectedInstitution.image,
         };
 
@@ -87,8 +87,8 @@ export const ExperienceModal = ({ open, setModalOpen, title, id }) => {
             id,
             institution: selectedInstitution.name,
             description: description,
-            startDate: selectedStartDate.format('DD.MM.YYYY'),
-            endDate: selectedEndDate.format('DD.MM.YYYY'),
+            startDate: selectedStartDate.format('MM.DD.YYYY'),
+            endDate: selectedEndDate.format('MM.DD.YYYY'),
             institutionLogo: selectedInstitution.image,
         };
 
