@@ -7,8 +7,9 @@ import Typography from '@mui/material/Typography';
 import { Accordion } from '@mui/material';
 import { Icon } from '@mui/material';
 import { UilFileAlt } from '@iconscout/react-unicons';
-import s from '../AnalysisBlock/AnalysisBlock.module.css';
+import css from '../AnalysisBlock/AnalysisBlock.module.css';
 import { selectAllVisits } from '../../redux/visits/selectors';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const wrapp = {
     marginBottom: '16px',
@@ -30,10 +31,18 @@ const wrapp = {
 const summaryStyles = {
     padding: '0px',
     minHeight: '0px',
+    display: 'flex',
+    justifyContent: { md: 'space-between' },
+    alignItems: { xs: 'flex-start', md: 'center' },
     '& .MuiAccordionSummary-content': {
         margin: '0px',
     },
     '& .MuiAccordionSummary-content.Mui-expanded': { margin: '0px' },
+};
+
+const detailsStyles = {
+    padding: '0px',
+    marginTop: '32px',
 };
 
 const AnalysisBlock = () => {
@@ -41,6 +50,7 @@ const AnalysisBlock = () => {
     const visits = useSelector(selectAllVisits);
     const allVisits = [...visits].reverse();
 
+    console.log(allVisits)
     const handleChange = panel => (event, isExpanded) => {
         setExpandedPanel(isExpanded ? panel : null);
     };
@@ -106,21 +116,29 @@ const AnalysisBlock = () => {
                                         id={createdAt}
                                         sx={summaryStyles}
                                     >
-                                        <Typography variant="subtitle" color="text.black" component="p">
+                                        <Typography
+                                            variant="subtitle"
+                                            color="text.black"
+                                            component="p"
+                                            sx={{
+                                                fontSize: { md: '20px' },
+                                                lineHeight: { md: 1.5 },
+                                                marginBottom: { xs: '8px', md: '0px' },
+                                            }}
+                                        >
                                             {doctor.specialization}
                                         </Typography>
-                                        <div className={s.header_item}>
-                                            <div className={s.analysis_item}>
-                                                <p className={s.doctor_name}>{doctor.name}</p>
-                                                <p className={s.doctor_type_small}>{doctor.specialization}</p>
-                                            </div>
+
+                                        <div className={css.analysis_item}>
+                                            <p className={css.doctor_name}>{doctor.name}</p>
+                                            <p className={css.doctor_specialization}>{doctor.specialization}</p>
                                         </div>
                                     </AccordionSummary>
-                                    <AccordionDetails>
-                                        <ul className={s.inside_list}>
-                                            {medcart.map(({ title, textList, _id }) => {
+                                    <AccordionDetails sx={detailsStyles}>
+                                        <ul>
+                                            {medcart.map(({ title, textList }) => {
                                                 return (
-                                                    <li className={s.inside_item} key={Math.random()}>
+                                                    <li className={css.inside_item} key={Math.random()}>
                                                         <Typography
                                                             component="p"
                                                             variant="subtitle"
@@ -133,10 +151,23 @@ const AnalysisBlock = () => {
                                                         >
                                                             {title}
                                                         </Typography>
-                                                        <ul className={s.inside_itemNested}>
+                                                        <ul className={css.inside_itemNested}>
                                                             {textList.map(text => {
                                                                 return (
                                                                     <li key={Math.random()}>
+                                                                        <div className={css.dot}>
+                                                                            <FiberManualRecordIcon
+                                                                                sx={{
+                                                                                    width: '8px',
+                                                                                    height: '8px',
+                                                                                    color: '#477577',
+                                                                                    position: 'absolute',
+                                                                                    top: '50%',
+                                                                                    left: '50%',
+                                                                                    transform: 'translate(-50%, -50%)',
+                                                                                }}
+                                                                            />
+                                                                        </div>
                                                                         <Typography
                                                                             component="p"
                                                                             variant="text"
@@ -155,7 +186,7 @@ const AnalysisBlock = () => {
                                                     </li>
                                                 );
                                             })}
-                                            <li className={s.inside_item}>
+                                            <li className={css.inside_item}>
                                                 <Typography
                                                     component="p"
                                                     variant="subtitle"
@@ -172,7 +203,7 @@ const AnalysisBlock = () => {
                                                     {files.map(file => {
                                                         return (
                                                             <li key={Math.random()}>
-                                                                <Icon color="primary">
+                                                                <Icon color="primary" sx={{marginRight: '4px'}}>
                                                                     <UilFileAlt
                                                                         style={{
                                                                             width: '20px',
@@ -180,7 +211,7 @@ const AnalysisBlock = () => {
                                                                         }}
                                                                     />
                                                                 </Icon>
-                                                                <a href={file.fileURL} download>
+                                                                <a href={file.fileURL} download className={css.links}>
                                                                     {file.fileName}
                                                                 </a>
                                                             </li>
