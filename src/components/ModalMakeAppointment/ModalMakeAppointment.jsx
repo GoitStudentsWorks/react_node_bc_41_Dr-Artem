@@ -67,7 +67,7 @@ export const ModalMakeAppointment = ({ open, setApp }) => {
     const uniqueSpecialization = Array.from(new Set(specs));
 
     const filterAppointments = (doctorAppointments, doctorId, Date) => {
-        const doctorAppointment = doctorAppointments.filter(el => el.doctor == doctorId);
+        const doctorAppointment = doctorAppointments.filter(el => el.doctor === doctorId);
         const doctorAppointmentsDate = doctorAppointment.filter(el => {
             const formattedDate = dayjs(el.date).format('DD.MM.YYYY');
             return formattedDate === Date;

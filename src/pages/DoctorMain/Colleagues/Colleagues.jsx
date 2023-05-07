@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { UilSearch } from '@iconscout/react-unicons';
-import { IconButton, Input } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { Autocomplete, IconButton, Input, InputLabel, TextField } from '@mui/material';
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 // import { useEffect, useRef } from 'react';
 import LinkViewProfile from 'components/LinkViewProfile/LinkViewProfile';
@@ -10,10 +12,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 import { getAllUsersForRole } from 'redux/info/operation';
+import { selectAllDoctors } from 'redux/info/selectors';
 import css from './Colleagues.module.css';
 
 const specializations = [
-    'Show all',
+    'Show All',
     'Ophthalmologist',
     'Surgeon',
     'Therapist',
@@ -23,34 +26,51 @@ const specializations = [
     'Psychiatrist',
     'Psychotherapist',
     'Otolaryngologist',
+    'Oncologist',
 ];
-const categories = ['Show all', 'The first', 'The second', 'Higher'];
+const categories = ['Show All', 'The First', 'The Second', 'Higher'];
 const DEBOUNCE_DELAY = 300;
 
 const Colleagues = () => {
     const [allDoctors, setAllDoctors] = useState([]);
     const [filteredByName, setFilteredByName] = useState([]);
+    const [specialization, setSpecialization] = useState('Show All');
+    const [category, setCategory] = useState('Show All');
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const doctors = useSelector(selectAllDoctors);
 
     useEffect(() => {
-        dispatch(getAllUsersForRole('Doctor')).then(({ payload }) => {
-            setAllDoctors(payload);
-            setFilteredByName(payload);
-        });
-        // eslint-disable-next-line
-    }, [dispatch]);
+        dispatch(getAllUsersForRole('Doctor'));
+    }, []);
 
     const handleFilterName = e => {
         const inputValue = e.target.value.trim();
-        const filtered = allDoctors.filter(doctor => doctor.name.startsWith(inputValue));
+        const filtered = allDoctors.filter(doctor => doctor.name.toLowerCase().startsWith(inputValue.toLowerCase()));
         setFilteredByName(filtered);
     };
 
-    // const handleClick = event => {
-    //     console.log(event.target.id);
-    //     navigate(`/doctor/personal/${event.target.id}`, { replace: true });
-    // };
+    const handleFilterSpecialization = (event, value) => {
+        setSpecialization(value);
+    };
+
+    const handleFilterCategory = (event, value) => {
+        setCategory(value);
+    };
+
+    useEffect(() => {
+        let filtered = doctors;
+
+        if (specialization && specialization !== 'Show All') {
+            filtered = filtered.filter(doctor => doctor.specialization === specialization);
+        }
+
+        if (category && category !== 'Show All') {
+            filtered = filtered.filter(doctor => doctor.category === category);
+        }
+
+        setAllDoctors(filtered);
+        setFilteredByName(filtered);
+    }, [doctors, specialization, category]);
 
     return (
         <>
@@ -72,8 +92,39 @@ const Colleagues = () => {
                     />
                 </div>
                 <div className={css.filterSelect}>
-                    <BasicSelect styles={{ minWidth: '180px' }} title={'Specialization'} filter={specializations} />
-                    <BasicSelect styles={{ minWidth: '150px' }} title={'Category'} filter={categories} />
+                    <ul style={{ display: 'flex' }}>
+                        <li>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={specializations}
+                                sx={{
+                                    '& .MuiOutlinedInput-root .MuiAutocomplete-input': { padding: '0', height: '28px' },
+                                    marginBottom: { sm: '14px', md: '16px' },
+                                }}
+                                value={specialization}
+                                onChange={handleFilterSpecialization}
+                                renderInput={params => <TextField {...params} />}
+                            />
+                        </li>
+                        <li>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={categories}
+                                sx={{
+                                    '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
+                                        padding: '0',
+                                        height: '28px',
+                                    },
+                                    marginBottom: { sm: '20px', md: '32px' },
+                                }}
+                                value={category}
+                                onChange={handleFilterCategory}
+                                renderInput={params => <TextField {...params} />}
+                            />
+                        </li>
+                    </ul>
                 </div>
             </div>
             <UsersList listOfUsers={filteredByName}>
