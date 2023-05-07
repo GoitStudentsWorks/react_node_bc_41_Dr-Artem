@@ -14,48 +14,51 @@ import axios from 'axios';
 const ListOfPatients = () => {
     const [allPatients, setAllPatients] = useState([]);
     const [filtered, setFiltered] = useState([]);
+    const [pagination, setPagination] = useState([]);
+
     const [page, setPage] = useState(1);
-    const [allVisits, setAllVisits] = useState(null);
 
     const dispatch = useDispatch();
 
     const frequency = ['All', 'New', 'Permanent'];
 
-    useEffect(() => {
-        async function fetchVisits() {
-            const { data } = await axios.get(`/visits`);
-            setAllVisits(data);
-        }
-        fetchVisits();
-    }, []);
+    const paginationDoctors = arr => {
+        const result = arr.map((el, i) => (i % 9 === 0 ? arr.slice(i, i + 9) : null)).filter(el => el);
+        return result;
+    };
 
     useEffect(() => {
         dispatch(getAllUsersForRole('Patient')).then(({ payload }) => {
+            const result = paginationDoctors(payload);
             setAllPatients(payload);
-            setFiltered(payload);
+            setPagination(result);
         });
-        // eslint-disable-next-line
     }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(getAllVisits({ page, limit: 9 }));
-    }, [dispatch, page]);
 
     const handlePageOnVisits = data => {
         setPage(data);
     };
 
-    let numberOfPaginationButton = 8;
-    if (allVisits) {
-        numberOfPaginationButton = Math.round(allVisits.length / 7);
+    let numberOfPaginationButton = 0;
+    if (filtered || pagination) {
+        numberOfPaginationButton = filtered.length || pagination.length;
     }
+
+    const sortDoctors = status => {
+        console.log(status);
+        const filterDoctor = allPatients.filter(el => el.patientStatus === status);
+        const result = paginationDoctors(filterDoctor);
+
+        setFiltered(result);
+        console.log(result[page - 1]);
+    };
 
     return (
         <>
             <div className={css.filter}>
-                <BasicSelect title={'Patients'} filter={frequency} />
+                <BasicSelect title={'Patients'} filter={frequency} sortDoctors={sortDoctors} />
             </div>
-            <UsersList listOfUsers={filtered || allPatients}>
+            <UsersList listOfUsers={filtered[page - 1] || pagination[page - 1] || allPatients}>
                 <ProfileBlockPatient>
                     <LinkViewProfile>view profile</LinkViewProfile>
                 </ProfileBlockPatient>
