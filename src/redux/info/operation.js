@@ -2,7 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 // axios.defaults.baseURL = 'https://meddoc-backend.herokuapp.com/api';
 // axios.defaults.baseURL = 'http://localhost:3000/api';
-axios.defaults.baseURL = 'https://wild-tan-mackerel-kilt.cyclic.app/api';
+// axios.defaults.baseURL = 'https://wild-tan-mackerel-kilt.cyclic.app/api';
+axios.defaults.baseURL = 'https://meddoc-backend.onrender.com/api';
 
 const token = {
     set(token) {
@@ -46,6 +47,23 @@ export const getAllUsersForRole = createAsyncThunk('/getAllUsersForRole', async 
         return rejectWithValue(error.message);
     }
 });
+// export const getAllUsersForRole = createAsyncThunk(
+//     '/getAllUsersForRole',
+//     async ({ role, specialization, category }, { rejectWithValue }) => {
+//         console.log(role);
+//         try {
+//             const params = {
+//                 specialization: specialization || 'Show all',
+//                 category: category || 'Show all',
+//             };
+
+//             const { data } = await axios.get(`/info/all/${role}`, { params });
+//             return data;
+//         } catch (error) {
+//             return rejectWithValue(error.message);
+//         }
+//     }
+// );
 
 export const updateUserInfo = createAsyncThunk('/updateUserInfo', async (information, { rejectWithValue }) => {
     try {
@@ -58,7 +76,6 @@ export const updateUserInfo = createAsyncThunk('/updateUserInfo', async (informa
 
 export const updateAvatar = createAsyncThunk('/updateAvatar', async (formData, { rejectWithValue }) => {
     try {
-        console.log(`formData`, formData);
         const { data } = await axios.patch('/info/update/image', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',

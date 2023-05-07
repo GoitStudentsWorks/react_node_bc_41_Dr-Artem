@@ -143,7 +143,7 @@ export const RegisterForm = () => {
                     <li className={css.formItem}>
                         {/* RADIO */}
                         <FormControl>
-                            <RadioGroup row name="role" defaultValue="Patient">
+                            <RadioGroup row name="role" defaultValue="Patient" onChange={formik.handleChange}>
                                 <FormControlLabel value="Patient" control={<Radio />} label="Patient" />
                                 <FormControlLabel value="Doctor" control={<Radio />} label="Doctor" />
                             </RadioGroup>

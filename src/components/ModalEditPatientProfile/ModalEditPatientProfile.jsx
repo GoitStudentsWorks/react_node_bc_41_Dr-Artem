@@ -42,14 +42,14 @@ const ModalEditPatientProfile = ({ open, setApp, userInfo }) => {
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
-        setSelectedDate(date.format('DD.MM.YYYY'));
+        setSelectedDate(date);
     }
 
     const handleSubmitForm = values => {
         const data = {
             name: values.username,
             gender: values.gender,
-            birthday: selectedDate,
+            birthday: selectedDate.format('DD.MM.YYYY'),
             number: values.phone,
         };
         dispatch(updateUserInfo(data));

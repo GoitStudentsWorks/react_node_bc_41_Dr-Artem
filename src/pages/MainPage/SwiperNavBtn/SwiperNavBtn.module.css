@@ -6,16 +6,21 @@
     cursor: pointer;
     width: 34px;
     height: 34px;
-    left: 50px;
     border-radius: 50%;
     border: none;
-
-    background: #477577;
 }
 
-.btn:active {
+.btnDisabled {
+    color: rgba(0, 0, 0, 0.3);
     background: #edf5f5;
-    color: darkgrey;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.btnActive {
+    background-color: #477577;
+    color: white;
+    cursor: pointer;
 }
 
 .swiper_nav_btns {
