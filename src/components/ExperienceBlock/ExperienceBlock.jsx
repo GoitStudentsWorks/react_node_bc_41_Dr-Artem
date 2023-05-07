@@ -95,14 +95,6 @@ export const ExperienceBlock = () => {
                                         </div>
                                     )}
                                 </div>
-                                {/* {index !== array.length - 1 && (
-                                    <Divider
-                                        sx={{
-                                            border: '1.5px solid rgba(209, 213, 219, 0.2)',
-                                            marginBottom: '16px',
-                                        }}
-                                    />
-                                )} */}
                             </li>
                         );
                     }
