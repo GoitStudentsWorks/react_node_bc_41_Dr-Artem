@@ -1,8 +1,7 @@
-import css from './DoctorInfoCard.module.css';
 import plug from '../../images/ProfileBlock/plug.png';
+import css from './DoctorInfoCard.module.css';
 
 export const DoctorInfoCard = ({ doctorData }) => {
-
     return (
         <div className={css.doctorInfo}>
             <div className={css.imgWrapper}>

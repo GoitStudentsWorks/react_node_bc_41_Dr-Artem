@@ -10,7 +10,7 @@ import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCurrentUserAppointments, setAppointment, getAppointmentById } from 'redux/appointment/operation';
+import { getAppointmentById, setAppointment } from 'redux/appointment/operation';
 import { getAllUsersForRole } from 'redux/info/operation';
 // import { array, number, object } from 'yup';
 import css from './ModalMakeAppointment.module.css';

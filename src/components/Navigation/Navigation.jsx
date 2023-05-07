@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import { useAuth } from 'hooks';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -7,13 +8,6 @@ const patientRoutes = [
     { path: '/patient/history', label: 'Medical history' },
     { path: '/patient/doctors', label: 'Doctors' },
     { path: '/patient/visits-history', label: 'Visits to the doctor' },
-];
-
-const doctorRoutes = [
-    { path: '/doctor/personal/64528ae541702d26c9b22991', label: 'Personal page' },
-    { path: '/doctor/visits-history', label: 'Visit history' },
-    { path: '/doctor/patients-list', label: 'List of patients' },
-    { path: '/doctor/colleuges', label: 'Сolleagues' },
 ];
 
 const indicatorStyles = {
@@ -27,6 +21,13 @@ const indicatorStyles = {
 };
 
 export const Navigation = () => {
+    const { user } = useAuth();
+    const doctorRoutes = [
+        { path: `/doctor/personal/${user.id}`, label: 'Personal page' },
+        { path: '/doctor/visits-history', label: 'Visit history' },
+        { path: '/doctor/patients-list', label: 'List of patients' },
+        { path: '/doctor/colleuges', label: 'Сolleagues' },
+    ];
     const { pathname } = useLocation();
     const [value, setValue] = useState(0);
 
@@ -38,6 +39,7 @@ export const Navigation = () => {
             const routeIndex = doctorRoutes.findIndex(route => pathname.startsWith(route.path));
             setValue(routeIndex);
         }
+        // eslint-disable-next-line
     }, [pathname]);
 
     const handleChange = (event, newValue) => {

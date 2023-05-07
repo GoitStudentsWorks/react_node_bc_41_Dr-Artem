@@ -1,13 +1,13 @@
-import s from './Rewiews.module.css';
-import maria from '../../images/Rewiews/maria.png';
-import natalia from '../../images/Rewiews/natalia.png';
-import sergey from '../../images/Rewiews/sergey.png';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, A11y } from 'swiper';
+import { SwiperNavButtons } from 'components/SwiperNavBtn/SwiperNavBtn';
+import { A11y, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { SwiperNavButtons } from 'components/SwiperNavBtn/SwiperNavBtn';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import maria from '../../images/Rewiews/maria.png';
+import natalia from '../../images/Rewiews/natalia.png';
+import sergey from '../../images/Rewiews/sergey.png';
+import s from './Rewiews.module.css';
 
 function Rewiews() {
     return (

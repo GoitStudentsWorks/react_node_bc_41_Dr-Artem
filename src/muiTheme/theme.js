@@ -215,6 +215,7 @@ const theme = createTheme({
                         padding: '14px 18px',
                         border: 'none',
                         marginRight: '0 !important',
+                        background: COLOR.white,
 
                         '& fieldset': {
                             outline: 'none',

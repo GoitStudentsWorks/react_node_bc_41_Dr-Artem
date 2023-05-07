@@ -22,7 +22,9 @@ export const ErrorPage = () => {
         <main className={css.main} onMouseMove={rotateEl}>
             <section className={css.section}>
                 <div className={css.err} style={{ transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)` }}>
-                    <span className={css.errNo} style={{justifyContent: 'flex-end'}}>4</span>
+                    <span className={css.errNo} style={{ justifyContent: 'flex-end' }}>
+                        4
+                    </span>
                     <img src={Medic} alt="Page not found" className={css.errEmg} />
                     <span className={css.errNo}>4</span>
                 </div>

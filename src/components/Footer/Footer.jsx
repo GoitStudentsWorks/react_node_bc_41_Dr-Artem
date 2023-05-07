@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import css from './Footer.module.css';
+import { UilFacebookF, UilInstagram } from '@iconscout/react-unicons';
 import IconButton from '@mui/material/IconButton';
-import { UilInstagram } from '@iconscout/react-unicons';
-import { UilFacebookF } from '@iconscout/react-unicons';
-import { AiOutlineYoutube } from 'react-icons/ai';
-import { useAuth } from 'hooks';
-import { ModalMakeAppointment } from 'components/ModalMakeAppointment/ModalMakeAppointment';
-import { useNavigate } from 'react-router-dom';
 import Logo from 'components/Logo/Logo';
+import { ModalMakeAppointment } from 'components/ModalMakeAppointment/ModalMakeAppointment';
+import { useAuth } from 'hooks';
+import React, { useState } from 'react';
+import { AiOutlineYoutube } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { selectUserRole } from 'redux/auth/selectors';
 import logo_desk from '../../images/logo/logo_footer_desk.png';
 import logo_mobile from '../../images/logo/logo_footer_mobile.png';
-import { useSelector } from 'react-redux';
-import { selectUserRole } from 'redux/auth/selectors';
+import css from './Footer.module.css';
 
 const iconButtonStyles = {
     width: { xs: '40px', md: '56px' },

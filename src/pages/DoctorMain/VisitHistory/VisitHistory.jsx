@@ -3,10 +3,10 @@ import axios from 'axios';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getAllVisits } from 'redux/visits/operation';
 import { selectAllVisits } from 'redux/visits/selectors';
 import { PagePagination } from '../../../components/PagePagination/PagePagination';
-import plug from '../../../images/ProfileBlock/plug.png';
 import css from './VisitHistory.module.css';
 
 const gridStyles = {
@@ -40,13 +40,16 @@ const buttonStyle = {
     lineHeight: { xs: '1.17', md: '1.4' },
 };
 
+const limit = 10;
+
 const VisitHistory = () => {
     const dispatch = useDispatch();
     const visits = useSelector(selectAllVisits);
     const [page, setPage] = useState(1);
     const [allVisits, setAllVisits] = useState(null);
+
     useEffect(() => {
-        dispatch(getAllVisits({ page, limit: 7 }));
+        dispatch(getAllVisits({ page, limit }));
     }, [dispatch, page]);
 
     useEffect(() => {
@@ -60,10 +63,16 @@ const VisitHistory = () => {
     const handlePageOnVisits = data => {
         setPage(data);
     };
-    let numberOfPaginationButton = 8;
+
+    let numberOfPaginationButton = 0;
     if (allVisits) {
-        numberOfPaginationButton = Math.round(allVisits.length / 7);
+        numberOfPaginationButton = Math.ceil(allVisits.length / limit);
     }
+
+    const handleClick = id => {
+        const clickedVisit = allVisits.filter(visit => visit._id === id);
+        localStorage.setItem('clickedVisit', JSON.stringify(clickedVisit[0]));
+    };
     return (
         <section className={css.section}>
             <List
@@ -86,7 +95,7 @@ const VisitHistory = () => {
                                     >
                                         <Grid item sx={{ ...gridStyles }}>
                                             <div className={css.imgWrapper}>
-                                                <img src={plug} alt="plug" className={css.photo} />
+                                                <img src={patient.avatarURL} alt="avatar" className={css.photo} />
                                             </div>
                                         </Grid>
                                         <Grid item xs={11} sx={gridStyles}>
@@ -109,9 +118,15 @@ const VisitHistory = () => {
                                                 </Grid>
                                                 <Grid item xs={12} md={4} lg={3} sx={gridStyles}>
                                                     <div className={`${css.btnWrapp} btnWrapp`}>
-                                                        <Button variant="outlined" sx={buttonStyle}>
-                                                            view profile
-                                                        </Button>
+                                                        <Link to={`/doctor/patients-list/${patient._id}`}>
+                                                            <Button
+                                                                variant="outlined"
+                                                                sx={buttonStyle}
+                                                                onClick={() => handleClick(_id)}
+                                                            >
+                                                                view profile
+                                                            </Button>
+                                                        </Link>
                                                     </div>
                                                 </Grid>
                                             </Grid>

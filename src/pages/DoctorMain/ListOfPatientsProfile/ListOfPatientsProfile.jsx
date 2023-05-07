@@ -1,53 +1,74 @@
 import { UilFileAlt } from '@iconscout/react-unicons';
-import { Icon, IconButton } from '@mui/material';
+import { Icon, IconButton, Link } from '@mui/material';
 import { ModalEditPatientResult } from 'components/ModalEditPatientResult/ModalEditPatientResult';
 import { PatientMedcart } from 'components/PatientMedcart/PatientMedcart';
 import { PatientMedcartEdit } from 'components/PatientMedcartEdit/PatientMedcartEdit';
 import { ProfileBlockPatient } from 'components/ProfileBlockPatient/ProfileBlockPatient';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { RxPencil1 } from 'react-icons/rx';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getUserInfoById } from 'redux/info/operation';
+import { selectUserInfoById } from 'redux/info/selectors';
+import { selectAllVisits } from 'redux/visits/selectors';
 import style from './ListOfPatientsProfile.module.css';
 
 export const ListOfPatientsProfile = () => {
-    const [editMedcart, setEditMedcart] = useState(true);
-    const [open, setOpen] = useState(false);
-    const [userInfo, setUserInfo] = useState();
     const dispatch = useDispatch();
-
     const { id } = useParams();
-    console.log(id);
+
+    const [editMedcart, setEditMedcart] = useState(true);
+    const [medcart, setMedcart] = useState(null);
+    const [open, setOpen] = useState(false);
+    const userInfo = useSelector(selectUserInfoById);
+    const allVisits = useSelector(selectAllVisits);
+
+    const clickedVisit = JSON.parse(localStorage.getItem('clickedVisit'));
 
     useEffect(() => {
-        dispatch(getUserInfoById(id)).then(({ payload }) => {
-            setUserInfo(payload);
-        });
+        dispatch(getUserInfoById(id));
+        if (allVisits) {
+            const currentVisit = allVisits.filter(el => el._id === clickedVisit._id);
+            setMedcart([
+                {
+                    title: 'Complaints at the time of inspection:',
+                    textList: [currentVisit[0]?.complaints || ''],
+                },
+                {
+                    title: 'Medical history:',
+                    textList: [currentVisit[0]?.medicalHistory || ''],
+                },
+                {
+                    title: 'Objective condition at the time of inspection:',
+                    textList: [currentVisit[0]?.objectiveCondition || ''],
+                },
+                {
+                    title: 'Associated diseases:',
+                    textList: [currentVisit[0]?.associatedDiseases || ''],
+                },
+                {
+                    title: 'Assessment of body condition:',
+                    textList: [currentVisit[0]?.bodyCondition || ''],
+                },
+                {
+                    title: 'Clinical diagnosis:',
+                    textList: [currentVisit[0]?.clinicalDiagnosis || ''],
+                },
+                {
+                    title: 'Treatment recommendations:',
+                    textList: [currentVisit[0]?.recomendation || ''],
+                },
+            ]);
+        }
         // eslint-disable-next-line
-    }, [dispatch]);
-
-    const analysis = [
-        {
-            name: 'Urine analysis is general',
-        },
-        {
-            name: 'Clinical blood analysis',
-        },
-        {
-            name: 'Biochemical research',
-        },
-        {
-            name: 'Hematological studies',
-        },
-    ];
+    }, [allVisits]);
 
     const currentMedcart = editMedcart ? (
-        <PatientMedcart setEditMedcart={setEditMedcart} />
+        <PatientMedcart medcart={medcart} setEditMedcart={setEditMedcart} />
     ) : (
-        <PatientMedcartEdit setEditMedcart={setEditMedcart} />
+        <PatientMedcartEdit id={clickedVisit._id} medcart={medcart} setEditMedcart={setEditMedcart} />
     );
-    // const modal = editAnalysis && <ResultsEditModal setEditAnalysis={setEditAnalysis} />;
 
     return (
         <>
@@ -55,25 +76,28 @@ export const ListOfPatientsProfile = () => {
                 {userInfo && <ProfileBlockPatient userInfo={userInfo} />}
                 <div className={style.PatientResults}>
                     <ul className={style.PatientResults_VisitRecord}>
-                        <li>
-                            Doctor:<span>Shumeiko Timur</span>
+                        <li key={clickedVisit.doctor.name}>
+                            Doctor:<span>{clickedVisit.doctor.name}</span>
                         </li>
-                        <li>
-                            Date:<span>16/12/2021</span>
+                        <li key={clickedVisit.updatedAt}>
+                            Date:<span>{moment(clickedVisit.updatedAt).format('MM/DD/YYYY')}</span>
                         </li>
                     </ul>
-                    <ul className={style.PatientResults_Details}>
-                        {analysis.map(({ name }) => {
-                            return (
-                                <li>
-                                    <Icon color="primary">
-                                        <UilFileAlt style={{ width: '20px', height: '20px' }} />
-                                    </Icon>
-                                    {name}
-                                </li>
-                            );
-                        })}
-                    </ul>
+                    {clickedVisit.files && (
+                        <ul className={style.PatientResults_Details}>
+                            {clickedVisit.files.map(({ fileName, fileURL }, index) => {
+                                return (
+                                    <li key={index}>
+                                        <Icon color="primary">
+                                            <UilFileAlt style={{ width: '20px', height: '20px' }} />
+                                        </Icon>
+                                        <Link href={fileURL}>{fileName}</Link>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    )}
+
                     <IconButton
                         color="primary"
                         sx={{ position: 'absolute', top: '16px', right: '16px' }}
@@ -85,7 +109,15 @@ export const ListOfPatientsProfile = () => {
             </div>
 
             {currentMedcart}
-            <ModalEditPatientResult open={open} setOpen={setOpen} />
+            <ModalEditPatientResult
+                data={clickedVisit}
+                // id={clickedVisit._id}
+                // updatedAt={clickedVisit.updatedAt}
+                // doctor={clickedVisit.doctor}
+                // files={clickedVisit.files}
+                open={open}
+                setOpen={setOpen}
+            />
         </>
     );
 };

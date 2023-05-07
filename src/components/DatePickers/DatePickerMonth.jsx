@@ -15,7 +15,7 @@ const iconButtonStyles = {
     },
 };
 
-export const DatePickerMonth = ({setSelectedDate}) => {
+export const DatePickerMonth = ({ setSelectedDate }) => {
     const [selectedMonth, setSelectedMonth] = useState(dayjs(Date.now()).startOf('month'));
 
     return (
