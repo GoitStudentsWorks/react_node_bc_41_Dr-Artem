@@ -68,7 +68,9 @@ const AnalysisBlock = () => {
                                 },
                                 {
                                     title: 'Documents:',
-                                    textList: [recomendation],
+                                    textList: files.map(file => (
+                                        <a href={file.fileURL} download>{file.fileName}</a>
+                                    ))
                                 }
                             ];
                          
