@@ -6,7 +6,8 @@ import Typography from '@mui/material/Typography';
 import s from '../AnalysisBlock/AnalysisBlock.module.css';
 import { selectAllVisits } from '../../redux/visits/selectors';
 import { useSelector } from 'react-redux';
-
+import { Icon } from '@mui/material';
+import { UilFileAlt } from '@iconscout/react-unicons';
 import Card from 'components/Card/Card';
 import { useState } from 'react';
 
@@ -66,19 +67,14 @@ const AnalysisBlock = () => {
                                     title: 'Treatment recommendations:',
                                     textList: [recomendation],
                                 },
-                                {
-                                    title: 'Documents:',
-                                    textList: files.map(file => (
-                                        <a href={file.fileURL} download>{file.fileName}</a>
-                                    ))
-                                }
                             ];
-                         
+
                             return (
                                 <Accordion
                                     expanded={expandedPanel === createdAt}
                                     onChange={handleChange(createdAt)}
                                     key={createdAt}
+                                    sx={{ boxShadow: 'none', marginBottom: '16px', borderRadius: '16px' }}
                                 >
                                     <AccordionSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -134,6 +130,39 @@ const AnalysisBlock = () => {
                                                     </li>
                                                 );
                                             })}
+                                            <li className={s.inside_item}>
+                                                <Typography
+                                                    component="p"
+                                                    variant="subtitle"
+                                                    color="text.black"
+                                                    sx={{
+                                                        fontSize: { md: '20px' },
+                                                        lineHeight: { md: 1.5 },
+                                                        marginBottom: '16px',
+                                                    }}
+                                                >
+                                                    Documents:
+                                                </Typography>
+                                                <ul>
+                                                    {files.map(file => {
+                                                        return (
+                                                            <li key={file.fileName}>
+                                                                <Icon color="primary">
+                                                                    <UilFileAlt
+                                                                        style={{
+                                                                            width: '20px',
+                                                                            height: '20px',
+                                                                        }}
+                                                                    />
+                                                                </Icon>
+                                                                <a href={file.fileURL} download>
+                                                                    {file.fileName}
+                                                                </a>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                            </li>
                                         </ul>
                                     </AccordionDetails>
                                 </Accordion>
