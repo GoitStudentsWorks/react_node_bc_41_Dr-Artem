@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsersForRole } from 'redux/info/operation';
 import { selectAllDoctors } from 'redux/info/selectors';
 import css from './Colleagues.module.css';
+import { paginationDoctors, windowSizePagination, PagePagination } from 'components/PagePagination/PagePagination';
 
 const specializations = [
     'Show All',
@@ -32,6 +33,12 @@ const Colleagues = () => {
     const [filteredByName, setFilteredByName] = useState([]);
     const [specialization, setSpecialization] = useState('Show All');
     const [category, setCategory] = useState('Show All');
+
+    const [pagination, setPagination] = useState([]);
+    const [limit, setLimit] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [page, setPage] = useState(1);
+
     const dispatch = useDispatch();
     const doctors = useSelector(selectAllDoctors);
 
@@ -53,6 +60,33 @@ const Colleagues = () => {
         setCategory(value);
     };
 
+    //pagination
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowWidth(window.innerWidth);
+        }
+        windowSizePagination(window.innerWidth, setLimit);
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        windowSizePagination(windowWidth, setLimit);
+
+        const result = paginationDoctors(filteredByName, limit);
+        setPagination(result);
+    }, [windowWidth]);
+
+    const filter = (users, pagination) => {
+        let numberOfPaginationButton = 0;
+        if (users || pagination) {
+            numberOfPaginationButton = users.length || pagination.length;
+        }
+        return numberOfPaginationButton;
+    };
+
     useEffect(() => {
         let filtered = doctors;
 
@@ -64,9 +98,21 @@ const Colleagues = () => {
             filtered = filtered.filter(doctor => doctor.category === category);
         }
 
+        const result = paginationDoctors(filtered, limit);
+        setPagination(result);
+
         setAllDoctors(filtered);
         setFilteredByName(filtered);
     }, [doctors, specialization, category]);
+
+    const handlePageOnVisits = data => {
+        setPage(data);
+    };
+
+    let numberOfPaginationButton = 1;
+    if (pagination) {
+        numberOfPaginationButton = pagination.length;
+    }
 
     return (
         <>
@@ -123,11 +169,15 @@ const Colleagues = () => {
                     </ul>
                 </div>
             </div>
-            <UsersList listOfUsers={filteredByName}>
+            <UsersList listOfUsers={pagination[page - 1] || filteredByName}>
                 <ProfileBlockDoctore>
                     <LinkViewProfile>view profile</LinkViewProfile>
                 </ProfileBlockDoctore>
             </UsersList>
+            <PagePagination
+                numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
+                handlePageOnVisits={handlePageOnVisits}
+            />
         </>
     );
 };
