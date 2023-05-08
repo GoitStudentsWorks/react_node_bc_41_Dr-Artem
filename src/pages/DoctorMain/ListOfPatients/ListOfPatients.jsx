@@ -68,7 +68,12 @@ const ListOfPatients = () => {
     return (
         <>
             <div className={css.filter}>
-                <BasicSelect title={'Patients'} filter={frequency} sortDoctors={sortDoctors} />
+                <BasicSelect
+                    title={'Patients'}
+                    filter={frequency}
+                    sortDoctors={sortDoctors}
+                    styles={{ width: '204px' }}
+                />
             </div>
             {limit && (
                 <UsersList listOfUsers={filtered[page - 1] || pagination[page - 1] || allPatients}>

@@ -17,9 +17,9 @@ const Personal = () => {
     const dispatch = useDispatch();
     const doctorInfo = useSelector(selectUserInfoById);
 
-    useEffect(() => {
-        dispatch(getUserInfoById(id));
-    }, [id]);
+  useEffect(() => {
+      dispatch(getUserInfoById(id));
+  }, [id]);
 
     return (
         <>

@@ -7,10 +7,11 @@ import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUserInfo } from 'redux/info/operation';
 import * as yup from 'yup';
 import css from '../EditDoctorProfileModal/EditDoctorProfileModule.module.css';
+import { selectUserInfo } from 'redux/info/selectors';
 
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 
@@ -44,17 +45,17 @@ const EditDoctorProfileModal = ({ open, setApp, info }) => {
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
-        setSelectedDate(date.format('DD.MM.YYYY'));
+        setSelectedDate(date.format('MM.DD.YYYY'));
     }
-
+    const userInfo = useSelector(selectUserInfo);
     const handleSubmitForm = values => {
         const data = {
             name: values.username,
             gender: values.gender,
             birthday: selectedDate,
             number: values.phone,
-            price: values.price,
-            about: values.about,
+            price: values.price.toString(),
+            about: values.about || userInfo.about,
         };
         dispatch(updateUserInfo(data));
         setApp(!open);
