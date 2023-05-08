@@ -27,10 +27,8 @@ export default function StarRating({ value }) {
                 width: 115,
                 display: 'flex',
                 alignItems: 'center',
-                position: 'absolute',
-                top: '20px',
-                right: '30px',
                 fontWeight: '600',
+                marginRight: { xs: '8px', md: '16px' },
             }}
         >
             <Box sx={{ mr: 1 }}>{value ? labels[value] : labels[0]}</Box>

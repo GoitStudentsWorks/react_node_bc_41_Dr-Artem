@@ -1,10 +1,10 @@
 import { Paper } from '@mui/material';
 
-const Card = ({ children }) => {
+const Card = ({ children, styles }) => {
     const style = {
         position: 'relative',
         borderRadius: '16px',
-        p: { sm: '16px ', md: '32px' },
+        p: { xs: '16px ' },
         bgcolor: 'background.card',
         width: '100%',
     };
