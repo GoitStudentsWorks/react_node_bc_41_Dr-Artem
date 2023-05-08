@@ -2,7 +2,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Modal } from '@mui/material';
-import Divider from '@mui/material/Divider';
+
 import IconButton from '@mui/material/IconButton';
 import Card from 'components/Card/Card';
 import { DatePickers } from 'components/DatePickers/DatePickers';

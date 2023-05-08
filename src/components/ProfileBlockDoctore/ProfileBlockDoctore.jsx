@@ -21,8 +21,15 @@ export const ProfileBlockDoctore = ({ children, userInfo }) => {
 
     return (
         <Card>
-            <Badge> {userInfo.role}</Badge>
-            <StarRating value={userInfo.rating} />
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                    <Badge> {userInfo.role}</Badge>
+                </div>
+                <div>
+                    <StarRating value={userInfo.rating} />
+                </div>
+            </div>
+
             <div
                 style={{
                     display: 'flex',
