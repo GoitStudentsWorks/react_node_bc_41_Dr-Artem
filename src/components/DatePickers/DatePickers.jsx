@@ -62,6 +62,7 @@ export const DatePickers = ({ onDateSelected }) => {
                         '.MuiInputBase-root': {
                             padding: ' 0px',
                             outline: 'none',
+                            background: 'transparent',
                             '&:hover, &:focus': {
                                 outline: 'none',
                                 border: 'none',
@@ -75,6 +76,7 @@ export const DatePickers = ({ onDateSelected }) => {
                                 lineHeight: '1.29',
                                 textAlign: 'center',
                                 border: 'none',
+
                                 '&:hover, &:focus': {
                                     cursor: 'pointer',
                                     outline: 'none',

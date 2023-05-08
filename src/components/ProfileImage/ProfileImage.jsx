@@ -19,7 +19,7 @@ const ProfileImage = ({ avatar, personalLoc }) => {
     return (
         <div style={{ position: 'relative' }}>
             <div className={css.imgWrapper}>
-                <img src={avatar} alt="avatar" style={{ borderRadius: '50%' }} />
+                <img src={avatar} alt="avatar" style={{ borderRadius: '50%', width: '100%', height: '100%' }} />
                 {personalLoc && (
                     <form onSubmit={onSubmit} encType="multipart/form-data">
                         <IconButton
