@@ -8,6 +8,7 @@ import { getAllVisits } from 'redux/visits/operation';
 import { selectAllVisits } from 'redux/visits/selectors';
 import { PagePagination } from '../../../components/PagePagination/PagePagination';
 import css from './VisitHistory.module.css';
+import DNAdesctop from '../../../images/NotInformations.jpg';
 
 const gridStyles = {
     marginLeft: '0',
@@ -73,82 +74,123 @@ const VisitHistory = () => {
         const clickedVisit = allVisits.filter(visit => visit._id === id);
         localStorage.setItem('clickedVisit', JSON.stringify(clickedVisit[0]));
     };
-    return (
-        <section className={css.section}>
-            <List
-                sx={{
-                    width: '100%',
-                    bgcolor: '#FAFAFA',
-                    padding: { xs: '32px 16px', lg: '32px' },
-                    marginBottom: { xs: '20px', md: '32px' },
+
+    if (visits.length < 1) {
+        return (
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0',
+                    paddingTop: '100px',
+                    paddingBottom: '100px',
+                    backgroundColor: '#fcfbfb91',
                 }}
             >
-                {visits.map(({ patient, date, _id }, index) => {
-                    return (
-                        <div key={_id}>
-                            <ListItem sx={{ marginBottom: { xs: '20px', md: '16px' }, padding: '0px' }}>
-                                <Box sx={{ flexGrow: 1 }}>
-                                    <Grid
-                                        container
-                                        spacing={2}
-                                        sx={{ ...gridStyles, flexWrap: { xs: 'nowrap' }, alignItems: { md: 'center' } }}
-                                    >
-                                        <Grid item sx={{ ...gridStyles }}>
-                                            <div className={css.imgWrapper}>
-                                                <img src={patient.avatarURL} alt="avatar" className={css.photo} />
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs={11} sx={gridStyles}>
-                                            <Grid container spacing={3} sx={{ ...gridStyles, width: { md: '100%' } }}>
-                                                <Grid item xs={12} md={3} lg={6} sx={gridStyles}>
-                                                    <div>
-                                                        <span className={css.lable}>Name</span>
-                                                        <p className={css.patientName}>{patient.name}</p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0' }}>
+                    <img src={DNAdesctop} alt="No visits" />
+                </div>
+                <div>
+                    <p className={css.textInformations}>You don't have any visits yet</p>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <section className={css.section}>
+            {visits ?? (
+                <>
+                    <List
+                        sx={{
+                            width: '100%',
+                            bgcolor: '#FAFAFA',
+                            padding: { xs: '32px 16px', lg: '32px' },
+                            marginBottom: { xs: '20px', md: '32px' },
+                        }}
+                    >
+                        {visits.map(({ patient, date, _id }, index) => {
+                            return (
+                                <div key={_id}>
+                                    <ListItem sx={{ marginBottom: { xs: '20px', md: '16px' }, padding: '0px' }}>
+                                        <Box sx={{ flexGrow: 1 }}>
+                                            <Grid
+                                                container
+                                                spacing={2}
+                                                sx={{
+                                                    ...gridStyles,
+                                                    flexWrap: { xs: 'nowrap' },
+                                                    alignItems: { md: 'center' },
+                                                }}
+                                            >
+                                                <Grid item sx={{ ...gridStyles }}>
+                                                    <div className={css.imgWrapper}>
+                                                        <img
+                                                            src={patient.avatarURL}
+                                                            alt="avatar"
+                                                            className={css.photo}
+                                                        />
                                                     </div>
                                                 </Grid>
-                                                <Grid item xs={12} md={5} lg={3} sx={{ ...gridStyles }}>
-                                                    <div className={`${css.visitInfo} visitInfo`}>
-                                                        <div className={css.infoWrapp}>
-                                                            <span className={css.lable}>Last visit</span>
-                                                            <p className={css.visitDate}>
-                                                                {moment(date).format('MMMM DD/MM/YYYY')}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={12} md={4} lg={3} sx={gridStyles}>
-                                                    <div className={`${css.btnWrapp} btnWrapp`}>
-                                                        <Link to={`/doctor/patients-list/${patient._id}`}>
-                                                            <Button
-                                                                variant="outlined"
-                                                                sx={buttonStyle}
-                                                                onClick={() => handleClick(_id)}
-                                                            >
-                                                                view profile
-                                                            </Button>
-                                                        </Link>
-                                                    </div>
+                                                <Grid item xs={11} sx={gridStyles}>
+                                                    <Grid
+                                                        container
+                                                        spacing={3}
+                                                        sx={{ ...gridStyles, width: { md: '100%' } }}
+                                                    >
+                                                        <Grid item xs={12} md={3} lg={6} sx={gridStyles}>
+                                                            <div>
+                                                                <span className={css.lable}>Name</span>
+                                                                <p className={css.patientName}>{patient.name}</p>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={5} lg={3} sx={{ ...gridStyles }}>
+                                                            <div className={`${css.visitInfo} visitInfo`}>
+                                                                <div className={css.infoWrapp}>
+                                                                    <span className={css.lable}>Last visit</span>
+                                                                    <p className={css.visitDate}>
+                                                                        {moment(date).format('MMMM DD/MM/YYYY')}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </Grid>
+                                                        <Grid item xs={12} md={4} lg={3} sx={gridStyles}>
+                                                            <div className={`${css.btnWrapp} btnWrapp`}>
+                                                                <Link to={`/doctor/patients-list/${patient._id}`}>
+                                                                    <Button
+                                                                        variant="outlined"
+                                                                        sx={buttonStyle}
+                                                                        onClick={() => handleClick(_id)}
+                                                                    >
+                                                                        view profile
+                                                                    </Button>
+                                                                </Link>
+                                                            </div>
+                                                        </Grid>
+                                                    </Grid>
                                                 </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-                            </ListItem>
-                            <Divider
-                                sx={{
-                                    width: '100%',
-                                    marginBottom: index !== visits.length - 1 ? '32px' : '0px',
-                                    borderBottom: '1px solid rgba(17, 17, 17, 0.1)',
-                                }}
-                            />
-                        </div>
-                    );
-                })}
-            </List>
-            <PagePagination
-                numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
-                handlePageOnVisits={handlePageOnVisits}
-            />
+                                        </Box>
+                                    </ListItem>
+                                    <Divider
+                                        sx={{
+                                            width: '100%',
+                                            marginBottom: index !== visits.length - 1 ? '32px' : '0px',
+                                            borderBottom: '1px solid rgba(17, 17, 17, 0.1)',
+                                        }}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </List>{' '}
+                    <PagePagination
+                        numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
+                        handlePageOnVisits={handlePageOnVisits}
+                    />
+                </>
+            )}
         </section>
     );
 };
