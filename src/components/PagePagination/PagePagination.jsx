@@ -2,6 +2,33 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
 
+export const paginationUsers = (arr, limit) => {
+    const result = arr.map((el, i) => (i % limit === 0 ? arr.slice(i, i + limit) : null)).filter(el => el);
+    return result;
+};
+
+export const windowSizePagination = (windowWidth, setLimit, limit, cardLimit) => {
+    if (windowWidth >= 1400) {
+        setLimit(9);
+        if (cardLimit) limit = 9;
+    } else if (windowWidth >= 769) {
+        setLimit(8);
+        if (cardLimit) limit = 8;
+    } else {
+        setLimit(6);
+        if (cardLimit) limit = 6;
+    }
+    if (cardLimit) return limit;
+};
+
+export const filter = (users, pagination) => {
+    let numberOfPaginationButton = 0;
+    if (users || pagination) {
+        numberOfPaginationButton = users.length || pagination.length;
+    }
+    return numberOfPaginationButton;
+};
+
 export const PagePagination = ({ numberOfBtnsOnVisitsHistory, handlePageOnVisits }) => {
     const [page, setPage] = useState(1);
 
