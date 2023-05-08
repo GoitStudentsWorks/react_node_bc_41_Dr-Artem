@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 import { ModalDoctorsAppointmentTime } from 'components/ModalDoctorsAppointmentTime/ModalDoctorsAppointmentTime';
-import { PagePagination } from 'components/PagePagination/PagePagination';
+import { PagePagination, paginationUsers, windowSizePagination } from 'components/PagePagination/PagePagination';
 import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlockDoctore';
 import UsersList from 'components/UsersList/UsersList';
 import { useEffect, useState } from 'react';
@@ -16,6 +16,11 @@ export const PatientDoctors = () => {
     const [timeModal, setTimeModal] = useState(false);
     const [id, setId] = useState('');
     const [specialization, setSpecialization] = useState('');
+
+    const [pagination, setPagination] = useState([]);
+    const [limit, setLimit] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [page, setPage] = useState(1);
 
     const dispatch = useDispatch();
 
@@ -46,22 +51,59 @@ export const PatientDoctors = () => {
                     return 0;
                 });
                 setAllDoctors(filtered);
+
+                const result = paginationUsers(filtered, limit);
+                setPagination(result);
                 break;
             }
             case 'Rating': {
                 const filtered = allDoctors.slice().sort((a, b) => b.rating - a.rating);
                 setAllDoctors(filtered);
+
+                const result = paginationUsers(filtered, limit);
+                setPagination(result);
                 break;
             }
             case 'Price': {
                 const filtered = allDoctors.slice().sort((a, b) => b.price - a.price);
                 setAllDoctors(filtered);
+
+                const result = paginationUsers(filtered, limit);
+                setPagination(result);
                 break;
             }
             default:
                 console.log('');
         }
     };
+
+    // pagination
+
+    useEffect(() => {
+        function handleResize() {
+            setWindowWidth(window.innerWidth);
+        }
+        windowSizePagination(window.innerWidth, setLimit);
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    useEffect(() => {
+        windowSizePagination(windowWidth, setLimit);
+
+        const result = paginationUsers(allDoctors, limit);
+        setPagination(result);
+    }, [windowWidth]);
+
+    const handlePageOnVisits = data => {
+        setPage(data);
+    };
+
+    let numberOfPaginationButton = 1;
+    if (pagination) {
+        numberOfPaginationButton = pagination.length;
+    }
 
     return (
         <>
@@ -77,14 +119,17 @@ export const PatientDoctors = () => {
                     />
                 </div>
             </div>
-            <UsersList listOfUsers={allDoctors}>
+            <UsersList listOfUsers={pagination[page - 1] || allDoctors}>
                 <ProfileBlockDoctore>
                     <Button variant="outlined" color="primary" onClick={handleClick}>
                         make an appointment
                     </Button>
                 </ProfileBlockDoctore>
             </UsersList>
-            <PagePagination />
+            <PagePagination
+                numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
+                handlePageOnVisits={handlePageOnVisits}
+            />
             <ModalDoctorsAppointmentTime
                 id={id}
                 specialization={specialization}

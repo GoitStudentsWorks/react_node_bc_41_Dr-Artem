@@ -2,22 +2,19 @@ import Box from '@mui/material/Box';
 import Pagination from '@mui/material/Pagination';
 import { useState } from 'react';
 
-export const paginationDoctors = (arr, limit) => {
+export const paginationUsers = (arr, limit) => {
     const result = arr.map((el, i) => (i % limit === 0 ? arr.slice(i, i + limit) : null)).filter(el => el);
     return result;
 };
 
 export const windowSizePagination = (windowWidth, setLimit, limit, cardLimit) => {
     if (windowWidth >= 1400) {
-        console.log(1400);
         setLimit(9);
         if (cardLimit) limit = 9;
     } else if (windowWidth >= 769) {
-        console.log(799);
         setLimit(8);
         if (cardLimit) limit = 8;
     } else {
-        console.log(111);
         setLimit(6);
         if (cardLimit) limit = 6;
     }
