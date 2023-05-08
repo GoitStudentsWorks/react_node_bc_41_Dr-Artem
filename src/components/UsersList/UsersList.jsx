@@ -2,7 +2,6 @@ import { cloneElement } from 'react';
 
 import css from './UsersList.module.css';
 const UsersList = ({ listOfUsers, children }) => {
-    console.log(listOfUsers);
     return (
         <ul className={css.cardsList}>
             {listOfUsers &&

@@ -16,11 +16,18 @@ export const ProfileBlockPatient = ({
     mmodalProfile,
     setMmodalProfile,
 }) => {
-    const personalLoc = useLocation().pathname.startsWith('/patient/history');
+    const location = useLocation().pathname;
+    const personalLoc = location.startsWith('/patient/history');
+
     return (
         <>
             <Card>
-                <Badge>{userInfo.role}</Badge>
+                {location === '/doctor/patients-list' ? (
+                    <Badge>{userInfo.patientStatus}</Badge>
+                ) : (
+                    <Badge>{userInfo.role}</Badge>
+                )}
+
                 <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>
                     <ProfileImage personalLoc={personalLoc} avatar={userInfo.avatarURL} />
                     <div>

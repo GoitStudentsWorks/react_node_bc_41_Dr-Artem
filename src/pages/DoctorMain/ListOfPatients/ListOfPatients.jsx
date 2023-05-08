@@ -40,12 +40,10 @@ const ListOfPatients = () => {
     }
 
     const sortDoctors = status => {
-        console.log(status);
         const filterDoctor = allPatients.filter(el => el.patientStatus === status);
         const result = paginationDoctors(filterDoctor);
 
         setFiltered(result);
-        console.log(result[page - 1]);
     };
 
     return (

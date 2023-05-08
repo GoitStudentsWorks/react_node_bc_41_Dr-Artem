@@ -2,9 +2,9 @@ import { UilPlus, UilTrashAlt } from '@iconscout/react-unicons';
 import { Button, IconButton, TextField, Typography } from '@mui/material';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { updateVisit } from 'redux/visits/operation';
+import { addVisit } from 'redux/visits/operation';
 import * as yup from 'yup';
-import style from './PatientMedcartEdit.module.css';
+import style from './PatientMedcartAdd.module.css';
 
 const schema = yup.object().shape({
     complaints: yup.string().required('Required field'),
@@ -16,14 +16,9 @@ const schema = yup.object().shape({
     recomendation: yup.string().required('Required field'),
 });
 
-export const PatientMedcartEdit = ({ setEditMedcart, setMedcart, medcart, allVisits, id }) => {
+export const PatientMedcartAdd = ({ setAddMedcart, medcart, setMedcart, id }) => {
     const dispatch = useDispatch();
-    let currentId;
 
-    if (allVisits.length !== 0) {
-        const currentVisit = allVisits.filter(el => el.patient._id === id);
-        currentId = currentVisit[0]._id;
-    }
     const handleSubmitForm = values => {
         const newData = {
             complaints: values.complaints,
@@ -33,8 +28,9 @@ export const PatientMedcartEdit = ({ setEditMedcart, setMedcart, medcart, allVis
             medicalHistory: values.medicalHistory,
             objectiveCondition: values.objectiveCondition,
             recomendation: values.recomendation,
+            patient: id,
         };
-        dispatch(updateVisit({ id: currentId, ...newData }));
+        dispatch(addVisit({ ...newData }));
         setMedcart([
             {
                 title: 'Complaints at the time of inspection:',
@@ -65,7 +61,7 @@ export const PatientMedcartEdit = ({ setEditMedcart, setMedcart, medcart, allVis
                 textList: values.recomendation,
             },
         ]);
-        setEditMedcart(false);
+        setAddMedcart(false);
     };
 
     const formik = useFormik({

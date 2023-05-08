@@ -9,37 +9,64 @@ import { ProfileBlockDoctore } from 'components/ProfileBlockDoctore/ProfileBlock
 import { SpecializationBlock } from 'components/SpecializationBlock/SpecializationBlock';
 import { WeekVisitsBlock } from 'components/WeekVisitsBlock/WeekVisitsBlock';
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { getUserInfoById } from 'redux/info/operation';
+import { selectUserInfo } from 'redux/info/selectors';
 import css from './Personal.module.css';
 
 const Personal = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const doctorInfo = useSelector(selectUserInfoById);
+    const location = useLocation().pathname;
+    const doctorInfo = useSelector(selectUserInfo);
+    const colleagueInfo = useSelector(selectUserInfoById);
 
-  useEffect(() => {
-      dispatch(getUserInfoById(id));
-  }, [id]);
+    useEffect(() => {
+        dispatch(getUserInfoById(id));
+    }, [dispatch, id]);
 
     return (
         <>
             {doctorInfo && (
                 <>
-                    <div className={css.DoctorInformation}>
-                        <ProfileBlockDoctore userInfo={doctorInfo} />
-                        <SpecializationBlock
-                            specialization={doctorInfo.specialization}
-                            category={doctorInfo.category}
-                        />
-                    </div>
-                    <div className={css.pageAboutBlock}>
-                        <div className={css.pageAboutBlockWrapper}>
-                            <AboutBlock about={doctorInfo.about} />
-                            <ExperienceBlock doctorInfo={doctorInfo} />
-                        </div>
+                    {location.startsWith('/doctor/personal') && (
+                        <>
+                            <div className={css.DoctorInformation}>
+                                <ProfileBlockDoctore userInfo={doctorInfo} />
+                                <SpecializationBlock
+                                    specialization={doctorInfo.specialization}
+                                    category={doctorInfo.category}
+                                />
+                            </div>
+                            <div className={css.pageAboutBlock}>
+                                <div className={css.pageAboutBlockWrapper}>
+                                    <AboutBlock about={doctorInfo.about} />
+                                    <ExperienceBlock doctorInfo={doctorInfo} />
+                                </div>
 
-                        <WeekVisitsBlock />
-                    </div>
+                                <WeekVisitsBlock />
+                            </div>
+                        </>
+                    )}
+                    {location.startsWith('/doctor/colleuges') && (
+                        <>
+                            <div className={css.DoctorInformation}>
+                                <ProfileBlockDoctore userInfo={colleagueInfo} />
+                                <SpecializationBlock
+                                    specialization={colleagueInfo.specialization}
+                                    category={colleagueInfo.category}
+                                />
+                            </div>
+                            <div className={css.pageAboutBlock}>
+                                <div className={css.pageAboutBlockWrapper}>
+                                    <AboutBlock about={colleagueInfo.about} />
+                                    <ExperienceBlock doctorInfo={colleagueInfo} />
+                                </div>
+
+                                <WeekVisitsBlock />
+                            </div>
+                        </>
+                    )}
                 </>
             )}
         </>

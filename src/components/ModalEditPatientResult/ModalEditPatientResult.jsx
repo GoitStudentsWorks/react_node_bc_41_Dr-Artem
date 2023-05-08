@@ -11,9 +11,9 @@ import { useDispatch } from 'react-redux';
 import { uploadPDF } from 'redux/visits/operation';
 import style from './ModalEditPatientResult.module.css';
 
-export const ModalEditPatientResult = ({ open, setOpen, data }) => {
+export const ModalEditPatientResult = ({ open, setOpen, data, doctor, id }) => {
     const [file, setFile] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(dayjs(data.updatedAt));
+    const [selectedDate, setSelectedDate] = useState(dayjs());
     const dispatch = useDispatch();
 
     function handleDateChange(date) {
@@ -32,7 +32,7 @@ export const ModalEditPatientResult = ({ open, setOpen, data }) => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('pdf', file);
-        dispatch(uploadPDF({ id: `${data._id}`, formData: formData }));
+        dispatch(uploadPDF({ id: `${id}`, formData: formData }));
         setFile(null);
     };
     const modalProperty = {
@@ -76,7 +76,7 @@ export const ModalEditPatientResult = ({ open, setOpen, data }) => {
                                 type="text"
                                 id="doctor"
                                 name="doctor"
-                                defaultValue={data.doctor.name}
+                                defaultValue={doctor}
                                 className={style.Modal_FormInput}
                             />
                         </li>

@@ -7,11 +7,10 @@ import { DemoItem } from '@mui/x-date-pickers/internals/demo';
 import dayjs from 'dayjs';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateUserInfo } from 'redux/info/operation';
 import * as yup from 'yup';
 import css from '../EditDoctorProfileModal/EditDoctorProfileModule.module.css';
-import { selectUserInfo } from 'redux/info/selectors';
 
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 
@@ -47,7 +46,7 @@ const EditDoctorProfileModal = ({ open, setApp, info }) => {
     function handleDateChange(date) {
         setSelectedDate(date.format('MM.DD.YYYY'));
     }
-    const userInfo = useSelector(selectUserInfo);
+    // const userInfo = useSelector(selectUserInfo);
     const handleSubmitForm = values => {
         const data = {
             name: values.username,
@@ -55,12 +54,11 @@ const EditDoctorProfileModal = ({ open, setApp, info }) => {
             birthday: selectedDate,
             number: values.phone,
             price: values.price.toString(),
-            about: values.about || userInfo.about,
+            about: values.about,
         };
         dispatch(updateUserInfo(data));
         setApp(!open);
     };
-    // console.log(info)
     const formik = useFormik({
         initialValues: {
             username: info.name,
@@ -68,7 +66,7 @@ const EditDoctorProfileModal = ({ open, setApp, info }) => {
             date: selectedDate,
             phone: info.number,
             price: info.price,
-            about: '',
+            about: info.about,
         },
         validationSchema: schema,
         onSubmit: values => {

@@ -22,10 +22,11 @@ const visitsSlice = createSlice({
             console.log(action.payload);
         },
         [addVisit.fulfilled](state, action) {
+            console.log(action.payload);
             state.visits.push(action.payload);
         },
         [addVisit.rejected](state, action) {
-            // console.log(action.payload);
+            console.log(action.payload);
         },
         [updateVisit.fulfilled](state, action) {
             const updatedVisit = action.payload;

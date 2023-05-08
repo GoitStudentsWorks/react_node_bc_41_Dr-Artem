@@ -2,17 +2,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { Modal } from '@mui/material';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Card from 'components/Card/Card';
 import { DatePickers } from 'components/DatePickers/DatePickers';
 import dayjs from 'dayjs';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrentUserAppointments } from 'redux/appointment/operation';
 import Avatar from '../../Image/Avatar.png';
 import css from './WeekVisitsBlock.module.css';
-import moment from 'moment';
 
 export const WeekVisitsBlock = () => {
     const [selectedDate, setSelectedDate] = useState(dayjs().format('DD.MM.YYYY'));
@@ -26,7 +25,6 @@ export const WeekVisitsBlock = () => {
     useEffect(() => {
         dispatch(getCurrentUserAppointments()).then(data => {
             setDateVisits(data.payload);
-            console.log(data.payload);
         });
     }, [dispatch]);
 
