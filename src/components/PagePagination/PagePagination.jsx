@@ -9,15 +9,12 @@ export const paginationUsers = (arr, limit) => {
 
 export const windowSizePagination = (windowWidth, setLimit, limit, cardLimit) => {
     if (windowWidth >= 1400) {
-        console.log(1400);
         setLimit(9);
         if (cardLimit) limit = 9;
     } else if (windowWidth >= 769) {
-        console.log(799);
         setLimit(8);
         if (cardLimit) limit = 8;
     } else {
-        console.log(111);
         setLimit(6);
         if (cardLimit) limit = 6;
     }
