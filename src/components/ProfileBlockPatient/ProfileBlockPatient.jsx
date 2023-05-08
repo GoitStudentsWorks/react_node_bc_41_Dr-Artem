@@ -23,9 +23,13 @@ export const ProfileBlockPatient = ({
         <>
             <Card>
                 {location === '/doctor/patients-list' ? (
-                    <Badge>{userInfo.patientStatus}</Badge>
+                    <div style={{ display: 'inline-block' }}>
+                        <Badge>{userInfo.patientStatus}</Badge>
+                    </div>
                 ) : (
-                    <Badge>{userInfo.role}</Badge>
+                    <div style={{ display: 'inline-block' }}>
+                        <Badge>{userInfo.role}</Badge>
+                    </div>
                 )}
 
                 <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap', justifyContent: 'center' }}>

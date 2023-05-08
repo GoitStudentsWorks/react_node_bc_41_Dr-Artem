@@ -62,18 +62,22 @@
 
     overflow: hidden;
 
-    min-width: 60px;
+    width: 60px;
+    height: 60px;
     margin-right: 8px;
     @media (min-width: 768px) {
-        min-width: 72px;
+        width: 72px;
+        height: 72px;
     }
 }
 
 .plugLogo {
-    min-width: 60px;
+    width: 60px;
+    height: 60px;
     margin-right: 8px;
     @media (min-width: 768px) {
-        min-width: 72px;
+        width: 72px;
+        height: 72px;
     }
 }
 

@@ -1,6 +1,6 @@
 import BasicSelect from 'components/BasicSelect/BasicSelect';
 import LinkViewProfile from 'components/LinkViewProfile/LinkViewProfile';
-import { PagePagination } from 'components/PagePagination/PagePagination';
+import { PagePagination, paginationUsers, windowSizePagination } from 'components/PagePagination/PagePagination';
 import { ProfileBlockPatient } from 'components/ProfileBlockPatient/ProfileBlockPatient';
 import UsersList from 'components/UsersList/UsersList';
 import { useEffect, useState } from 'react';
@@ -12,39 +12,75 @@ const ListOfPatients = () => {
     const [allPatients, setAllPatients] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [pagination, setPagination] = useState([]);
+    const [status, setStatus] = useState('All');
+
     const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
     const dispatch = useDispatch();
 
     const frequency = ['All', 'New', 'Permanent'];
 
-    const paginationDoctors = arr => {
-        const result = arr.map((el, i) => (i % 9 === 0 ? arr.slice(i, i + 9) : null)).filter(el => el);
-        return result;
-    };
+    useEffect(() => {
+        function handleResize() {
+            setWindowWidth(window.innerWidth);
+        }
+        windowSizePagination(window.innerWidth, setLimit);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+        // eslint-disable-next-line
+    }, []);
 
     useEffect(() => {
+        let limit = null;
+        let limitResult = windowSizePagination(windowWidth, setLimit, limit, 'yes');
         dispatch(getAllUsersForRole('Patient')).then(({ payload }) => {
-            const result = paginationDoctors(payload);
+            const result = paginationUsers(payload, limitResult);
             setAllPatients(payload);
             setPagination(result);
         });
+        // eslint-disable-next-line
     }, [dispatch]);
+
+    useEffect(() => {
+        windowSizePagination(windowWidth, setLimit);
+
+        const result = paginationUsers(filtered, limit);
+        setPagination(result);
+        // eslint-disable-next-line
+    }, [windowWidth]);
+
+    useEffect(() => {
+        let filterDoctor = allPatients;
+
+        if (status !== 'All') {
+            filterDoctor = allPatients.filter(el => el.patientStatus === status);
+        }
+
+        setFiltered(filterDoctor);
+
+        const result = paginationUsers(filterDoctor, limit);
+        setPagination(result);
+        // eslint-disable-next-line
+    }, [allPatients, status]);
 
     const handlePageOnVisits = data => {
         setPage(data);
     };
 
-    let numberOfPaginationButton = 0;
-    if (filtered || pagination) {
-        numberOfPaginationButton = filtered.length || pagination.length;
-    }
-
     const sortDoctors = status => {
-        const filterDoctor = allPatients.filter(el => el.patientStatus === status);
-        const result = paginationDoctors(filterDoctor);
+        setStatus(status);
+        // const filterDoctor = allPatients.filter(el => el.patientStatus === status);
+        // const result = paginationDoctors(filterDoctor);
 
-        setFiltered(result);
+        // setFiltered(result);
     };
+
+    let numberOfPaginationButton = 0;
+    if (pagination) {
+        numberOfPaginationButton = pagination.length;
+    }
 
     return (
         <>
@@ -56,15 +92,19 @@ const ListOfPatients = () => {
                     styles={{ width: '204px' }}
                 />
             </div>
-            <UsersList listOfUsers={filtered[page - 1] || pagination[page - 1] || allPatients}>
-                <ProfileBlockPatient>
-                    <LinkViewProfile>view profile</LinkViewProfile>
-                </ProfileBlockPatient>
-            </UsersList>
-            <PagePagination
-                numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
-                handlePageOnVisits={handlePageOnVisits}
-            />
+            {limit && (
+                <UsersList listOfUsers={pagination[page - 1] || filtered}>
+                    <ProfileBlockPatient>
+                        <LinkViewProfile>view profile</LinkViewProfile>
+                    </ProfileBlockPatient>
+                </UsersList>
+            )}
+            {limit && (
+                <PagePagination
+                    numberOfBtnsOnVisitsHistory={numberOfPaginationButton}
+                    handlePageOnVisits={handlePageOnVisits}
+                />
+            )}
         </>
     );
 };

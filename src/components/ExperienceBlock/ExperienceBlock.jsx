@@ -1,7 +1,6 @@
 import { UilTrashAlt } from '@iconscout/react-unicons';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
-// import Divider from '@mui/material/Divider';
 import { ExperienceModal } from 'components/ExperienceModal/ExperienceModal';
 import moment from 'moment';
 import { useState } from 'react';
@@ -44,7 +43,7 @@ export const ExperienceBlock = () => {
             </div>
             <ul className={css.experienceList}>
                 {doctorInfo.experience.map(
-                    ({ institution, description, startDate, endDate, _id, institutionLogo }, index, array) => {
+                    ({ institution, description, startDate, endDate, _id, institutionLogo }, index) => {
                         return (
                             <li key={index} className={css.experienceListItem}>
                                 <div className={css.experienceItemWrapper}>

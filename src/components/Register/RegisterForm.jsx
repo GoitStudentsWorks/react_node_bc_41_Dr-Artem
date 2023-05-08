@@ -10,13 +10,14 @@ import {
 } from '@mui/material';
 import ShowPassword from 'components/ShowPassword/ShowPassword';
 import { useFormik } from 'formik';
+import { useAuth } from 'hooks';
 import { useState } from 'react';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { register } from 'redux/auth/operation';
 import * as yup from 'yup';
 import css from '..//Register/Register.module.css';
-
 const regex = /^\+\d{1,3}\s?s?\d{1,}\s?\d{1,}\s?\d{1,}$/;
 const passwordRules = /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
 
@@ -40,6 +41,8 @@ const schema = yup.object().shape({
 
 export const RegisterForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useAuth();
 
     const handleSubmitForm = values => {
         const newUser = {
@@ -59,6 +62,9 @@ export const RegisterForm = () => {
                 }
             } else {
                 NotificationManager.success('Реєстрація успішна');
+                values.role === 'Doctor'
+                    ? navigate(`/doctor/personal/${user.id}`, { replace: true })
+                    : navigate('/patient/personal/', { replace: true });
             }
         });
         // resetForm();
