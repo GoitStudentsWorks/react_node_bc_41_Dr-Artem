@@ -52,7 +52,6 @@ export const ExperienceModal = ({ open, setModalOpen, title, id }) => {
     const [selectedEndDate, setSelectedEndDate] = useState(dayjs());
     const [selectedInstitution, setSelectedInstitution] = useState(null);
     const [description, setDescription] = useState('');
-
     const dispatch = useDispatch();
     const institution = useSelector(selectInstitution);
 
@@ -92,9 +91,7 @@ export const ExperienceModal = ({ open, setModalOpen, title, id }) => {
             institutionLogo: selectedInstitution.image,
         };
 
-        title === 'Add experience'
-            ? dispatch(addUserExperience(addData))
-            : dispatch(updateUserExperience(updateData)).then(({ payload }) => console.log(payload));
+        title === 'Add experience' ? dispatch(addUserExperience(addData)) : dispatch(updateUserExperience(updateData));
 
         setSelectedStartDate(dayjs());
         setSelectedEndDate(dayjs());

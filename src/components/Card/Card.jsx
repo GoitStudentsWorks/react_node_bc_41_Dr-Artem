@@ -1,6 +1,6 @@
 import { Paper } from '@mui/material';
 
-const Card = ({ children }) => {
+const Card = ({ children, styles }) => {
     const style = {
         position: 'relative',
         borderRadius: '16px',
