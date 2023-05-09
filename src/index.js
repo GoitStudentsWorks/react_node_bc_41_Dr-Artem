@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <PersistGate loading={null} persistor={persistor}>
                 <ThemeProvider theme={theme}>
                     <CssBaseline />
-                    <Router basename="/MedDoc-front">
+                    <Router basename="/react_node_bc_41_Dr-Artem">
                         <App />
                     </Router>
                 </ThemeProvider>
