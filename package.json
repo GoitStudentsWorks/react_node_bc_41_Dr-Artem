@@ -2,7 +2,7 @@
   "name": "MedDoc-front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Dr-Artem.github.io/MedDoc-front/",
+  "homepage": "https://GoitStudentsWorks.github.io/react_node_bc_41_Dr-Artem/",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
